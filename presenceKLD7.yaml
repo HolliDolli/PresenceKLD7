@@ -1,0 +1,186 @@
+esp32:
+  board: lolin32_lite
+  framework:
+    type: esp-idf
+  
+esphome:
+  name: monitor-tw
+  on_boot:
+    priority: -100.0
+    then:
+      - logger.log: 'PMon boot triggered'
+      - switch.turn_on: LEDint
+  on_shutdown:
+    priority: -100.0
+    then:
+      - switch.turn_off: LEDint
+      - logger.log: "PMon shutdown triggered"
+
+
+# Enable logging
+logger:
+
+wifi:
+  networks:
+  - ssid: !secret GKssid
+    password: !secret GKpassword
+  - ssid: !secret BGssid
+    password: !secret BGpassword
+  - ssid: !secret SSssid
+    password: !secret SSpassword
+  ap:
+    ssid: !secret FBssid
+    password: !secret FBpassword
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+captive_portal:
+
+
+ota:
+  - platform: esphome
+
+# Enable Home Assistant API
+#
+# Achtung: Für Offlinekalender muss der API-Reboot auf 0s gesetzt werden, da die Tonne sonst alle 15 Minuten neu startet.
+#
+api:
+  password: ""
+  reboot_timeout: 60min  # only enable this when creating an offline device; 0s=never reboot
+
+
+  
+time:
+  - platform: homeassistant
+
+sun:
+  latitude: 51.14°
+  longitude: 9.414°
+
+
+external_components:
+- source: github://fabianonline/esphome-component-kld7@main
+  components: [ kld7 ]
+
+uart:
+  id: uart_bus
+  tx_pin: GPIO17
+  rx_pin: GPIO16
+  baud_rate: 115200
+  parity: even
+
+kld7:
+  uart_id: uart_bus
+  invert_angle: true
+
+  
+one_wire:
+  - platform: gpio
+    pin: GPIO15
+
+output:
+  - platform: gpio
+    pin: GPIO22
+    id: 'GPLEDint'
+
+switch:
+  - platform: output
+    id: "LEDint"
+    name: "LEDint"
+    output: "GPLEDint"
+    inverted: true
+    restore_mode: ALWAYS_ON
+  
+text_sensor:
+  - platform: version
+    name: "ESPHome Version"
+  - platform: kld7
+    name: K-LD7
+    raw_json:
+      name: Raw JSON
+    json:
+      internal: true
+      name: JSON
+  - platform: template
+    name: "Abstand"
+    lambda: |-
+      if (id(pdirect).state) {
+        return {"kommend"};
+      } else {
+        return {"gehend"};
+      }
+    update_interval: 200ms 
+    
+sensor: 
+  - platform: dallas_temp
+#    address: 0x7d592f7f0e64ff28 brauchen wir nicht mehr. gibt ja jetzt index :-)
+    index: 0
+    name: temp1
+    update_interval: 30s
+  - platform: kld7
+    name: K-LD7 Sensor
+    speed:
+      name: Speed
+    avg_speed:
+      name: Avg speed
+    points:
+      name: Points
+    raw_speed:
+      name: Raw speed
+    raw_angle:
+      name: Raw angle
+    raw_distance:
+      name: Raw distance
+    raw_magnitude:
+      name: Raw magnitude
+
+binary_sensor:
+  - platform: kld7
+    name: K-LD7
+    detection:
+      name: Detection
+    raw_detection:
+      name: Raw Detection
+    raw_direction_away_from_sensor:
+      name: Raw direction away from sensor
+    filtered_detection:
+      name: Filtered detection
+      min_distance: 0
+      max_distance: 500
+      min_angle: -90
+      max_angle: -10
+      min_points: 5
+      timeout: 1000
+  - platform: gpio
+    pin:
+      number: GPIO33
+      mode:
+        input: true
+        pulldown: true
+    name: pdetect
+    id: pdetect
+  - platform: gpio
+    pin:
+      number: GPIO25
+      mode:
+        input: true
+        pulldown: true
+    name: pdirect
+    id: pdirect
+  - platform: gpio
+    pin:
+      number: GPIO26
+      mode:
+        input: true
+        pulldown: true
+    name: pangle
+  - platform: gpio
+    pin:
+      number: GPIO27
+      mode:
+        input: true
+        pulldown: true
+    name: prange
+    
+    
+    
+    

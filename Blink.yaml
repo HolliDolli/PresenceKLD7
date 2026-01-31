@@ -1,0 +1,75 @@
+esp32:
+  board: lolin32_lite
+  framework:
+    type: esp-idf
+  
+esphome:
+  name: blinklolin
+  on_boot:
+    priority: -100
+    then:
+      - logger.log: 'Lolin boot triggered'
+      - switch.turn_on: LEDint
+  on_shutdown:
+    priority: -100
+    then:
+      - switch.turn_off: LEDint
+      - logger.log: "Lolin shutdown triggered"
+
+
+  
+# Enable logging
+logger:
+
+wifi:
+  ssid: !secret BGssid
+#  for captive-portal remove password
+  password: !secret BGpassword
+#  statische IP-Adresse wird benötigt, solange nicht klar ist welche Hardware verwendet wird.
+#  Wenn die finale Hardware (MAC-Adresse) steht, dann kann die statische IP raus,
+#  und es wird die IP-Adresse über eine feste Lease im DHCP eingetragen.  
+#  manual_ip:
+#    static_ip: 192.168.178.200
+#    gateway: 192.168.178.1
+#    subnet: 255.255.255.0
+  ap:
+    ssid: !secret FBssid
+    password: !secret FBpassword
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+captive_portal:
+#  keep_user_credentials: true  # option nicht aktiv.
+
+ota:
+  - platform: esphome
+
+output:
+  - platform: gpio
+    pin: GPIO22
+    id: 'GPLEDint'
+
+switch:
+  - platform: output
+    id: LEDint
+    name: "LEDint"
+    output: "GPLEDint"
+    inverted: true
+    restore_mode: ALWAYS_ON
+
+interval:
+  - interval: 1s
+    then:
+      - if:
+          condition:
+            wifi.connected:
+          then:
+            - switch.toggle: LEDint
+  - interval: 2s
+    then:
+      - if:
+          condition:
+            wifi.connected:
+          else:
+            - switch.toggle: LEDint
+  
+  
