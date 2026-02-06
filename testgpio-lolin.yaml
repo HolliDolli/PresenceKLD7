@@ -1,0 +1,231 @@
+esp32:
+  board: lolin32_lite
+  framework:
+    type: esp-idf
+  
+esphome:
+  name: presencekld7
+  on_boot:
+    priority: -100.0
+    then:
+      - logger.log: 'PMon boot triggered'
+      - switch.turn_on: LEDint
+  on_shutdown:
+    priority: -100.0
+    then:
+      - switch.turn_off: LEDint
+      - logger.log: "PMon shutdown triggered"
+
+
+# Enable logging
+logger:
+
+wifi:
+  networks:
+  - ssid: !secret GKssid
+    password: !secret GKpassword
+  - ssid: !secret BGssid
+    password: !secret BGpassword
+  - ssid: !secret SSssid
+    password: !secret SSpassword
+  ap:
+    ssid: !secret FBssid
+    password: !secret FBpassword
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+captive_portal:
+
+
+ota:
+  - platform: esphome
+
+# Enable Home Assistant API
+#
+# Achtung: Für Offlinekalender muss der API-Reboot auf 0s gesetzt werden, da die Tonne sonst alle 15 Minuten neu startet.
+#
+api:
+  password: ""
+  reboot_timeout: 60min  # only enable this when creating an offline device; 0s=never reboot
+
+
+  
+time:
+  - platform: homeassistant
+
+sun:
+  latitude: 51.14°
+  longitude: 9.414°
+
+
+output:
+  - platform: gpio
+    pin: GPIO22
+    id: 'GPLEDint'
+
+switch:
+  - platform: output
+    id: "LEDint"
+    name: "LEDint"
+    output: "GPLEDint"
+    inverted: true
+    restore_mode: ALWAYS_ON
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO00
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio00
+    id: xgpio00
+  - platform: gpio
+    pin:
+      number: GPIO02
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio02
+    id: xgpio02
+  - platform: gpio
+    pin:
+      number: GPIO04
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio04
+    id: xgpio04
+  - platform: gpio
+    pin:
+      number: GPIO05
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio05
+    id: xgpio05
+  - platform: gpio
+    pin:
+      number: GPIO12
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio12
+    id: xgpio12
+  - platform: gpio
+    pin:
+      number: GPIO13
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio13
+    id: xgpio13
+  - platform: gpio
+    pin:
+      number: GPIO14
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio14
+    id: xgpio14
+  - platform: gpio
+    pin:
+      number: GPIO15
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio15
+    id: xgpio15
+  - platform: gpio
+    pin:
+      number: GPIO16
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio16
+    id: xgpio16
+  - platform: gpio
+    pin:
+      number: GPIO17
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio17
+    id: xgpio17
+  - platform: gpio
+    pin:
+      number: GPIO18
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio18
+    id: xgpio18
+  - platform: gpio
+    pin:
+      number: GPIO19
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio19
+    id: xgpio19
+  - platform: gpio
+    pin:
+      number: GPIO23
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio23
+    id: xgpio23
+  - platform: gpio
+    pin:
+      number: GPIO25
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio25
+    id: xgpio25
+  - platform: gpio
+    pin:
+      number: GPIO26
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio26
+    id: xgpio26
+  - platform: gpio
+    pin:
+      number: GPIO27
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio27
+    id: xgpio27
+  - platform: gpio
+    pin:
+      number: GPIO32
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio32
+    id: xgpio32
+  - platform: gpio
+    pin:
+      number: GPIO33
+      mode:
+        input: true
+        pulldown: true
+    name: xgpio33
+    id: xgpio33
+  - platform: gpio
+    pin:
+      number: GPIO34
+      mode:
+        input: true
+    name: xgpio34
+    id: xgpio34
+  - platform: gpio
+    pin:
+      number: GPIO35
+      mode:
+        input: true
+    name: xgpio35
+    id: xgpio35

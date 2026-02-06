@@ -4,7 +4,7 @@ esp32:
     type: esp-idf
   
 esphome:
-  name: monitor-tw
+  name: presencekld7
   on_boot:
     priority: -100.0
     then:
@@ -58,16 +58,33 @@ sun:
 
 
 external_components:
-- source: github://fabianonline/esphome-component-kld7@main
+- source: components
+#    github://HolliDolli/esphome-component-kld7@MyMod
   components: [ kld7 ]
+#- source: components
+#  components: [ kld6 ]
 
 uart:
-  id: uart_bus
-  tx_pin: GPIO17
-  rx_pin: GPIO16
-  baud_rate: 115200
-  parity: even
+  - id: uart_bus
+    tx_pin: GPIO17
+    rx_pin: GPIO16
+    baud_rate: 115200
+    parity: EVEN
+#  debug:
+#    direction: BOTH
+#    dummy_receiver: true
+ 
+#  - id: radar_uart
+#    tx_pin: GPIO17
+#    rx_pin: GPIO16
+#    baud_rate: 115200
+#    parity: EVEN
 
+#kld6:
+#  uart_id: radar_uart
+#  presence_timeout: 3s
+ 
+ 
 kld7:
   uart_id: uart_bus
   invert_angle: true
@@ -108,8 +125,13 @@ text_sensor:
       } else {
         return {"gehend"};
       }
-    update_interval: 200ms 
-    
+    update_interval: 2000ms 
+
+
+#  - platform: kld6
+#    name: "Radar Richtung"
+  
+     
 sensor: 
   - platform: dallas_temp
 #    address: 0x7d592f7f0e64ff28 brauchen wir nicht mehr. gibt ja jetzt index :-)
@@ -132,6 +154,14 @@ sensor:
       name: Raw distance
     raw_magnitude:
       name: Raw magnitude
+
+#  - platform: kld6
+#    distance:
+#      name: "Radar Entfernung"
+#    speed:
+#      name: "Radar Geschwindigkeit"
+
+
 
 binary_sensor:
   - platform: kld7
@@ -180,7 +210,4 @@ binary_sensor:
         input: true
         pulldown: true
     name: prange
-    
-    
-    
     
