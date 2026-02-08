@@ -44,7 +44,6 @@ ota:
 # Achtung: Für Offlinekalender muss der API-Reboot auf 0s gesetzt werden, da die Tonne sonst alle 15 Minuten neu startet.
 #
 api:
-  password: ""
   reboot_timeout: 60min  # only enable this when creating an offline device; 0s=never reboot
 
 
@@ -151,6 +150,9 @@ sensor:
 
 
 binary_sensor:
+  - platform: status
+    name: "Statussensor"
+    id: statussensor
   - platform: kld7
     name: K-LD7
     detection:
