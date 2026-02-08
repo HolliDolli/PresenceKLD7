@@ -92,7 +92,7 @@ kld7:
   
 one_wire:
   - platform: gpio
-    pin: GPIO15
+    pin: GPIO19
 
 output:
   - platform: gpio
@@ -117,19 +117,6 @@ text_sensor:
     json:
       internal: true
       name: JSON
-  - platform: template
-    name: "Abstand"
-    lambda: |-
-      if (id(pdirect).state) {
-        return {"kommend"};
-      } else {
-        return {"gehend"};
-      }
-    update_interval: 2000ms 
-
-
-#  - platform: kld6
-#    name: "Radar Richtung"
   
      
 sensor: 
@@ -175,14 +162,14 @@ binary_sensor:
     filtered_detection:
       name: Filtered detection
       min_distance: 0
-      max_distance: 500
+      max_distance: 800
       min_angle: -90
-      max_angle: -10
+      max_angle: 90
       min_points: 5
       timeout: 1000
   - platform: gpio
     pin:
-      number: GPIO33
+      number: GPIO27
       mode:
         input: true
         pulldown: true
@@ -190,7 +177,7 @@ binary_sensor:
     id: pdetect
   - platform: gpio
     pin:
-      number: GPIO25
+      number: GPIO26
       mode:
         input: true
         pulldown: true
@@ -198,14 +185,14 @@ binary_sensor:
     id: pdirect
   - platform: gpio
     pin:
-      number: GPIO26
+      number: GPIO25
       mode:
         input: true
         pulldown: true
     name: pangle
   - platform: gpio
     pin:
-      number: GPIO27
+      number: GPIO33
       mode:
         input: true
         pulldown: true

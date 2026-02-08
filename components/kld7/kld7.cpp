@@ -23,7 +23,7 @@ void Kld7::setup() {
 	write_array((std::array<uint8_t, 12>){'R', 'S', 'P', 'I', 0x04, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00}); // Maximum speed = 100km/h
 	_wait_for_ok();
 	ESP_LOGD(TAG, "Sending RRAI");
-	write_array((std::array<uint8_t, 12>){'R', 'R', 'A', 'I', 0x04, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00}); // Maximum range = 30m
+	write_array((std::array<uint8_t, 12>){'R', 'R', 'A', 'I', 0x04, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00}); // Maximum range = 100m
 	_wait_for_ok();
 	ESP_LOGD(TAG, "Sending THOF");
 	write_array((std::array<uint8_t, 12>){'T', 'H', 'O', 'F', 0x04, 0x00, 0x00, 0x00, 0x0a, 0x00, 0x00, 0x00}); // Threshold offset = 10dB
@@ -31,10 +31,13 @@ void Kld7::setup() {
 	ESP_LOGD(TAG, "Sending TRFT");
 	write_array((std::array<uint8_t, 12>){'T', 'R', 'F', 'T', 0x04, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00}); // Tracking filter type = Fast detection
 	_wait_for_ok();
-	ESP_LOGD(TAG, "Sending MARA");
-	write_array((std::array<uint8_t, 12>){'M', 'A', 'R', 'A', 0x04, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00}); // Maximum range = 100%
+	ESP_LOGD(TAG, "Sending MARA"); // Maximum detection distance as % of range
+	write_array((std::array<uint8_t, 12>){'M', 'A', 'R', 'A', 0x04, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00}); // Maximum range = 8% = 8m
 	_wait_for_ok();
-	ESP_LOGD(TAG, "Sending RATH");
+	ESP_LOGD(TAG, "Sending MASP"); // Maximum detection speed as % of maxspeed
+	write_array((std::array<uint8_t, 12>){'M', 'A', 'S', 'P', 0x04, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x00}); // Maximum range = 10% = 10Km/h
+	_wait_for_ok();
+	ESP_LOGD(TAG, "Sending RATH"); 
 	write_array((std::array<uint8_t, 12>){'R', 'A', 'T', 'H', 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}); // Range threshold = 0%
 	_wait_for_ok();
 	ESP_LOGD(TAG, "Sending SPTH");

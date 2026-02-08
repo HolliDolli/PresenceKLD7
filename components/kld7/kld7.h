@@ -71,7 +71,7 @@ class Kld7 : public Component, public uart::UARTDevice {
   sensor::Sensor* _raw_distance_sensor = NULL;
   sensor::Sensor* _raw_magnitude_sensor = NULL;
   uint16_t _filtered_sensor_min_distance = 0;
-  uint16_t _filtered_sensor_max_distance = 3000;
+  uint16_t _filtered_sensor_max_distance = 800;
   float _filtered_sensor_min_angle = -90.0;
   float _filtered_sensor_max_angle = 90.0;
   uint16_t _filtered_sensor_timeout = 1000;
