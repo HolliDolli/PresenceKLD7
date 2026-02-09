@@ -55,6 +55,11 @@ sun:
   latitude: 51.14°
   longitude: 9.414°
 
+globals:
+  - id: last_valid_abs_speed
+    type: float
+    restore_value: no
+    initial_value: '0.0'
 
 external_components:
 - source: components
@@ -116,9 +121,22 @@ text_sensor:
     json:
       internal: true
       name: JSON
-  
      
-sensor: 
+sensor:
+  - platform: wifi_signal # Reports the WiFi signal strength/RSSI in dB
+    name: "WiFi Signal dB"
+    id: wifi_signal_db
+    update_interval: 60s
+    entity_category: "diagnostic"
+
+  - platform: copy # Reports the WiFi signal strength in %
+    source_id: wifi_signal_db
+    name: "WiFi Signal Percent"
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "Signal %"
+    entity_category: "diagnostic"
+    device_class: ""
   - platform: dallas_temp
 #    address: 0x7d592f7f0e64ff28 brauchen wir nicht mehr. gibt ja jetzt index :-)
     index: 0
@@ -134,21 +152,46 @@ sensor:
       name: Points
     raw_speed:
       name: Raw speed
+      id: raw_speed
+      on_value:
+        then:
+          - component.update: absolute_speed
     raw_angle:
       name: Raw angle
+      id: raw_angle
     raw_distance:
       name: Raw distance
     raw_magnitude:
       name: Raw magnitude
+      
+      
+  - platform: template
+    name: "Absolute Geschwindigkeit"
+    id: absolute_speed
+    unit_of_measurement: "km/h"
+    accuracy_decimals: 2
+    device_class: "speed"
+    state_class: "measurement"
+    update_interval: never 
+    lambda: |-
+      if (id(raw_speed).has_state() && id(raw_angle).has_state()) {
+        float v_raw = id(raw_speed).state;
+        float angle_deg = id(raw_angle).state;
+        
+        float angle_rad = angle_deg * (M_PI / 180.0);
+        float sin_val = fabsf(sin(angle_rad));
 
-#  - platform: kld6
-#    distance:
-#      name: "Radar Entfernung"
-#    speed:
-#      name: "Radar Geschwindigkeit"
-
-
-
+        // Nur wenn die Messung physikalisch sinnvoll ist (Winkel > 5°)
+        // UND das Fahrzeug sich bewegt (v_raw != 0)
+        if (sin_val > 0.087 && fabsf(v_raw) > 0.1) { 
+          id(last_valid_abs_speed) = fabsf(v_raw / sin_val);
+        }
+      }
+      
+      // Gib immer den letzten gespeicherten Wert zurück, 
+      // anstatt NAN oder 0 bei ungültigen Messpunkten.
+      return id(last_valid_abs_speed);      
+      
 binary_sensor:
   - platform: status
     name: "Statussensor"
@@ -169,6 +212,7 @@ binary_sensor:
       max_angle: 90
       min_points: 5
       timeout: 1000
+
   - platform: gpio
     pin:
       number: GPIO27
@@ -177,6 +221,8 @@ binary_sensor:
         pulldown: true
     name: pdetect
     id: pdetect
+    device_class: "motion"
+
   - platform: gpio
     pin:
       number: GPIO26
@@ -185,6 +231,7 @@ binary_sensor:
         pulldown: true
     name: pdirect
     id: pdirect
+
   - platform: gpio
     pin:
       number: GPIO25
@@ -192,6 +239,7 @@ binary_sensor:
         input: true
         pulldown: true
     name: pangle
+
   - platform: gpio
     pin:
       number: GPIO33
@@ -200,3 +248,5 @@ binary_sensor:
         pulldown: true
     name: prange
     
+
+

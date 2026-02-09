@@ -22,26 +22,30 @@ esphome:
 logger:
 
 wifi:
-  ssid: !secret BGssid
-#  for captive-portal remove password
-  password: !secret BGpassword
-#  statische IP-Adresse wird benötigt, solange nicht klar ist welche Hardware verwendet wird.
-#  Wenn die finale Hardware (MAC-Adresse) steht, dann kann die statische IP raus,
-#  und es wird die IP-Adresse über eine feste Lease im DHCP eingetragen.  
-#  manual_ip:
-#    static_ip: 192.168.178.200
-#    gateway: 192.168.178.1
-#    subnet: 255.255.255.0
+  networks:
+  - ssid: !secret GKssid
+    password: !secret GKpassword
+  - ssid: !secret BGssid
+    password: !secret BGpassword
+  - ssid: !secret SSssid
+    password: !secret SSpassword
   ap:
     ssid: !secret FBssid
     password: !secret FBpassword
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
 captive_portal:
-#  keep_user_credentials: true  # option nicht aktiv.
+
 
 ota:
   - platform: esphome
+
+
+esp32_touch:
+  setup_mode: false  
+  low_voltage_reference: 0.5V  # One of 0.5V, 0.6V, 0.7V, 0.8V. Default is 0.5V.
+  high_voltage_reference: 2.7V    # One of 2.4V, 2.5V, 2.6V, 2.7V. Default is 2.7V.
+  voltage_attenuation: 0V    # One of 1.5V, 1V, 0.5V, 0V. Default is 0V.
 
 output:
   - platform: gpio
@@ -55,6 +59,14 @@ switch:
     output: "GPLEDint"
     inverted: true
     restore_mode: ALWAYS_ON
+
+binary_sensor:
+  - platform: esp32_touch
+    name: "esp32touchpad"
+    id: "esp32touchpad"
+    pin: GPIO14
+    threshold: 350
+
 
 interval:
   - interval: 1s
