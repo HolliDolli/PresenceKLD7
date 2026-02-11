@@ -46,6 +46,9 @@ void Kld7::setup() {
 	ESP_LOGD(TAG, "Sending SPTH");
 	write_array((std::array<uint8_t, 12>){'S', 'P', 'T', 'H', 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}); // Speed threshold = 0%
 	_wait_for_ok();
+	ESP_LOGD(TAG, "Sending VISU");  // Vibration suppression default 2
+	write_array((std::array<uint8_t, 12>){'V', 'I', 'S', 'U', 0x04, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00}); 
+	_wait_for_ok();
 
 	ESP_LOGI(TAG, "Initialization complete");
 }
@@ -77,14 +80,6 @@ void Kld7::_request_data() {
 }
 
 void Kld7::loop() {
-
-/*
-	if (millis() - appstart > 10000) {
-		ESP_LOGD(TAG, "Sending INIT");
-		write_array((std::array<uint8_t, 12>){'I', 'N', 'I', 'T', 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00});
-		_wait_for_ok();
-	} 
-*/
 
 	if (_waiting_for_data == false && (_last_request > millis() || _last_request + REQUEST_INTERVAL < millis())) {
 		//ESP_LOGD(TAG, "Sending GNFD");
@@ -196,6 +191,7 @@ void Kld7::_process_detection() {
 		_current_process.last_distance = _last_raw.distance;
 		float abs_speed = fabs(_last_raw.speed);
 		_current_process.speed_sum += _last_raw.speed;
+		_current_process.size_sum += _last_raw.distance * _last_raw.magnitude;
 		if (abs_speed > fabs(_current_process.max_speed)) {
 			_current_process.not_max_speed = _current_process.max_speed;
 			_current_process.max_speed = _last_raw.speed;
@@ -210,13 +206,15 @@ void Kld7::_finish_processing(const char* reason) {
 	_current_process.active = false;
 	if (_current_process.points > PROCESS_MIN_POINTS) {
 		float avg_speed = _current_process.speed_sum / _current_process.points;
+		float avg_size = _current_process.size_sum / _current_process.points;
 		if (_avg_speed_sensor != NULL) _avg_speed_sensor->publish_state(avg_speed);
+		if (_avg_size_sensor != NULL) _avg_size_sensor->publish_state(avg_size);
 		if (_points_sensor != NULL) _points_sensor->publish_state(_current_process.points);
 		if (_speed_sensor != NULL) _speed_sensor->publish_state(_current_process.not_max_speed);
 		if (_detection_sensor != NULL) _detection_sensor->publish_state(true);
 		if (_json_sensor != NULL) {
 			char buffer[92];
-			snprintf(buffer, sizeof(buffer), "{\"speed\":%.1f,\"avg_speed\":%.1f,\"points\":%d,\"reason\":\"%s\"}", _current_process.not_max_speed, avg_speed, _current_process.points, reason);
+			snprintf(buffer, sizeof(buffer), "{\"speed\":%.1f,\"avg_speed\":%.1f,\"avg_size\":%.1f,\"points\":%d,\"reason\":\"%s\"}", _current_process.not_max_speed, avg_speed, avg_size, _current_process.points, reason);
 			_json_sensor->publish_state(buffer);
 		}
 		ESP_LOGD(TAG, "_finish_processing (%s). %d points, maximum %f.1 km/h, average %f.1 km/h, direction_away_from_radar %d", reason, _current_process.points, _current_process.not_max_speed, avg_speed, _current_process.direction_away_from_radar ? 1 : 0);

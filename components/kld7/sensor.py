@@ -2,13 +2,14 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import sensor
 from esphome.const import (CONF_ID, CONF_TYPE, UNIT_KILOMETER_PER_HOUR, STATE_CLASS_MEASUREMENT, UNIT_DEGREES, UNIT_CENTIMETER,
-	DEVICE_CLASS_DISTANCE, DEVICE_CLASS_SPEED, UNIT_DECIBEL, DEVICE_CLASS_IRRADIANCE)
+	DEVICE_CLASS_DISTANCE, DEVICE_CLASS_SPEED, UNIT_DECIBEL, DEVICE_CLASS_IRRADIANCE, DEVICE_CLASS_WEIGHT)
 from . import CONF_KLD7_ID, kld7_ns, Kld7
 
 AUTO_LOAD = ["kld7"]
 CONF_TYPE_SPEED = "speed"
 CONF_TYPE_RAW_SPEED = "raw_speed"
 CONF_TYPE_AVG_SPEED = "avg_speed"
+CONF_TYPE_AVG_SIZE = "avg_size"
 CONF_TYPE_POINTS = "points"
 CONF_TYPE_RAW_ANGLE = "raw_angle"
 CONF_TYPE_RAW_DISTANCE = "raw_distance"
@@ -32,6 +33,12 @@ CONFIG_SCHEMA = sensor.sensor_schema().extend(
             accuracy_decimals=1,
             state_class=STATE_CLASS_MEASUREMENT,
             device_class=DEVICE_CLASS_SPEED
+		),
+        cv.Optional(CONF_TYPE_AVG_SIZE): sensor.sensor_schema(
+            unit_of_measurement="kg",
+            accuracy_decimals=1,
+            state_class=STATE_CLASS_MEASUREMENT,
+            device_class=DEVICE_CLASS_WEIGHT
 		),
         cv.Optional(CONF_TYPE_RAW_SPEED): sensor.sensor_schema(
             unit_of_measurement=UNIT_KILOMETER_PER_HOUR,
@@ -80,6 +87,9 @@ async def to_code(config):
     if sensor_config := config.get(CONF_TYPE_AVG_SPEED):
         sens = await sensor.new_sensor(sensor_config)
         cg.add(kld7.register_avg_speed_sensor(sens))
+    if sensor_config := config.get(CONF_TYPE_AVG_SIZE):
+        sens = await sensor.new_sensor(sensor_config)
+        cg.add(kld7.register_avg_size_sensor(sens))
     if sensor_config := config.get(CONF_TYPE_POINTS):
         sens = await sensor.new_sensor(sensor_config)
         cg.add(kld7.register_points_sensor(sens))

@@ -33,6 +33,7 @@ namespace kld7 {
 		uint16_t points = 0;
 		bool active = false;
 		float speed_sum = 0.0;
+		float size_sum = 0.0;
 		float max_speed = 0.0;
 		float not_max_speed = 0.0;
 		float avg_speed = 0.0;

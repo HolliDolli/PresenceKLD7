@@ -163,6 +163,9 @@ sensor:
     avg_speed:
       name: Avg speed
       disabled_by_default: true
+    avg_size:
+      name: Avg size
+      disabled_by_default: true
     points:
       name: Points
       disabled_by_default: true
@@ -170,9 +173,9 @@ sensor:
       name: Raw speed
       id: raw_speed
       disabled_by_default: true
-      on_value:
-        then:
-          - component.update: absolute_speed
+#      on_value:
+#        then:
+#          - component.update: absolute_speed
     raw_angle:
       name: Raw angle
       id: raw_angle
@@ -181,9 +184,9 @@ sensor:
       name: Raw distance
       id: raw_distance
       disabled_by_default: true
-      on_value:
-        then:
-          - component.update: raw_size
+#      on_value:
+#        then:
+#          - component.update: raw_size
     raw_magnitude:
       name: Raw magnitude
       id: raw_magnitude
