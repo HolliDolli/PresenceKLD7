@@ -31,6 +31,12 @@ wifi:
   ap:
     ssid: !secret FBssid
     password: !secret FBpassword
+  on_connect:
+    then:
+      - switch.turn_off: LEDint
+  on_disconnect:
+    then:
+      - switch.turn_on: LEDint
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
 captive_portal:
@@ -57,6 +63,10 @@ sun:
 
 globals:
   - id: last_valid_abs_speed
+    type: float
+    restore_value: no
+    initial_value: '0.0'
+  - id: last_valid_raw_size
     type: float
     restore_value: no
     initial_value: '0.0'
@@ -110,7 +120,9 @@ switch:
     output: "GPLEDint"
     inverted: true
     restore_mode: ALWAYS_ON
-  
+  - platform: restart
+    name: "KLD7 Restart" 
+    
 text_sensor:
   - platform: version
     name: "ESPHome Version"
@@ -118,6 +130,7 @@ text_sensor:
     name: K-LD7
     raw_json:
       name: Raw JSON
+      disabled_by_default: true
     json:
       internal: true
       name: JSON
@@ -146,23 +159,35 @@ sensor:
     name: K-LD7 Sensor
     speed:
       name: Speed
+      disabled_by_default: true
     avg_speed:
       name: Avg speed
+      disabled_by_default: true
     points:
       name: Points
+      disabled_by_default: true
     raw_speed:
       name: Raw speed
       id: raw_speed
+      disabled_by_default: true
       on_value:
         then:
           - component.update: absolute_speed
     raw_angle:
       name: Raw angle
       id: raw_angle
+      disabled_by_default: true
     raw_distance:
       name: Raw distance
+      id: raw_distance
+      disabled_by_default: true
+      on_value:
+        then:
+          - component.update: raw_size
     raw_magnitude:
       name: Raw magnitude
+      id: raw_magnitude
+      disabled_by_default: true
       
       
   - platform: template
@@ -172,6 +197,7 @@ sensor:
     accuracy_decimals: 2
     device_class: "speed"
     state_class: "measurement"
+    disabled_by_default: true
     update_interval: never 
     lambda: |-
       if (id(raw_speed).has_state() && id(raw_angle).has_state()) {
@@ -191,6 +217,25 @@ sensor:
       // Gib immer den letzten gespeicherten Wert zurück, 
       // anstatt NAN oder 0 bei ungültigen Messpunkten.
       return id(last_valid_abs_speed);      
+
+  - platform: template
+    name: "Raw Objektgroesse"
+    id: raw_size    
+    unit_of_measurement: "kg"
+    accuracy_decimals: 2
+    device_class: "weight"
+    state_class: "measurement"
+    disabled_by_default: true
+    update_interval: never 
+    lambda: |-
+      if (id(raw_distance).has_state() && id(raw_magnitude).has_state()) {
+        float dist_raw = id(raw_distance).state;
+        float magnitude_raw = id(raw_magnitude).state;
+        id(last_valid_raw_size) = dist_raw * magnitude_raw;
+      }
+      // Gib immer den letzten gespeicherten Wert zurück, 
+      // anstatt NAN oder 0 bei ungültigen Messpunkten.
+      return id(last_valid_abs_speed);      
       
 binary_sensor:
   - platform: status
@@ -202,11 +247,13 @@ binary_sensor:
       name: Detection
     raw_detection:
       name: Raw Detection
+      disabled_by_default: true
     raw_direction_away_from_sensor:
       name: Raw direction away from sensor
+      disabled_by_default: true
     filtered_detection:
       name: Filtered detection
-      min_distance: 0
+      min_distance: 000
       max_distance: 800
       min_angle: -90
       max_angle: 90
@@ -231,6 +278,7 @@ binary_sensor:
         pulldown: true
     name: pdirect
     id: pdirect
+    disabled_by_default: true
 
   - platform: gpio
     pin:
@@ -239,6 +287,7 @@ binary_sensor:
         input: true
         pulldown: true
     name: pangle
+    disabled_by_default: true
 
   - platform: gpio
     pin:
@@ -247,6 +296,7 @@ binary_sensor:
         input: true
         pulldown: true
     name: prange
+    disabled_by_default: true
     
 
 

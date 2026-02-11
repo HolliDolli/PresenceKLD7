@@ -31,6 +31,9 @@ void Kld7::setup() {
 	ESP_LOGD(TAG, "Sending TRFT");
 	write_array((std::array<uint8_t, 12>){'T', 'R', 'F', 'T', 0x04, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00}); // Tracking filter type = Fast detection
 	_wait_for_ok();
+	ESP_LOGD(TAG, "Sending MIRA"); // Minimum detection distance as % of range
+	write_array((std::array<uint8_t, 12>){'M', 'I', 'R', 'A', 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}); // Minimum range = 1% = 1m
+	_wait_for_ok();
 	ESP_LOGD(TAG, "Sending MARA"); // Maximum detection distance as % of range
 	write_array((std::array<uint8_t, 12>){'M', 'A', 'R', 'A', 0x04, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00}); // Maximum range = 8% = 8m
 	_wait_for_ok();

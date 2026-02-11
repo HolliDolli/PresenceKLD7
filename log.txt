@@ -1,0 +1,2094 @@
+Processing presencekld7 (board: lolin32_lite; framework: espidf; platform: https://github.com/pioarduino/platform-espressif32/releases/download/55.03.35/platform-espressif32.zip)
+--------------------------------------------------------------------------------
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+ - contrib-piohome @ 3.4.4 
+ - framework-espidf @ 3.50502.0 (5.5.2) 
+ - tool-cmake @ 4.0.3 
+ - tool-esp-rom-elfs @ 2024.10.11 
+ - tool-esptoolpy @ 5.1.0 
+ - tool-mklittlefs @ 3.2.0 
+ - tool-ninja @ 1.13.1 
+ - tool-scons @ 4.40801.0 (4.8.1) 
+ - toolchain-xtensa-esp-elf @ 14.2.0+20251107
+Reading CMake configuration...
+No dependencies
+Compiling .pioenvs\presencekld7\src\main.cpp.o
+RAM:   [=         ]  10.7% (used 35144 bytes from 327680 bytes)
+Flash: [=====     ]  47.5% (used 870759 bytes from 1835008 bytes)
+========================= [SUCCESS] Took 6.69 seconds =========================
+[08:35:50.035][I][app:206]: ESPHome version 2026.1.4 compiled on 2026-02-11 08:30:36 +0100
+[08:35:50.036][I][app:213]: ESP32 Chip: ESP32 r1.1, 2 core(s)
+[08:35:50.036][C][logger:316]: Logger:
+[08:35:50.036][C][logger:316]:   Max Level: DEBUG
+[08:35:50.036][C][logger:316]:   Initial Level: DEBUG
+[08:35:50.052][C][logger:322]:   Log Baud Rate: 115200
+[08:35:50.052][C][logger:322]:   Hardware UART: UART0
+[08:35:50.052][C][logger:332]:   Task Log Buffer Size: 768 bytes
+[08:35:50.072][C][uart.idf:238]: UART Bus 1:
+[08:35:50.075][C][uart.idf:152]:   TX Pin: GPIO17
+[08:35:50.075][C][uart.idf:152]:   RX Pin: GPIO16
+[08:35:50.075][C][uart.idf:243]:   RX Buffer Size: 256
+[08:35:50.075][C][uart.idf:243]:   RX Full Threshold: 103
+[08:35:50.075][C][uart.idf:243]:   RX Timeout: 2
+[08:35:50.075][C][uart.idf:249]:   Baud Rate: 115200 baud
+[08:35:50.075][C][uart.idf:249]:   Data Bits: 8
+[08:35:50.075][C][uart.idf:249]:   Parity: EVEN
+[08:35:50.075][C][uart.idf:249]:   Stop bits: 1
+[08:35:50.075][D][sensor:129]: 'Raw speed' >> 2.4 km/h
+[08:35:50.075][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.77 km/h
+[08:35:50.081][D][sensor:129]: 'Raw angle' >> -13.1 °
+[08:35:50.081][D][sensor:129]: 'Raw distance' >> 106 cm
+[08:35:50.081][D][sensor:129]: 'Raw magnitude' >> 40.7 W/m²
+[08:35:50.106][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.4,"angle":-13.1,"distance":106,"magnitude":40.7}'
+[08:35:50.106][C][gpio.one_wire:021]: GPIO 1-wire bus:
+[08:35:50.106][C][gpio.one_wire:152]:   Pin: GPIO19
+[08:35:50.130][C][gpio.one_wire:085]:   Found devices:
+[08:35:50.130][C][gpio.one_wire:088]:     0x821e9e0086c3fa28 (DS18B20)
+[08:35:50.130][C][gpio.output:010]: Binary Output:
+[08:35:50.148][C][gpio.output:152]:   Pin: GPIO22
+[08:35:50.148][C][template.sensor:016]: Template Sensor 'Absolute Geschwindigkeit'
+[08:35:50.148][C][template.sensor:016]:   State Class: 'measurement'
+[08:35:50.148][C][template.sensor:016]:   Unit of Measurement: 'km/h'
+[08:35:50.148][C][template.sensor:016]:   Accuracy Decimals: 2
+[08:35:50.155][C][template.sensor:026]:   Device Class: 'speed'
+[08:35:50.160][C][template.sensor:452]:   Update Interval: never
+[08:35:50.160][C][gpio.binary_sensor:016]: GPIO Binary Sensor 'pdetect'
+[08:35:50.160][C][gpio.binary_sensor:019]:   Device Class: 'motion'
+[08:35:50.175][C][gpio.binary_sensor:152]:   Pin: GPIO27
+[08:35:50.176][C][gpio.binary_sensor:073]:   Mode: interrupt
+[08:35:50.176][C][gpio.binary_sensor:075]:   Interrupt Type: ANY_EDGE
+[08:35:50.199][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:35:50.199][D][sensor:129]: 'Absolute Geschwindigkeit' >> 9.65 km/h
+[08:35:50.204][D][sensor:129]: 'Raw angle' >> -0.0 °
+[08:35:50.207][D][sensor:129]: 'Raw distance' >> 61 cm
+[08:35:50.207][D][sensor:129]: 'Raw magnitude' >> 41.6 W/m²
+[08:35:50.207][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":-0.0,"distance":61,"magnitude":41.6}'
+[08:35:50.225][C][gpio.binary_sensor:016]: GPIO Binary Sensor 'pdirect'
+[08:35:50.225][C][gpio.binary_sensor:152]:   Pin: GPIO26
+[08:35:50.225][C][gpio.binary_sensor:073]:   Mode: interrupt
+[08:35:50.243][C][gpio.binary_sensor:075]:   Interrupt Type: ANY_EDGE
+[08:35:50.250][C][gpio.binary_sensor:016]: GPIO Binary Sensor 'pangle'
+[08:35:50.250][C][gpio.binary_sensor:152]:   Pin: GPIO25
+[08:35:50.268][C][gpio.binary_sensor:073]:   Mode: interrupt
+[08:35:50.268][C][gpio.binary_sensor:075]:   Interrupt Type: ANY_EDGE
+[08:35:50.268][C][gpio.binary_sensor:016]: GPIO Binary Sensor 'prange'
+[08:35:50.278][C][gpio.binary_sensor:152]:   Pin: GPIO33
+[08:35:50.278][C][gpio.binary_sensor:073]:   Mode: interrupt
+[08:35:50.278][C][gpio.binary_sensor:075]:   Interrupt Type: ANY_EDGE
+[08:35:50.303][C][output.switch:092]: Output Switch 'LEDint'
+[08:35:50.303][C][output.switch:092]:   Restore Mode: always ON
+[08:35:50.303][C][output.switch:106]:   Inverted: YES
+[08:35:50.303][D][sensor:129]: 'Raw speed' >> 1.9 km/h
+[08:35:50.306][D][sensor:129]: 'Absolute Geschwindigkeit' >> 9.65 km/h
+[08:35:50.306][D][sensor:129]: 'Raw angle' >> 11.1 °
+[08:35:50.306][D][sensor:129]: 'Raw distance' >> 66 cm
+[08:35:50.334][D][sensor:129]: 'Raw magnitude' >> 41.6 W/m²
+[08:35:50.335][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.9,"angle":11.1,"distance":66,"magnitude":41.6}'
+[08:35:50.335][C][homeassistant.time:010]: Home Assistant Time
+[08:35:50.367][C][time:028]: Timezone: 'CET-1CEST,M3.5.0,M10.5.0/3'
+[08:35:50.367][C][KLD7:230]: KLD7:
+[08:35:50.367][C][restart:092]: Restart Switch 'KLD7 Restart'
+[08:35:50.367][C][restart:092]:   Restore Mode: always OFF
+[08:35:50.368][C][restart:100]:   Icon: 'mdi:restart'
+[08:35:50.368][C][version.text_sensor:017]: Version Text Sensor 'ESPHome Version'
+[08:35:50.368][C][version.text_sensor:024]:   Icon: 'mdi:new-box'
+[08:35:50.384][D][sensor:129]: 'Raw speed' >> 1.7 km/h
+[08:35:50.385][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.77 km/h
+[08:35:50.385][D][sensor:129]: 'Raw angle' >> 14.3 °
+[08:35:50.389][D][sensor:129]: 'Raw distance' >> 69 cm
+[08:35:50.389][D][sensor:129]: 'Raw magnitude' >> 44.3 W/m²
+[08:35:50.389][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.7,"angle":14.3,"distance":69,"magnitude":44.3}'
+[08:35:50.419][C][copy.sensor:016]: Copy Sensor 'WiFi Signal Percent'
+[08:35:50.419][C][copy.sensor:016]:   State Class: 'measurement'
+[08:35:50.419][C][copy.sensor:016]:   Unit of Measurement: 'Signal %'
+[08:35:50.419][C][copy.sensor:016]:   Accuracy Decimals: 0
+[08:35:50.420][C][dallas.temp.sensor:029]: Dallas Temperature Sensor:
+[08:35:50.420][C][dallas.temp.sensor:034]:   Address: 0x821e9e0086c3fa28 (DS18B20)
+[08:35:50.447][C][dallas.temp.sensor:035]:   Resolution: 12 bits
+[08:35:50.447][C][dallas.temp.sensor:456]:   Update Interval: 30.0s
+[08:35:50.476][C][status:016]: Status Binary Sensor 'Statussensor'
+[08:35:50.477][C][status:019]:   Device Class: 'connectivity'
+[08:35:50.477][D][sensor:129]: 'Raw speed' >> 1.8 km/h
+[08:35:50.477][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.27 km/h
+[08:35:50.477][D][sensor:129]: 'Raw angle' >> 11.8 °
+[08:35:50.477][D][sensor:129]: 'Raw distance' >> 73 cm
+[08:35:50.477][D][sensor:129]: 'Raw magnitude' >> 41.4 W/m²
+[08:35:50.498][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.8,"angle":11.8,"distance":73,"magnitude":41.4}'
+[08:35:50.521][C][captive_portal:128]: Captive Portal:
+[08:35:50.521][C][wifi:1304]: WiFi:
+[08:35:50.521][C][wifi:1304]:   Local MAC: FC:E8:C0:E1:6B:AC
+[08:35:50.521][C][wifi:1304]:   Connected: YES
+[08:35:50.522][C][wifi:1037]:   IP Address: 192.168.2.62
+[08:35:50.522][C][wifi:1048]:   SSID: 'FRITZ!Box Fon WLAN 7390'
+[08:35:50.522][C][wifi:1048]:   BSSID: B4:FC:7D:22:2D:60
+[08:35:50.522][C][wifi:1048]:   Hostname: 'presencekld7'
+[08:35:50.522][C][wifi:1048]:   Signal strength: -63 dB [08:35:50.572][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:35:50.572][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.00 km/h
+[08:35:50.572][D][sensor:129]: 'Raw angle' >> -2.6 °
+[08:35:50.572][D][sensor:129]: 'Raw distance' >> 133 cm
+[08:35:50.572][D][sensor:129]: 'Raw magnitude' >> 41.0 W/m²
+[08:35:50.572][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":-2.6,"distance":133,"magnitude":41.0}'
+[08:35:50.572][C][esphome.ota:075]: Over-The-Air updates:
+[08:35:50.572][C][esphome.ota:075]:   Address: presencekld7.local:3232
+[08:35:50.572][C][esphome.ota:075]:   Version: 2
+[08:35:50.586][C][safe_mode:021]: Safe Mode:
+[08:35:50.586][C][safe_mode:021]:   Successful after: 60s
+[08:35:50.586][C][safe_mode:021]:   Invoke after: 10 attempts
+[08:35:50.586][C][safe_mode:021]:   Duration: 300s
+[08:35:50.586][C][safe_mode:038]:   Bootloader rollback: supported
+[08:35:50.586][C][web_server.ota:231]: Web Server OTA
+[08:35:50.610][C][api:221]: Server:
+[08:35:50.610][C][api:221]:   Address: presencekld7.local:6053
+[08:35:50.610][C][api:221]:   Listen backlog: 4
+[08:35:50.610][C][api:221]:   Max connections: 8
+[08:35:50.610][C][api:233]:   Noise encryption: NO
+[08:35:50.610][C][wifi_signal.sensor:016]: WiFi Signal 'WiFi Signal dB'
+[08:35:50.610][C][wifi_signal.sensor:016]:   State Class: 'measurement'
+[08:35:50.610][C][wifi_signal.sensor:016]:   Unit of Measurement: 'dBm'
+[08:35:50.610][C][wifi_signal.sensor:016]:   Accuracy Decimals: 0
+[08:35:50.627][C][wifi_signal.sensor:026]:   Device Class: 'signal_strength'
+[08:35:50.627][D][sensor:129]: 'Raw speed' >> 1.5 km/h
+[08:35:50.627][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.00 km/h
+[08:35:50.637][D][sensor:129]: 'Raw angle' >> 7.1 °
+[08:35:50.637][D][sensor:129]: 'Raw distance' >> 26 cm
+[08:35:50.637][D][sensor:129]: 'Raw magnitude' >> 39.1 W/m²
+[08:35:50.656][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.5,"angle":7.1,"distance":26,"magnitude":39.1}'
+[08:35:50.700][C][mdns:177]: mDNS:
+[08:35:50.700][C][mdns:177]:   Hostname: presencekld7
+[08:35:50.701][D][sensor:129]: 'Raw speed' >> 1.5 km/h
+[08:35:50.711][D][sensor:129]: 'Absolute Geschwindigkeit' >> 12.05 km/h
+[08:35:50.711][D][sensor:129]: 'Raw angle' >> 7.1 °
+[08:35:50.711][D][sensor:129]: 'Raw distance' >> 29 cm
+[08:35:50.729][D][sensor:129]: 'Raw magnitude' >> 39.1 W/m²
+[08:35:50.729][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.5,"angle":7.1,"distance":29,"magnitude":39.1}'
+[08:35:50.765][D][sensor:129]: 'Raw speed' >> 1.5 km/h
+[08:35:50.768][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.89 km/h
+[08:35:50.768][D][sensor:129]: 'Raw angle' >> 7.3 °
+[08:35:50.768][D][sensor:129]: 'Raw distance' >> 30 cm
+[08:35:50.849][D][sensor:129]: 'Raw magnitude' >> 39.1 W/m²
+[08:35:50.849][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.5,"angle":7.3,"distance":30,"magnitude":39.1}'
+[08:35:50.849][D][sensor:129]: 'Raw speed' >> 4.0 km/h
+[08:35:50.856][D][sensor:129]: 'Absolute Geschwindigkeit' >> 31.45 km/h
+[08:35:50.856][D][sensor:129]: 'Raw angle' >> 11.2 °
+[08:35:50.856][D][sensor:129]: 'Raw distance' >> 249 cm
+[08:35:50.871][D][sensor:129]: 'Raw magnitude' >> 34.9 W/m²
+[08:35:50.871][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.0,"angle":11.2,"distance":249,"magnitude":34.9}'
+[08:35:50.911][D][sensor:129]: 'Raw speed' >> 4.3 km/h
+[08:35:50.913][D][sensor:129]: 'Absolute Geschwindigkeit' >> 22.36 km/h
+[08:35:50.913][D][sensor:129]: 'Raw angle' >> 10.8 °
+[08:35:50.913][D][sensor:129]: 'Raw distance' >> 255 cm
+[08:35:50.972][D][sensor:129]: 'Raw magnitude' >> 34.9 W/m²
+[08:35:50.972][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.3,"angle":10.8,"distance":255,"magnitude":34.9}'
+[08:35:50.972][D][sensor:129]: 'Raw speed' >> 4.6 km/h
+[08:35:50.974][D][sensor:129]: 'Absolute Geschwindigkeit' >> 24.56 km/h
+[08:35:50.974][D][sensor:129]: 'Raw angle' >> 10.3 °
+[08:35:50.974][D][sensor:129]: 'Raw distance' >> 259 cm
+[08:35:50.992][D][sensor:129]: 'Raw magnitude' >> 34.9 W/m²
+[08:35:50.992][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.6,"angle":10.3,"distance":259,"magnitude":34.9}'
+[08:35:51.027][D][sensor:129]: 'Raw speed' >> 4.2 km/h
+[08:35:51.032][D][sensor:129]: 'Absolute Geschwindigkeit' >> 23.19 km/h
+[08:35:51.032][D][sensor:129]: 'Raw angle' >> 3.8 °
+[08:35:51.032][D][sensor:129]: 'Raw distance' >> 105 cm
+[08:35:51.090][D][sensor:129]: 'Raw magnitude' >> 34.7 W/m²
+[08:35:51.090][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.2,"angle":3.8,"distance":105,"magnitude":34.7}'
+[08:35:51.090][D][sensor:129]: 'Raw speed' >> 5.6 km/h
+[08:35:51.090][D][sensor:129]: 'Absolute Geschwindigkeit' >> 23.19 km/h
+[08:35:51.091][D][sensor:129]: 'Raw angle' >> 9.2 °
+[08:35:51.091][D][sensor:129]: 'Raw distance' >> 278 cm
+[08:35:51.106][D][sensor:129]: 'Raw magnitude' >> 30.8 W/m²
+[08:35:51.106][D][text_sensor:119]: 'Raw JSON' >> '{"speed":5.6,"angle":9.2,"distance":278,"magnitude":30.8}'
+[08:35:51.165][D][sensor:129]: 'Raw speed' >> 5.3 km/h
+[08:35:51.170][D][sensor:129]: 'Absolute Geschwindigkeit' >> 33.17 km/h
+[08:35:51.170][D][sensor:129]: 'Raw angle' >> 4.3 °
+[08:35:51.171][D][sensor:129]: 'Raw distance' >> 290 cm
+[08:35:51.188][D][sensor:129]: 'Raw magnitude' >> 30.8 W/m²
+[08:35:51.188][D][text_sensor:119]: 'Raw JSON' >> '{"speed":5.3,"angle":4.3,"distance":290,"magnitude":30.8}'
+[08:35:51.213][D][sensor:129]: 'Raw speed' >> 4.4 km/h
+[08:35:51.214][D][sensor:129]: 'Absolute Geschwindigkeit' >> 33.17 km/h
+[08:35:51.214][D][sensor:129]: 'Raw angle' >> 1.9 °
+[08:35:51.214][D][sensor:129]: 'Raw distance' >> 124 cm
+[08:35:51.279][D][sensor:129]: 'Raw magnitude' >> 27.8 W/m²
+[08:35:51.279][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.4,"angle":1.9,"distance":124,"magnitude":27.8}'
+[08:35:51.279][D][sensor:129]: 'Raw speed' >> 4.4 km/h
+[08:35:51.281][D][sensor:129]: 'Absolute Geschwindigkeit' >> 33.17 km/h
+[08:35:51.281][D][sensor:129]: 'Raw angle' >> 2.0 °
+[08:35:51.281][D][sensor:129]: 'Raw distance' >> 128 cm
+[08:35:51.307][D][sensor:129]: 'Raw magnitude' >> 27.8 W/m²
+[08:35:51.307][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.4,"angle":2.0,"distance":128,"magnitude":27.8}'
+[08:35:51.349][D][sensor:129]: 'Raw speed' >> 4.0 km/h
+[08:35:51.352][D][sensor:129]: 'Absolute Geschwindigkeit' >> 33.17 km/h
+[08:35:51.352][D][sensor:129]: 'Raw angle' >> -17.7 °
+[08:35:51.352][D][sensor:129]: 'Raw distance' >> 306 cm
+[08:35:51.352][D][sensor:129]: 'Raw magnitude' >> 30.3 W/m²
+[08:35:51.352][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.0,"angle":-17.7,"distance":306,"magnitude":30.3}'
+[08:35:51.352][D][binary_sensor:047]: 'pdetect' >> ON
+[08:35:51.367][D][binary_sensor:047]: 'pangle' >> ON
+[08:35:51.400][D][sensor:129]: 'Raw speed' >> 4.1 km/h
+[08:35:51.400][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.45 km/h
+[08:35:51.402][D][sensor:129]: 'Raw angle' >> -3.1 °
+[08:35:51.402][D][sensor:129]: 'Raw distance' >> 139 cm
+[08:35:51.402][D][sensor:129]: 'Raw magnitude' >> 36.0 W/m²
+[08:35:51.483][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.1,"angle":-3.1,"distance":139,"magnitude":36.0}'
+[08:35:51.489][D][sensor:129]: 'Raw speed' >> 3.7 km/h
+[08:35:51.489][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.45 km/h
+[08:35:51.489][D][sensor:129]: 'Raw angle' >> 6.6 °
+[08:35:51.489][D][sensor:129]: 'Raw distance' >> 146 cm
+[08:35:51.489][D][sensor:129]: 'Raw magnitude' >> 33.4 W/m²
+[08:35:51.510][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.7,"angle":6.6,"distance":146,"magnitude":33.4}'
+[08:35:51.528][D][sensor:129]: 'Raw speed' >> 4.1 km/h
+[08:35:51.528][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.43 km/h
+[08:35:51.531][D][sensor:129]: 'Raw angle' >> 6.2 °
+[08:35:51.531][D][sensor:129]: 'Raw distance' >> 329 cm
+[08:35:51.531][D][sensor:129]: 'Raw magnitude' >> 29.5 W/m²
+[08:35:51.547][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.1,"angle":6.2,"distance":329,"magnitude":29.5}'
+[08:35:51.592][D][sensor:129]: 'Raw speed' >> 3.5 km/h
+[08:35:51.592][D][sensor:129]: 'Absolute Geschwindigkeit' >> 31.92 km/h
+[08:35:51.597][D][sensor:129]: 'Raw angle' >> 8.9 °
+[08:35:51.597][D][sensor:129]: 'Raw distance' >> 154 cm
+[08:35:51.597][D][sensor:129]: 'Raw magnitude' >> 30.6 W/m²
+[08:35:51.656][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.5,"angle":8.9,"distance":154,"magnitude":30.6}'
+[08:35:51.657][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:35:51.657][D][sensor:129]: 'Absolute Geschwindigkeit' >> 20.49 km/h
+[08:35:51.664][D][sensor:129]: 'Raw angle' >> 8.8 °
+[08:35:51.664][D][sensor:129]: 'Raw distance' >> 158 cm
+[08:35:51.665][D][sensor:129]: 'Raw magnitude' >> 31.6 W/m²
+[08:35:51.682][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":8.8,"distance":158,"magnitude":31.6}'
+[08:35:51.753][D][sensor:129]: 'Raw speed' >> 3.0 km/h
+[08:35:51.753][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.89 km/h
+[08:35:51.753][D][sensor:129]: 'Raw angle' >> 0.7 °
+[08:35:51.753][D][sensor:129]: 'Raw distance' >> 166 cm
+[08:35:51.753][D][sensor:129]: 'Raw magnitude' >> 36.2 W/m²
+[08:35:51.771][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.0,"angle":0.7,"distance":166,"magnitude":36.2}'
+[08:35:51.799][D][sensor:129]: 'Raw speed' >> 1.6 km/h
+[08:35:51.799][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.89 km/h
+[08:35:51.801][D][sensor:129]: 'Raw angle' >> -5.0 °
+[08:35:51.801][D][sensor:129]: 'Raw distance' >> 69 cm
+[08:35:51.801][D][sensor:129]: 'Raw magnitude' >> 46.6 W/m²
+[08:35:51.842][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.6,"angle":-5.0,"distance":69,"magnitude":46.6}'
+[08:35:51.843][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:35:51.843][D][sensor:129]: 'Absolute Geschwindigkeit' >> 29.82 km/h
+[08:35:51.847][D][sensor:129]: 'Raw angle' >> -6.2 °
+[08:35:51.847][D][sensor:129]: 'Raw distance' >> 171 cm
+[08:35:51.847][D][sensor:129]: 'Raw magnitude' >> 46.2 W/m²
+[08:35:51.914][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":-6.2,"distance":171,"magnitude":46.2}'
+[08:35:51.915][D][sensor:129]: 'Raw speed' >> 2.3 km/h
+[08:35:51.915][D][sensor:129]: 'Absolute Geschwindigkeit' >> 21.18 km/h
+[08:35:51.915][D][sensor:129]: 'Raw angle' >> -7.9 °
+[08:35:51.915][D][sensor:129]: 'Raw distance' >> 173 cm
+[08:35:51.915][D][sensor:129]: 'Raw magnitude' >> 46.2 W/m²
+[08:35:51.930][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.3,"angle":-7.9,"distance":173,"magnitude":46.2}'
+[08:35:51.972][D][sensor:129]: 'Raw speed' >> 1.9 km/h
+[08:35:51.972][D][sensor:129]: 'Absolute Geschwindigkeit' >> 14.04 km/h
+[08:35:51.990][D][sensor:129]: 'Raw angle' >> -5.6 °
+[08:35:51.990][D][sensor:129]: 'Raw distance' >> 77 cm
+[08:35:51.990][D][sensor:129]: 'Raw magnitude' >> 44.7 W/m²
+[08:35:52.060][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.9,"angle":-5.6,"distance":77,"magnitude":44.7}'
+[08:35:52.060][D][sensor:129]: 'Raw speed' >> 2.7 km/h
+[08:35:52.060][D][sensor:129]: 'Absolute Geschwindigkeit' >> 28.12 km/h
+[08:35:52.066][D][sensor:129]: 'Raw angle' >> -9.9 °
+[08:35:52.066][D][sensor:129]: 'Raw distance' >> 183 cm
+[08:35:52.066][D][sensor:129]: 'Raw magnitude' >> 42.7 W/m²
+[08:35:52.100][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.7,"angle":-9.9,"distance":183,"magnitude":42.7}'
+[08:35:52.111][D][sensor:129]: 'Raw speed' >> 2.8 km/h
+[08:35:52.111][D][sensor:129]: 'Absolute Geschwindigkeit' >> 16.08 km/h
+[08:35:52.113][D][sensor:129]: 'Raw angle' >> -14.0 °
+[08:35:52.113][D][sensor:129]: 'Raw distance' >> 187 cm
+[08:35:52.113][D][sensor:129]: 'Raw magnitude' >> 40.2 W/m²
+[08:35:52.170][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.8,"angle":-14.0,"distance":187,"magnitude":40.2}'
+[08:35:52.170][D][sensor:129]: 'Raw speed' >> 3.9 km/h
+[08:35:52.170][D][sensor:129]: 'Absolute Geschwindigkeit' >> 16.17 km/h
+[08:35:52.170][D][sensor:129]: 'Raw angle' >> -1.0 °
+[08:35:52.170][D][sensor:129]: 'Raw distance' >> 94 cm
+[08:35:52.170][D][sensor:129]: 'Raw magnitude' >> 38.9 W/m²
+[08:35:52.187][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.9,"angle":-1.0,"distance":94,"magnitude":38.9}'
+[08:35:52.228][D][sensor:129]: 'Raw speed' >> 4.2 km/h
+[08:35:52.228][D][sensor:129]: 'Absolute Geschwindigkeit' >> 16.17 km/h
+[08:35:52.230][D][sensor:129]: 'Raw angle' >> -0.1 °
+[08:35:52.230][D][sensor:129]: 'Raw distance' >> 99 cm
+[08:35:52.230][D][sensor:129]: 'Raw magnitude' >> 38.9 W/m²
+[08:35:52.313][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.2,"angle":-0.1,"distance":99,"magnitude":38.9}'
+[08:35:52.313][D][sensor:129]: 'Raw speed' >> 4.4 km/h
+[08:35:52.313][D][sensor:129]: 'Absolute Geschwindigkeit' >> 16.17 km/h
+[08:35:52.316][D][sensor:129]: 'Raw angle' >> 5.0 °
+[08:35:52.316][D][sensor:129]: 'Raw distance' >> 106 cm
+[08:35:52.316][D][sensor:129]: 'Raw magnitude' >> 36.0 W/m²
+[08:35:52.346][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.4,"angle":5.0,"distance":106,"magnitude":36.0}'
+[08:35:52.346][D][binary_sensor:047]: 'pangle' >> OFF
+[08:35:52.346][D][binary_sensor:047]: 'pdetect' >> OFF
+[08:35:52.378][D][sensor:129]: 'Raw speed' >> 4.3 km/h
+[08:35:52.378][D][sensor:129]: 'Absolute Geschwindigkeit' >> 48.72 km/h
+[08:35:52.378][D][sensor:129]: 'Raw angle' >> 12.3 °
+[08:35:52.379][D][sensor:129]: 'Raw distance' >> 112 cm
+[08:35:52.379][D][sensor:129]: 'Raw magnitude' >> 36.0 W/m²
+[08:35:52.379][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.3,"angle":12.3,"distance":112,"magnitude":36.0}'
+[08:35:52.428][D][sensor:129]: 'Raw speed' >> 4.1 km/h
+[08:35:52.428][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.50 km/h
+[08:35:52.428][D][sensor:129]: 'Raw angle' >> 17.3 °
+[08:35:52.428][D][sensor:129]: 'Raw distance' >> 116 cm
+[08:35:52.428][D][sensor:129]: 'Raw magnitude' >> 36.0 W/m²
+[08:35:52.428][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.1,"angle":17.3,"distance":116,"magnitude":36.0}'
+[08:35:52.483][D][sensor:129]: 'Raw speed' >> 4.0 km/h
+[08:35:52.485][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.42 km/h
+[08:35:52.485][D][sensor:129]: 'Raw angle' >> 20.5 °
+[08:35:52.485][D][sensor:129]: 'Raw distance' >> 121 cm
+[08:35:52.485][D][sensor:129]: 'Raw magnitude' >> 36.0 W/m²
+[08:35:52.485][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.0,"angle":20.5,"distance":121,"magnitude":36.0}'
+[08:35:52.550][D][sensor:129]: 'Raw speed' >> 3.8 km/h
+[08:35:52.551][D][sensor:129]: 'Absolute Geschwindigkeit' >> 10.99 km/h
+[08:35:52.551][D][sensor:129]: 'Raw angle' >> 22.3 °
+[08:35:52.551][D][sensor:129]: 'Raw distance' >> 125 cm
+[08:35:52.551][D][sensor:129]: 'Raw magnitude' >> 36.0 W/m²
+[08:35:52.551][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.8,"angle":22.3,"distance":125,"magnitude":36.0}'
+[08:35:52.633][D][sensor:129]: 'Raw speed' >> 1.7 km/h
+[08:35:52.638][D][sensor:129]: 'Absolute Geschwindigkeit' >> 4.48 km/h
+[08:35:52.638][D][sensor:129]: 'Raw angle' >> -32.2 °
+[08:35:52.638][D][sensor:129]: 'Raw distance' >> 212 cm
+[08:35:52.638][D][sensor:129]: 'Raw magnitude' >> 33.1 W/m²
+[08:35:52.638][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.7,"angle":-32.2,"distance":212,"magnitude":33.1}'
+[08:35:52.677][D][sensor:129]: 'Raw speed' >> 1.8 km/h
+[08:35:52.678][D][sensor:129]: 'Absolute Geschwindigkeit' >> 3.40 km/h
+[08:35:52.678][D][sensor:129]: 'Raw angle' >> -25.8 °
+[08:35:52.678][D][sensor:129]: 'Raw distance' >> 215 cm
+[08:35:52.678][D][sensor:129]: 'Raw magnitude' >> 33.1 W/m²
+[08:35:52.678][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.8,"angle":-25.8,"distance":215,"magnitude":33.1}'
+[08:35:52.743][D][sensor:129]: 'Raw speed' >> 1.9 km/h
+[08:35:52.745][D][sensor:129]: 'Absolute Geschwindigkeit' >> 4.32 km/h
+[08:35:52.745][D][sensor:129]: 'Raw angle' >> -21.1 °
+[08:35:52.747][D][sensor:129]: 'Raw distance' >> 218 cm
+[08:35:52.747][D][sensor:129]: 'Raw magnitude' >> 33.1 W/m²
+[08:35:52.747][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.9,"angle":-21.1,"distance":218,"magnitude":33.1}'
+[08:35:52.803][D][sensor:129]: 'Raw speed' >> 1.9 km/h
+[08:35:52.803][D][sensor:129]: 'Absolute Geschwindigkeit' >> 5.32 km/h
+[08:35:52.803][D][sensor:129]: 'Raw angle' >> -17.9 °
+[08:35:52.809][D][sensor:129]: 'Raw distance' >> 221 cm
+[08:35:52.809][D][sensor:129]: 'Raw magnitude' >> 33.1 W/m²
+[08:35:52.809][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.9,"angle":-17.9,"distance":221,"magnitude":33.1}'
+[08:35:52.888][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:35:52.889][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.19 km/h
+[08:35:52.889][D][sensor:129]: 'Raw angle' >> -11.3 °
+[08:35:52.891][D][sensor:129]: 'Raw distance' >> 84 cm
+[08:35:52.891][D][sensor:129]: 'Raw magnitude' >> 40.7 W/m²
+[08:35:52.891][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":-11.3,"distance":84,"magnitude":40.7}'
+[08:35:52.946][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:35:52.946][D][sensor:129]: 'Absolute Geschwindigkeit' >> 12.61 km/h
+[08:35:52.946][D][sensor:129]: 'Raw angle' >> -7.2 °
+[08:35:52.947][D][sensor:129]: 'Raw distance' >> 87 cm
+[08:35:52.947][D][sensor:129]: 'Raw magnitude' >> 39.8 W/m²
+[08:35:52.947][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":-7.2,"distance":87,"magnitude":39.8}'
+[08:35:52.994][D][sensor:129]: 'Raw speed' >> 2.8 km/h
+[08:35:52.995][D][sensor:129]: 'Absolute Geschwindigkeit' >> 22.38 km/h
+[08:35:52.995][D][sensor:129]: 'Raw angle' >> -4.2 °
+[08:35:52.995][D][sensor:129]: 'Raw distance' >> 92 cm
+[08:35:52.995][D][sensor:129]: 'Raw magnitude' >> 39.8 W/m²
+[08:35:52.996][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.8,"angle":-4.2,"distance":92,"magnitude":39.8}'
+[08:35:53.065][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:35:53.066][D][sensor:129]: 'Absolute Geschwindigkeit' >> 22.38 km/h
+[08:35:53.066][D][sensor:129]: 'Raw angle' >> -6.1 °
+[08:35:53.066][D][sensor:129]: 'Raw distance' >> 215 cm
+[08:35:53.066][D][sensor:129]: 'Raw magnitude' >> 33.7 W/m²
+[08:35:53.066][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":-6.1,"distance":215,"magnitude":33.7}'
+[08:35:53.135][D][sensor:129]: 'Raw speed' >> 3.6 km/h
+[08:35:53.138][D][sensor:129]: 'Absolute Geschwindigkeit' >> 33.99 km/h
+[08:35:53.138][D][sensor:129]: 'Raw angle' >> -4.7 °
+[08:35:53.138][D][sensor:129]: 'Raw distance' >> 107 cm
+[08:35:53.138][D][sensor:129]: 'Raw magnitude' >> 27.6 W/m²
+[08:35:53.138][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.6,"angle":-4.7,"distance":107,"magnitude":27.6}'
+[08:35:53.204][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:35:53.207][D][sensor:129]: 'Absolute Geschwindigkeit' >> 33.99 km/h
+[08:35:53.207][D][sensor:129]: 'Raw angle' >> -6.1 °
+[08:35:53.207][D][sensor:129]: 'Raw distance' >> 110 cm
+[08:35:53.207][D][sensor:129]: 'Raw magnitude' >> 27.5 W/m²
+[08:35:53.207][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":-6.1,"distance":110,"magnitude":27.5}'
+[08:35:53.248][D][sensor:129]: 'Raw speed' >> 2.8 km/h
+[08:35:53.251][D][sensor:129]: 'Absolute Geschwindigkeit' >> 26.95 km/h
+[08:35:53.251][D][sensor:129]: 'Raw angle' >> -9.6 °
+[08:35:53.251][D][sensor:129]: 'Raw distance' >> 113 cm
+[08:35:53.251][D][sensor:129]: 'Raw magnitude' >> 27.5 W/m²
+[08:35:53.251][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.8,"angle":-9.6,"distance":113,"magnitude":27.5}'
+[08:35:53.325][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:35:53.326][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.72 km/h
+[08:35:53.326][D][sensor:129]: 'Raw angle' >> -6.5 °
+[08:35:53.326][D][sensor:129]: 'Raw distance' >> 116 cm
+[08:35:53.326][D][sensor:129]: 'Raw magnitude' >> 26.0 W/m²
+[08:35:53.326][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":-6.5,"distance":116,"magnitude":26.0}'
+[08:35:53.384][D][sensor:129]: 'Raw speed' >> 2.7 km/h
+[08:35:53.385][D][sensor:129]: 'Absolute Geschwindigkeit' >> 23.87 km/h
+[08:35:53.385][D][sensor:129]: 'Raw angle' >> -2.5 °
+[08:35:53.385][D][sensor:129]: 'Raw distance' >> 120 cm
+[08:35:53.385][D][sensor:129]: 'Raw magnitude' >> 26.0 W/m²
+[08:35:53.385][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.7,"angle":-2.5,"distance":120,"magnitude":26.0}'
+[08:35:53.461][D][sensor:129]: 'Raw speed' >> 2.3 km/h
+[08:35:53.461][D][sensor:129]: 'Absolute Geschwindigkeit' >> 23.87 km/h
+[08:35:53.461][D][sensor:129]: 'Raw angle' >> 6.6 °
+[08:35:53.463][D][sensor:129]: 'Raw distance' >> 187 cm
+[08:35:53.464][D][sensor:129]: 'Raw magnitude' >> 30.6 W/m²
+[08:35:53.464][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.3,"angle":6.6,"distance":187,"magnitude":30.6}'
+[08:35:53.522][D][sensor:129]: 'Raw speed' >> 2.3 km/h
+[08:35:53.522][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.80 km/h
+[08:35:53.522][D][sensor:129]: 'Raw angle' >> 3.7 °
+[08:35:53.524][D][sensor:129]: 'Raw distance' >> 190 cm
+[08:35:53.524][D][sensor:129]: 'Raw magnitude' >> 30.6 W/m²
+[08:35:53.524][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.3,"angle":3.7,"distance":190,"magnitude":30.6}'
+[08:35:53.571][D][sensor:129]: 'Raw speed' >> 2.4 km/h
+[08:35:53.571][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.80 km/h
+[08:35:53.571][D][sensor:129]: 'Raw angle' >> -6.5 °
+[08:35:53.572][D][sensor:129]: 'Raw distance' >> 194 cm
+[08:35:53.572][D][sensor:129]: 'Raw magnitude' >> 29.3 W/m²
+[08:35:53.572][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.4,"angle":-6.5,"distance":194,"magnitude":29.3}'
+[08:35:53.631][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:35:53.634][D][sensor:129]: 'Absolute Geschwindigkeit' >> 29.46 km/h
+[08:35:53.634][D][sensor:129]: 'Raw angle' >> -24.1 °
+[08:35:53.634][D][sensor:129]: 'Raw distance' >> 143 cm
+[08:35:53.634][D][sensor:129]: 'Raw magnitude' >> 30.8 W/m²
+[08:35:53.634][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":-24.1,"distance":143,"magnitude":30.8}'
+[08:35:53.721][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:35:53.722][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.17 km/h
+[08:35:53.722][D][sensor:129]: 'Raw angle' >> -28.8 °
+[08:35:53.722][D][sensor:129]: 'Raw distance' >> 150 cm
+[08:35:53.722][D][sensor:129]: 'Raw magnitude' >> 36.7 W/m²
+[08:35:53.722][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":-28.8,"distance":150,"magnitude":36.7}'
+[08:35:53.776][D][sensor:129]: 'Raw speed' >> 2.9 km/h
+[08:35:53.784][D][sensor:129]: 'Absolute Geschwindigkeit' >> 6.08 km/h
+[08:35:53.784][D][sensor:129]: 'Raw angle' >> -24.6 °
+[08:35:53.784][D][sensor:129]: 'Raw distance' >> 153 cm
+[08:35:53.784][D][sensor:129]: 'Raw magnitude' >> 41.2 W/m²
+[08:35:53.784][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.9,"angle":-24.6,"distance":153,"magnitude":41.2}'
+[08:35:53.835][D][sensor:129]: 'Raw speed' >> 1.6 km/h
+[08:35:53.835][D][sensor:129]: 'Absolute Geschwindigkeit' >> 3.84 km/h
+[08:35:53.835][D][sensor:129]: 'Raw angle' >> -9.1 °
+[08:35:53.835][D][sensor:129]: 'Raw distance' >> 51 cm
+[08:35:53.836][D][sensor:129]: 'Raw magnitude' >> 45.2 W/m²
+[08:35:53.836][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.6,"angle":-9.1,"distance":51,"magnitude":45.2}'
+[08:35:53.890][D][sensor:129]: 'Raw speed' >> 1.7 km/h
+[08:35:53.894][D][sensor:129]: 'Absolute Geschwindigkeit' >> 10.55 km/h
+[08:35:53.894][D][sensor:129]: 'Raw angle' >> -7.5 °
+[08:35:53.894][D][sensor:129]: 'Raw distance' >> 54 cm
+[08:35:53.894][D][sensor:129]: 'Raw magnitude' >> 44.2 W/m²
+[08:35:53.894][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.7,"angle":-7.5,"distance":54,"magnitude":44.2}'
+[08:35:53.940][D][sensor:129]: 'Raw speed' >> 2.3 km/h
+[08:35:53.940][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.62 km/h
+[08:35:53.940][D][sensor:129]: 'Raw angle' >> -10.0 °
+[08:35:53.940][D][sensor:129]: 'Raw distance' >> 107 cm
+[08:35:53.940][D][sensor:129]: 'Raw magnitude' >> 44.6 W/m²
+[08:35:53.940][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.3,"angle":-10.0,"distance":107,"magnitude":44.6}'
+[08:35:54.018][D][sensor:129]: 'Raw speed' >> 2.3 km/h
+[08:35:54.018][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.12 km/h
+[08:35:54.018][D][sensor:129]: 'Raw angle' >> -8.8 °
+[08:35:54.018][D][sensor:129]: 'Raw distance' >> 110 cm
+[08:35:54.018][D][sensor:129]: 'Raw magnitude' >> 44.6 W/m²
+[08:35:54.018][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.3,"angle":-8.8,"distance":110,"magnitude":44.6}'
+[08:35:54.066][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:35:54.071][D][sensor:129]: 'Absolute Geschwindigkeit' >> 14.58 km/h
+[08:35:54.071][D][sensor:129]: 'Raw angle' >> -7.9 °
+[08:35:54.071][D][sensor:129]: 'Raw distance' >> 113 cm
+[08:35:54.071][D][sensor:129]: 'Raw magnitude' >> 44.6 W/m²
+[08:35:54.071][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":-7.9,"distance":113,"magnitude":44.6}'
+[08:35:54.147][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:35:54.148][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.64 km/h
+[08:35:54.149][D][sensor:129]: 'Raw angle' >> -7.3 °
+[08:35:54.149][D][sensor:129]: 'Raw distance' >> 116 cm
+[08:35:54.149][D][sensor:129]: 'Raw magnitude' >> 44.6 W/m²
+[08:35:54.149][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":-7.3,"distance":116,"magnitude":44.6}'
+[08:35:54.192][D][sensor:129]: 'Raw speed' >> 2.0 km/h
+[08:35:54.193][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.52 km/h
+[08:35:54.193][D][sensor:129]: 'Raw angle' >> 17.0 °
+[08:35:54.193][D][sensor:129]: 'Raw distance' >> 67 cm
+[08:35:54.193][D][sensor:129]: 'Raw magnitude' >> 37.7 W/m²
+[08:35:54.193][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.0,"angle":17.0,"distance":67,"magnitude":37.7}'
+[08:35:54.257][D][sensor:129]: 'Raw speed' >> 1.9 km/h
+[08:35:54.262][D][sensor:129]: 'Absolute Geschwindigkeit' >> 6.43 km/h
+[08:35:54.262][D][sensor:129]: 'Raw angle' >> 19.2 °
+[08:35:54.262][D][sensor:129]: 'Raw distance' >> 68 cm
+[08:35:54.263][D][sensor:129]: 'Raw magnitude' >> 37.7 W/m²
+[08:35:54.263][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.9,"angle":19.2,"distance":68,"magnitude":37.7}'
+[08:35:54.325][D][sensor:129]: 'Raw speed' >> 4.3 km/h
+[08:35:54.330][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.08 km/h
+[08:35:54.330][D][sensor:129]: 'Raw angle' >> 18.0 °
+[08:35:54.330][D][sensor:129]: 'Raw distance' >> 187 cm
+[08:35:54.330][D][sensor:129]: 'Raw magnitude' >> 32.3 W/m²
+[08:35:54.330][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.3,"angle":18.0,"distance":187,"magnitude":32.3}'
+[08:35:54.389][D][sensor:129]: 'Raw speed' >> 4.4 km/h
+[08:35:54.389][D][sensor:129]: 'Absolute Geschwindigkeit' >> 14.18 km/h
+[08:35:54.389][D][sensor:129]: 'Raw angle' >> 21.5 °
+[08:35:54.389][D][sensor:129]: 'Raw distance' >> 193 cm
+[08:35:54.389][D][sensor:129]: 'Raw magnitude' >> 32.3 W/m²
+[08:35:54.389][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.4,"angle":21.5,"distance":193,"magnitude":32.3}'
+[08:35:54.439][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:35:54.439][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.21 km/h
+[08:35:54.439][D][sensor:129]: 'Raw angle' >> -1.2 °
+[08:35:54.439][D][sensor:129]: 'Raw distance' >> 136 cm
+[08:35:54.439][D][sensor:129]: 'Raw magnitude' >> 34.2 W/m²
+[08:35:54.440][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":-1.2,"distance":136,"magnitude":34.2}'
+[08:35:54.494][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:35:54.495][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.21 km/h
+[08:35:54.495][D][sensor:129]: 'Raw angle' >> -7.4 °
+[08:35:54.495][D][sensor:129]: 'Raw distance' >> 141 cm
+[08:35:54.495][D][sensor:129]: 'Raw magnitude' >> 37.1 W/m²
+[08:35:54.495][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":-7.4,"distance":141,"magnitude":37.1}'
+[08:35:54.573][D][sensor:129]: 'Raw speed' >> 1.6 km/h
+[08:35:54.576][D][sensor:129]: 'Absolute Geschwindigkeit' >> 12.28 km/h
+[08:35:54.576][D][sensor:129]: 'Raw angle' >> -21.0 °
+[08:35:54.576][D][sensor:129]: 'Raw distance' >> 78 cm
+[08:35:54.576][D][sensor:129]: 'Raw magnitude' >> 40.3 W/m²
+[08:35:54.576][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.6,"angle":-21.0,"distance":78,"magnitude":40.3}'
+[08:35:54.649][D][sensor:129]: 'Raw speed' >> 1.6 km/h
+[08:35:54.649][D][sensor:129]: 'Absolute Geschwindigkeit' >> 4.41 km/h
+[08:35:54.649][D][sensor:129]: 'Raw angle' >> -20.2 °
+[08:35:54.649][D][sensor:129]: 'Raw distance' >> 80 cm
+[08:35:54.649][D][sensor:129]: 'Raw magnitude' >> 40.3 W/m²
+[08:35:54.649][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.6,"angle":-20.2,"distance":80,"magnitude":40.3}'
+[08:35:54.689][D][sensor:129]: 'Raw speed' >> 1.6 km/h
+[08:35:54.689][D][sensor:129]: 'Absolute Geschwindigkeit' >> 4.56 km/h
+[08:35:54.689][D][sensor:129]: 'Raw angle' >> -19.5 °
+[08:35:54.689][D][sensor:129]: 'Raw distance' >> 82 cm
+[08:35:54.689][D][sensor:129]: 'Raw magnitude' >> 40.3 W/m²
+[08:35:54.689][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.6,"angle":-19.5,"distance":82,"magnitude":40.3}'
+[08:35:54.748][D][sensor:129]: 'Raw speed' >> 1.5 km/h
+[08:35:54.753][D][sensor:129]: 'Absolute Geschwindigkeit' >> 4.59 km/h
+[08:35:54.753][D][sensor:129]: 'Raw angle' >> -18.9 °
+[08:35:54.753][D][sensor:129]: 'Raw distance' >> 84 cm
+[08:35:54.753][D][sensor:129]: 'Raw magnitude' >> 40.3 W/m²
+[08:35:54.753][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.5,"angle":-18.9,"distance":84,"magnitude":40.3}'
+[08:35:54.810][D][sensor:129]: 'Raw speed' >> 1.5 km/h
+[08:35:54.826][D][sensor:129]: 'Absolute Geschwindigkeit' >> 4.61 km/h
+[08:35:54.826][D][sensor:129]: 'Raw angle' >> -18.4 °
+[08:35:54.826][D][sensor:129]: 'Raw distance' >> 85 cm
+[08:35:54.826][D][sensor:129]: 'Raw magnitude' >> 40.3 W/m²
+[08:35:54.826][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.5,"angle":-18.4,"distance":85,"magnitude":40.3}'
+[08:35:54.894][D][sensor:129]: 'Raw speed' >> 2.9 km/h
+[08:35:54.942][D][sensor:129]: 'Absolute Geschwindigkeit' >> 9.04 km/h
+[08:35:54.943][D][sensor:129]: 'Raw angle' >> -9.9 °
+[08:35:54.943][D][sensor:129]: 'Raw distance' >> 57 cm
+[08:35:54.943][D][sensor:129]: 'Raw magnitude' >> 41.5 W/m²
+[08:35:54.943][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.9,"angle":-9.9,"distance":57,"magnitude":41.5}'
+[08:35:54.943][D][sensor:129]: 'Raw speed' >> 3.0 km/h
+[08:35:54.943][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.71 km/h
+[08:35:54.943][D][sensor:129]: 'Raw angle' >> -6.3 °
+[08:35:54.944][D][sensor:129]: 'Raw distance' >> 63 cm
+[08:35:54.944][D][sensor:129]: 'Raw magnitude' >> 40.3 W/m²
+[08:35:54.944][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.0,"angle":-6.3,"distance":63,"magnitude":40.3}'
+[08:35:55.003][D][sensor:129]: 'Raw speed' >> 2.8 km/h
+[08:35:55.006][D][sensor:129]: 'Absolute Geschwindigkeit' >> 25.41 km/h
+[08:35:55.006][D][sensor:129]: 'Raw angle' >> -7.1 °
+[08:35:55.006][D][sensor:129]: 'Raw distance' >> 171 cm
+[08:35:55.006][D][sensor:129]: 'Raw magnitude' >> 37.2 W/m²
+[08:35:55.006][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.8,"angle":-7.1,"distance":171,"magnitude":37.2}'
+[08:35:55.066][D][sensor:129]: 'Raw speed' >> 2.4 km/h
+[08:35:55.069][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.50 km/h
+[08:35:55.069][D][sensor:129]: 'Raw angle' >> 5.7 °
+[08:35:55.070][D][sensor:129]: 'Raw distance' >> 107 cm
+[08:35:55.070][D][sensor:129]: 'Raw magnitude' >> 37.5 W/m²
+[08:35:55.070][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.4,"angle":5.7,"distance":107,"magnitude":37.5}'
+[08:35:55.147][D][sensor:129]: 'Raw speed' >> 2.7 km/h
+[08:35:55.162][D][sensor:129]: 'Absolute Geschwindigkeit' >> 27.23 km/h
+[08:35:55.162][D][sensor:129]: 'Raw angle' >> 7.2 °
+[08:35:55.162][D][sensor:129]: 'Raw distance' >> 180 cm
+[08:35:55.162][D][sensor:129]: 'Raw magnitude' >> 40.8 W/m²
+[08:35:55.162][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.7,"angle":7.2,"distance":180,"magnitude":40.8}'
+[08:35:55.212][D][sensor:129]: 'Raw speed' >> 2.7 km/h
+[08:35:55.213][D][sensor:129]: 'Absolute Geschwindigkeit' >> 21.98 km/h
+[08:35:55.213][D][sensor:129]: 'Raw angle' >> 11.5 °
+[08:35:55.213][D][sensor:129]: 'Raw distance' >> 183 cm
+[08:35:55.213][D][sensor:129]: 'Raw magnitude' >> 37.1 W/m²
+[08:35:55.213][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.7,"angle":11.5,"distance":183,"magnitude":37.1}'
+[08:35:55.258][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:35:55.259][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.89 km/h
+[08:35:55.259][D][sensor:129]: 'Raw angle' >> 2.1 °
+[08:35:55.259][D][sensor:129]: 'Raw distance' >> 86 cm
+[08:35:55.259][D][sensor:129]: 'Raw magnitude' >> 44.2 W/m²
+[08:35:55.259][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":2.1,"distance":86,"magnitude":44.2}'
+[08:35:55.329][D][sensor:129]: 'Raw speed' >> 2.8 km/h
+[08:35:55.329][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.89 km/h
+[08:35:55.329][D][sensor:129]: 'Raw angle' >> 2.2 °
+[08:35:55.329][D][sensor:129]: 'Raw distance' >> 88 cm
+[08:35:55.330][D][sensor:129]: 'Raw magnitude' >> 44.2 W/m²
+[08:35:55.330][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.8,"angle":2.2,"distance":88,"magnitude":44.2}'
+[08:35:55.366][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:35:55.368][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.89 km/h
+[08:35:55.368][D][sensor:129]: 'Raw angle' >> 1.9 °
+[08:35:55.369][D][sensor:129]: 'Raw distance' >> 90 cm
+[08:35:55.369][D][sensor:129]: 'Raw magnitude' >> 44.2 W/m²
+[08:35:55.369][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":1.9,"distance":90,"magnitude":44.2}'
+[08:35:55.431][D][sensor:129]: 'Raw speed' >> 2.3 km/h
+[08:35:55.431][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.89 km/h
+[08:35:55.431][D][sensor:129]: 'Raw angle' >> 1.7 °
+[08:35:55.431][D][sensor:129]: 'Raw distance' >> 92 cm
+[08:35:55.431][D][sensor:129]: 'Raw magnitude' >> 44.2 W/m²
+[08:35:55.431][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.3,"angle":1.7,"distance":92,"magnitude":44.2}'
+[08:35:55.493][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:35:55.497][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.89 km/h
+[08:35:55.497][D][sensor:129]: 'Raw angle' >> 1.3 °
+[08:35:55.497][D][sensor:129]: 'Raw distance' >> 94 cm
+[08:35:55.497][D][sensor:129]: 'Raw magnitude' >> 44.2 W/m²
+[08:35:55.497][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":1.3,"distance":94,"magnitude":44.2}'
+[08:35:55.556][D][sensor:129]: 'Raw speed' >> 2.0 km/h
+[08:35:55.566][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.89 km/h
+[08:35:55.566][D][sensor:129]: 'Raw angle' >> 13.9 °
+[08:35:55.566][D][sensor:129]: 'Raw distance' >> 133 cm
+[08:35:55.566][D][sensor:129]: 'Raw magnitude' >> 35.2 W/m²
+[08:35:55.566][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.0,"angle":13.9,"distance":133,"magnitude":35.2}'
+[08:35:55.659][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:35:55.659][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.78 km/h
+[08:35:55.659][D][sensor:129]: 'Raw angle' >> 14.0 °
+[08:35:55.660][D][sensor:129]: 'Raw distance' >> 68 cm
+[08:35:55.660][D][sensor:129]: 'Raw magnitude' >> 31.9 W/m²
+[08:35:55.660][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":14.0,"distance":68,"magnitude":31.9}'
+[08:35:55.705][D][sensor:129]: 'Raw speed' >> 2.7 km/h
+[08:35:55.710][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.22 km/h
+[08:35:55.710][D][sensor:129]: 'Raw angle' >> 10.9 °
+[08:35:55.710][D][sensor:129]: 'Raw distance' >> 142 cm
+[08:35:55.710][D][sensor:129]: 'Raw magnitude' >> 29.8 W/m²
+[08:35:55.710][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.7,"angle":10.9,"distance":142,"magnitude":29.8}'
+[08:35:55.744][D][sensor:129]: 'Raw speed' >> 3.1 km/h
+[08:35:55.744][D][sensor:129]: 'Absolute Geschwindigkeit' >> 16.48 km/h
+[08:35:55.744][D][sensor:129]: 'Raw angle' >> 9.7 °
+[08:35:55.745][D][sensor:129]: 'Raw distance' >> 146 cm
+[08:35:55.745][D][sensor:129]: 'Raw magnitude' >> 29.1 W/m²
+[08:35:55.745][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.1,"angle":9.7,"distance":146,"magnitude":29.1}'
+[08:35:55.817][D][sensor:129]: 'Raw speed' >> 4.2 km/h
+[08:35:55.817][D][sensor:129]: 'Absolute Geschwindigkeit' >> 25.16 km/h
+[08:35:55.817][D][sensor:129]: 'Raw angle' >> -5.8 °
+[08:35:55.817][D][sensor:129]: 'Raw distance' >> 83 cm
+[08:35:55.818][D][sensor:129]: 'Raw magnitude' >> 28.5 W/m²
+[08:35:55.818][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.2,"angle":-5.8,"distance":83,"magnitude":28.5}'
+[08:35:55.895][D][sensor:129]: 'Raw speed' >> 4.6 km/h
+[08:35:55.923][D][sensor:129]: 'Absolute Geschwindigkeit' >> 45.21 km/h
+[08:35:55.923][D][sensor:129]: 'Raw angle' >> -4.7 °
+[08:35:55.923][D][sensor:129]: 'Raw distance' >> 315 cm
+[08:35:55.923][D][sensor:129]: 'Raw magnitude' >> 28.3 W/m²
+[08:35:55.923][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.6,"angle":-4.7,"distance":315,"magnitude":28.3}'
+[08:35:55.945][D][binary_sensor:047]: 'pdetect' >> ON
+[08:35:55.946][D][binary_sensor:047]: 'pangle' >> ON
+[08:35:55.946][D][sensor:129]: 'Raw speed' >> 5.2 km/h
+[08:35:55.950][D][sensor:129]: 'Absolute Geschwindigkeit' >> 45.21 km/h
+[08:35:55.950][D][sensor:129]: 'Raw angle' >> -4.2 °
+[08:35:55.950][D][sensor:129]: 'Raw distance' >> 100 cm
+[08:35:56.007][D][sensor:129]: 'Raw magnitude' >> 32.2 W/m²
+[08:35:56.007][D][text_sensor:119]: 'Raw JSON' >> '{"speed":5.2,"angle":-4.2,"distance":100,"magnitude":32.2}'
+[08:35:56.007][D][sensor:129]: 'Raw speed' >> 4.5 km/h
+[08:35:56.016][D][sensor:129]: 'Absolute Geschwindigkeit' >> 45.21 km/h
+[08:35:56.017][D][sensor:129]: 'Raw angle' >> -3.3 °
+[08:35:56.017][D][sensor:129]: 'Raw distance' >> 104 cm
+[08:35:56.032][D][sensor:129]: 'Raw magnitude' >> 42.8 W/m²
+[08:35:56.033][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.5,"angle":-3.3,"distance":104,"magnitude":42.8}'
+[08:35:56.080][D][sensor:129]: 'Raw speed' >> 4.6 km/h
+[08:35:56.080][D][sensor:129]: 'Absolute Geschwindigkeit' >> 45.21 km/h
+[08:35:56.081][D][sensor:129]: 'Raw angle' >> -1.5 °
+[08:35:56.081][D][sensor:129]: 'Raw distance' >> 111 cm
+[08:35:56.114][D][sensor:129]: 'Raw magnitude' >> 37.4 W/m²
+[08:35:56.114][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.6,"angle":-1.5,"distance":111,"magnitude":37.4}'
+[08:35:56.152][D][sensor:129]: 'Raw speed' >> 2.9 km/h
+[08:35:56.153][D][sensor:129]: 'Absolute Geschwindigkeit' >> 45.21 km/h
+[08:35:56.154][D][sensor:129]: 'Raw angle' >> 9.7 °
+[08:35:56.154][D][sensor:129]: 'Raw distance' >> 363 cm
+[08:35:56.154][D][sensor:129]: 'Raw magnitude' >> 34.3 W/m²
+[08:35:56.154][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.9,"angle":9.7,"distance":363,"magnitude":34.3}'
+[08:35:56.154][D][binary_sensor:047]: 'pangle' >> OFF
+[08:35:56.217][D][sensor:129]: 'Raw speed' >> 3.0 km/h
+[08:35:56.218][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.56 km/h
+[08:35:56.218][D][sensor:129]: 'Raw angle' >> 6.9 °
+[08:35:56.226][D][sensor:129]: 'Raw distance' >> 367 cm
+[08:35:56.226][D][sensor:129]: 'Raw magnitude' >> 34.3 W/m²
+[08:35:56.226][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.0,"angle":6.9,"distance":367,"magnitude":34.3}'
+[08:35:56.259][D][sensor:129]: 'Raw speed' >> 3.5 km/h
+[08:35:56.259][D][sensor:129]: 'Absolute Geschwindigkeit' >> 29.18 km/h
+[08:35:56.259][D][sensor:129]: 'Raw angle' >> -6.6 °
+[08:35:56.271][D][sensor:129]: 'Raw distance' >> 127 cm
+[08:35:56.271][D][sensor:129]: 'Raw magnitude' >> 34.4 W/m²
+[08:35:56.271][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.5,"angle":-6.6,"distance":127,"magnitude":34.4}'
+[08:35:56.326][D][sensor:129]: 'Raw speed' >> 1.6 km/h
+[08:35:56.326][D][sensor:129]: 'Absolute Geschwindigkeit' >> 14.22 km/h
+[08:35:56.326][D][sensor:129]: 'Raw angle' >> -37.1 °
+[08:35:56.326][D][sensor:129]: 'Raw distance' >> 35 cm
+[08:35:56.326][D][sensor:129]: 'Raw magnitude' >> 35.6 W/m²
+[08:35:56.326][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.6,"angle":-37.1,"distance":35,"magnitude":35.6}'
+[08:35:56.426][D][sensor:129]: 'Raw speed' >> 1.7 km/h
+[08:35:56.426][D][sensor:129]: 'Absolute Geschwindigkeit' >> 2.77 km/h
+[08:35:56.426][D][sensor:129]: 'Raw angle' >> -34.1 °
+[08:35:56.426][D][sensor:129]: 'Raw distance' >> 38 cm
+[08:35:56.426][D][sensor:129]: 'Raw magnitude' >> 40.0 W/m²
+[08:35:56.426][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.7,"angle":-34.1,"distance":38,"magnitude":40.0}'
+[08:35:56.468][D][sensor:129]: 'Raw speed' >> 3.1 km/h
+[08:35:56.471][D][sensor:129]: 'Absolute Geschwindigkeit' >> 5.47 km/h
+[08:35:56.471][D][sensor:129]: 'Raw angle' >> -4.6 °
+[08:35:56.472][D][sensor:129]: 'Raw distance' >> 144 cm
+[08:35:56.472][D][sensor:129]: 'Raw magnitude' >> 38.4 W/m²
+[08:35:56.472][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.1,"angle":-4.6,"distance":144,"magnitude":38.4}'
+[08:35:56.533][D][sensor:129]: 'Raw speed' >> 1.8 km/h
+[08:35:56.533][D][sensor:129]: 'Absolute Geschwindigkeit' >> 5.47 km/h
+[08:35:56.533][D][sensor:129]: 'Raw angle' >> -27.1 °
+[08:35:56.535][D][sensor:129]: 'Raw distance' >> 46 cm
+[08:35:56.535][D][sensor:129]: 'Raw magnitude' >> 36.8 W/m²
+[08:35:56.535][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.8,"angle":-27.1,"distance":46,"magnitude":36.8}'
+[08:35:56.621][D][sensor:129]: 'Raw speed' >> 1.7 km/h
+[08:35:56.621][D][sensor:129]: 'Absolute Geschwindigkeit' >> 3.82 km/h
+[08:35:56.621][D][sensor:129]: 'Raw angle' >> -25.3 °
+[08:35:56.621][D][sensor:129]: 'Raw distance' >> 49 cm
+[08:35:56.621][D][sensor:129]: 'Raw magnitude' >> 36.8 W/m²
+[08:35:56.621][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.7,"angle":-25.3,"distance":49,"magnitude":36.8}'
+[08:35:56.654][D][sensor:129]: 'Raw speed' >> 1.7 km/h
+[08:35:56.654][D][sensor:129]: 'Absolute Geschwindigkeit' >> 4.00 km/h
+[08:35:56.654][D][sensor:129]: 'Raw angle' >> -24.2 °
+[08:35:56.656][D][sensor:129]: 'Raw distance' >> 51 cm
+[08:35:56.656][D][sensor:129]: 'Raw magnitude' >> 36.8 W/m²
+[08:35:56.656][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.7,"angle":-24.2,"distance":51,"magnitude":36.8}'
+[08:35:56.705][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:35:56.708][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.80 km/h
+[08:35:56.708][D][sensor:129]: 'Raw angle' >> 4.8 °
+[08:35:56.708][D][sensor:129]: 'Raw distance' >> 101 cm
+[08:35:56.708][D][sensor:129]: 'Raw magnitude' >> 42.0 W/m²
+[08:35:56.708][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":4.8,"distance":101,"magnitude":42.0}'
+[08:35:56.793][D][sensor:129]: 'Raw speed' >> 3.0 km/h
+[08:35:56.793][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.80 km/h
+[08:35:56.793][D][sensor:129]: 'Raw angle' >> 4.1 °
+[08:35:56.793][D][sensor:129]: 'Raw distance' >> 107 cm
+[08:35:56.793][D][sensor:129]: 'Raw magnitude' >> 40.7 W/m²
+[08:35:56.793][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.0,"angle":4.1,"distance":107,"magnitude":40.7}'
+[08:35:56.835][D][sensor:129]: 'Raw speed' >> 3.7 km/h
+[08:35:56.839][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.80 km/h
+[08:35:56.839][D][sensor:129]: 'Raw angle' >> 6.8 °
+[08:35:56.839][D][sensor:129]: 'Raw distance' >> 180 cm
+[08:35:56.839][D][sensor:129]: 'Raw magnitude' >> 35.8 W/m²
+[08:35:56.839][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.7,"angle":6.8,"distance":180,"magnitude":35.8}'
+[08:35:56.898][D][sensor:129]: 'Raw speed' >> 3.8 km/h
+[08:35:56.902][D][sensor:129]: 'Absolute Geschwindigkeit' >> 31.96 km/h
+[08:35:56.902][D][sensor:129]: 'Raw angle' >> 6.5 °
+[08:35:56.902][D][sensor:129]: 'Raw distance' >> 185 cm
+[08:35:56.902][D][sensor:129]: 'Raw magnitude' >> 35.8 W/m²
+[08:35:56.903][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.8,"angle":6.5,"distance":185,"magnitude":35.8}'
+[08:35:56.962][D][sensor:129]: 'Raw speed' >> 3.7 km/h
+[08:35:56.962][D][sensor:129]: 'Absolute Geschwindigkeit' >> 32.71 km/h
+[08:35:56.962][D][sensor:129]: 'Raw angle' >> 0.7 °
+[08:35:56.962][D][sensor:129]: 'Raw distance' >> 57 cm
+[08:35:56.962][D][sensor:129]: 'Raw magnitude' >> 35.6 W/m²
+[08:35:56.962][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.7,"angle":0.7,"distance":57,"magnitude":35.6}'
+[08:35:57.043][D][sensor:129]: 'Raw speed' >> 4.5 km/h
+[08:35:57.043][D][sensor:129]: 'Absolute Geschwindigkeit' >> 32.71 km/h
+[08:35:57.043][D][sensor:129]: 'Raw angle' >> 4.6 °
+[08:35:57.044][D][sensor:129]: 'Raw distance' >> 65 cm
+[08:35:57.044][D][sensor:129]: 'Raw magnitude' >> 31.2 W/m²
+[08:35:57.044][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.5,"angle":4.6,"distance":65,"magnitude":31.2}'
+[08:35:57.094][D][sensor:129]: 'Raw speed' >> 3.9 km/h
+[08:35:57.094][D][sensor:129]: 'Absolute Geschwindigkeit' >> 32.71 km/h
+[08:35:57.094][D][sensor:129]: 'Raw angle' >> 6.7 °
+[08:35:57.096][D][sensor:129]: 'Raw distance' >> 205 cm
+[08:35:57.096][D][sensor:129]: 'Raw magnitude' >> 31.2 W/m²
+[08:35:57.096][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.9,"angle":6.7,"distance":205,"magnitude":31.2}'
+[08:35:57.153][D][sensor:129]: 'Raw speed' >> 4.4 km/h
+[08:35:57.153][D][sensor:129]: 'Absolute Geschwindigkeit' >> 37.46 km/h
+[08:35:57.153][D][sensor:129]: 'Raw angle' >> 6.2 °
+[08:35:57.154][D][sensor:129]: 'Raw distance' >> 75 cm
+[08:35:57.154][D][sensor:129]: 'Raw magnitude' >> 38.2 W/m²
+[08:35:57.154][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.4,"angle":6.2,"distance":75,"magnitude":38.2}'
+[08:35:57.211][D][sensor:129]: 'Raw speed' >> 3.8 km/h
+[08:35:57.211][D][sensor:129]: 'Absolute Geschwindigkeit' >> 34.96 km/h
+[08:35:57.211][D][sensor:129]: 'Raw angle' >> 5.4 °
+[08:35:57.211][D][sensor:129]: 'Raw distance' >> 79 cm
+[08:35:57.211][D][sensor:129]: 'Raw magnitude' >> 42.7 W/m²
+[08:35:57.211][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.8,"angle":5.4,"distance":79,"magnitude":42.7}'
+[08:35:57.266][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:35:57.270][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.30 km/h
+[08:35:57.270][D][sensor:129]: 'Raw angle' >> 3.0 °
+[08:35:57.273][D][sensor:129]: 'Raw distance' >> 83 cm
+[08:35:57.273][D][sensor:129]: 'Raw magnitude' >> 42.7 W/m²
+[08:35:57.273][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":3.0,"distance":83,"magnitude":42.7}'
+[08:35:57.330][D][binary_sensor:047]: 'pdetect' >> OFF
+[08:35:57.330][D][sensor:129]: 'Raw speed' >> 3.7 km/h
+[08:35:57.330][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.30 km/h
+[08:35:57.333][D][sensor:129]: 'Raw angle' >> 2.2 °
+[08:35:57.333][D][sensor:129]: 'Raw distance' >> 90 cm
+[08:35:57.333][D][sensor:129]: 'Raw magnitude' >> 37.4 W/m²
+[08:35:57.381][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.7,"angle":2.2,"distance":90,"magnitude":37.4}'
+[08:35:57.414][D][sensor:129]: 'Raw speed' >> 3.4 km/h
+[08:35:57.414][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.30 km/h
+[08:35:57.416][D][sensor:129]: 'Raw angle' >> -1.6 °
+[08:35:57.416][D][sensor:129]: 'Raw distance' >> 159 cm
+[08:35:57.416][D][sensor:129]: 'Raw magnitude' >> 39.1 W/m²
+[08:35:57.474][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.4,"angle":-1.6,"distance":159,"magnitude":39.1}'
+[08:35:57.474][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:35:57.474][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.30 km/h
+[08:35:57.477][D][sensor:129]: 'Raw angle' >> -4.1 °
+[08:35:57.477][D][sensor:129]: 'Raw distance' >> 164 cm
+[08:35:57.477][D][sensor:129]: 'Raw magnitude' >> 39.1 W/m²
+[08:35:57.496][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":-4.1,"distance":164,"magnitude":39.1}'
+[08:35:57.520][D][sensor:129]: 'Raw speed' >> 3.7 km/h
+[08:35:57.520][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.30 km/h
+[08:35:57.522][D][sensor:129]: 'Raw angle' >> -0.1 °
+[08:35:57.522][D][sensor:129]: 'Raw distance' >> 109 cm
+[08:35:57.523][D][sensor:129]: 'Raw magnitude' >> 42.0 W/m²
+[08:35:57.586][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.7,"angle":-0.1,"distance":109,"magnitude":42.0}'
+[08:35:57.587][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:35:57.587][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.30 km/h
+[08:35:57.587][D][sensor:129]: 'Raw angle' >> -0.6 °
+[08:35:57.587][D][sensor:129]: 'Raw distance' >> 113 cm
+[08:35:57.587][D][sensor:129]: 'Raw magnitude' >> 42.0 W/m²
+[08:35:57.604][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":-0.6,"distance":113,"magnitude":42.0}'
+[08:35:57.668][D][sensor:129]: 'Raw speed' >> 2.8 km/h
+[08:35:57.668][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.30 km/h
+[08:35:57.670][D][sensor:129]: 'Raw angle' >> -1.1 °
+[08:35:57.670][D][sensor:129]: 'Raw distance' >> 118 cm
+[08:35:57.670][D][sensor:129]: 'Raw magnitude' >> 42.0 W/m²
+[08:35:57.690][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.8,"angle":-1.1,"distance":118,"magnitude":42.0}'
+[08:35:57.732][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:35:57.732][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.30 km/h
+[08:35:57.738][D][sensor:129]: 'Raw angle' >> -2.8 °
+[08:35:57.738][D][sensor:129]: 'Raw distance' >> 123 cm
+[08:35:57.738][D][sensor:129]: 'Raw magnitude' >> 34.5 W/m²
+[08:35:57.757][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":-2.8,"distance":123,"magnitude":34.5}'
+[08:35:57.775][D][sensor:129]: 'Raw speed' >> 3.6 km/h
+[08:35:57.775][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.30 km/h
+[08:35:57.786][D][sensor:129]: 'Raw angle' >> -3.9 °
+[08:35:57.786][D][sensor:129]: 'Raw distance' >> 129 cm
+[08:35:57.786][D][sensor:129]: 'Raw magnitude' >> 34.5 W/m²
+[08:35:57.843][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.6,"angle":-3.9,"distance":129,"magnitude":34.5}'
+[08:35:57.843][D][sensor:129]: 'Raw speed' >> 4.1 km/h
+[08:35:57.843][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.30 km/h
+[08:35:57.845][D][sensor:129]: 'Raw angle' >> -16.4 °
+[08:35:57.845][D][sensor:129]: 'Raw distance' >> 88 cm
+[08:35:57.845][D][sensor:129]: 'Raw magnitude' >> 36.5 W/m²
+[08:35:57.864][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.1,"angle":-16.4,"distance":88,"magnitude":36.5}'
+[08:35:57.899][D][sensor:129]: 'Raw speed' >> 3.5 km/h
+[08:35:57.899][D][sensor:129]: 'Absolute Geschwindigkeit' >> 12.47 km/h
+[08:35:57.899][D][sensor:129]: 'Raw angle' >> -14.6 °
+[08:35:57.899][D][sensor:129]: 'Raw distance' >> 91 cm
+[08:35:57.899][D][sensor:129]: 'Raw magnitude' >> 41.1 W/m²
+[08:35:57.921][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.5,"angle":-14.6,"distance":91,"magnitude":41.1}'
+[08:35:57.951][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:35:57.952][D][sensor:129]: 'Absolute Geschwindigkeit' >> 12.94 km/h
+[08:35:57.952][D][sensor:129]: 'Raw angle' >> -11.7 °
+[08:35:57.952][D][sensor:129]: 'Raw distance' >> 95 cm
+[08:35:57.952][D][sensor:129]: 'Raw magnitude' >> 40.2 W/m²
+[08:35:57.969][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":-11.7,"distance":95,"magnitude":40.2}'
+[08:35:58.012][D][sensor:129]: 'Raw speed' >> 3.4 km/h
+[08:35:58.013][D][sensor:129]: 'Absolute Geschwindigkeit' >> 16.86 km/h
+[08:35:58.033][D][sensor:129]: 'Raw angle' >> -11.2 °
+[08:35:58.033][D][sensor:129]: 'Raw distance' >> 101 cm
+[08:35:58.033][D][sensor:129]: 'Raw magnitude' >> 35.2 W/m²
+[08:35:58.057][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.4,"angle":-11.2,"distance":101,"magnitude":35.2}'
+[08:35:58.076][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:35:58.076][D][sensor:129]: 'Absolute Geschwindigkeit' >> 16.57 km/h
+[08:35:58.079][D][sensor:129]: 'Raw angle' >> -13.4 °
+[08:35:58.079][D][sensor:129]: 'Raw distance' >> 104 cm
+[08:35:58.079][D][sensor:129]: 'Raw magnitude' >> 40.6 W/m²
+[08:35:58.152][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":-13.4,"distance":104,"magnitude":40.6}'
+[08:35:58.153][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:35:58.153][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.00 km/h
+[08:35:58.153][D][sensor:129]: 'Raw angle' >> -12.1 °
+[08:35:58.153][D][sensor:129]: 'Raw distance' >> 108 cm
+[08:35:58.154][D][sensor:129]: 'Raw magnitude' >> 41.1 W/m²
+[08:35:58.177][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":-12.1,"distance":108,"magnitude":41.1}'
+[08:35:58.224][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:35:58.226][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.95 km/h
+[08:35:58.226][D][sensor:129]: 'Raw angle' >> -11.2 °
+[08:35:58.227][D][sensor:129]: 'Raw distance' >> 112 cm
+[08:35:58.227][D][sensor:129]: 'Raw magnitude' >> 40.0 W/m²
+[08:35:58.246][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":-11.2,"distance":112,"magnitude":40.0}'
+[08:35:58.268][D][sensor:129]: 'Raw speed' >> 5.0 km/h
+[08:35:58.269][D][sensor:129]: 'Absolute Geschwindigkeit' >> 25.75 km/h
+[08:35:58.271][D][sensor:129]: 'Raw angle' >> 2.2 °
+[08:35:58.273][D][sensor:129]: 'Raw distance' >> 75 cm
+[08:35:58.273][D][sensor:129]: 'Raw magnitude' >> 38.3 W/m²
+[08:35:58.288][D][text_sensor:119]: 'Raw JSON' >> '{"speed":5.0,"angle":2.2,"distance":75,"magnitude":38.3}'
+[08:35:58.342][D][sensor:129]: 'Raw speed' >> 2.7 km/h
+[08:35:58.342][D][sensor:129]: 'Absolute Geschwindigkeit' >> 25.75 km/h
+[08:35:58.342][D][sensor:129]: 'Raw angle' >> -10.0 °
+[08:35:58.342][D][sensor:129]: 'Raw distance' >> 122 cm
+[08:35:58.342][D][sensor:129]: 'Raw magnitude' >> 36.7 W/m²
+[08:35:58.358][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.7,"angle":-10.0,"distance":122,"magnitude":36.7}'
+[08:35:58.415][D][sensor:129]: 'Raw speed' >> 2.8 km/h
+[08:35:58.415][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.98 km/h
+[08:35:58.415][D][sensor:129]: 'Raw angle' >> -20.3 °
+[08:35:58.415][D][sensor:129]: 'Raw distance' >> 129 cm
+[08:35:58.415][D][sensor:129]: 'Raw magnitude' >> 34.3 W/m²
+[08:35:58.438][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.8,"angle":-20.3,"distance":129,"magnitude":34.3}'
+[08:35:58.461][D][sensor:129]: 'Raw speed' >> 2.7 km/h
+[08:35:58.461][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.67 km/h
+[08:35:58.463][D][sensor:129]: 'Raw angle' >> -9.7 °
+[08:35:58.463][D][sensor:129]: 'Raw distance' >> 132 cm
+[08:35:58.463][D][sensor:129]: 'Raw magnitude' >> 36.4 W/m²
+[08:35:58.526][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.7,"angle":-9.7,"distance":132,"magnitude":36.4}'
+[08:35:58.526][D][sensor:129]: 'Raw speed' >> 1.6 km/h
+[08:35:58.526][D][sensor:129]: 'Absolute Geschwindigkeit' >> 9.28 km/h
+[08:35:58.538][D][sensor:129]: 'Raw angle' >> 10.7 °
+[08:35:58.538][D][sensor:129]: 'Raw distance' >> 33 cm
+[08:35:58.538][D][sensor:129]: 'Raw magnitude' >> 42.7 W/m²
+[08:35:58.554][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.6,"angle":10.7,"distance":33,"magnitude":42.7}'
+[08:35:58.589][D][sensor:129]: 'Raw speed' >> 1.6 km/h
+[08:35:58.589][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.56 km/h
+[08:35:58.593][D][sensor:129]: 'Raw angle' >> 6.6 °
+[08:35:58.593][D][sensor:129]: 'Raw distance' >> 36 cm
+[08:35:58.593][D][sensor:129]: 'Raw magnitude' >> 40.7 W/m²
+[08:35:58.669][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.6,"angle":6.6,"distance":36,"magnitude":40.7}'
+[08:35:58.669][D][sensor:129]: 'Raw speed' >> 1.8 km/h
+[08:35:58.669][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.45 km/h
+[08:35:58.673][D][sensor:129]: 'Raw angle' >> 1.4 °
+[08:35:58.673][D][sensor:129]: 'Raw distance' >> 41 cm
+[08:35:58.673][D][sensor:129]: 'Raw magnitude' >> 40.7 W/m²
+[08:35:58.708][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.8,"angle":1.4,"distance":41,"magnitude":40.7}'
+[08:35:58.743][D][sensor:129]: 'Raw speed' >> 2.0 km/h
+[08:35:58.743][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.45 km/h
+[08:35:58.743][D][sensor:129]: 'Raw angle' >> -3.8 °
+[08:35:58.743][D][sensor:129]: 'Raw distance' >> 143 cm
+[08:35:58.743][D][sensor:129]: 'Raw magnitude' >> 40.7 W/m²
+[08:35:58.775][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.0,"angle":-3.8,"distance":143,"magnitude":40.7}'
+[08:35:58.787][D][sensor:129]: 'Raw speed' >> 1.9 km/h
+[08:35:58.787][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.45 km/h
+[08:35:58.787][D][sensor:129]: 'Raw angle' >> 2.7 °
+[08:35:58.787][D][sensor:129]: 'Raw distance' >> 145 cm
+[08:35:58.787][D][sensor:129]: 'Raw magnitude' >> 42.2 W/m²
+[08:35:58.809][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.9,"angle":2.7,"distance":145,"magnitude":42.2}'
+[08:35:58.843][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:35:58.844][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.45 km/h
+[08:35:58.844][D][sensor:129]: 'Raw angle' >> 6.0 °
+[08:35:58.844][D][sensor:129]: 'Raw distance' >> 53 cm
+[08:35:58.844][D][sensor:129]: 'Raw magnitude' >> 39.4 W/m²
+[08:35:58.858][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":6.0,"distance":53,"magnitude":39.4}'
+[08:35:58.902][D][sensor:129]: 'Raw speed' >> 2.8 km/h
+[08:35:58.904][D][sensor:129]: 'Absolute Geschwindigkeit' >> 26.55 km/h
+[08:35:58.904][D][sensor:129]: 'Raw angle' >> 6.2 °
+[08:35:58.904][D][sensor:129]: 'Raw distance' >> 57 cm
+[08:35:58.904][D][sensor:129]: 'Raw magnitude' >> 36.1 W/m²
+[08:35:58.929][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.8,"angle":6.2,"distance":57,"magnitude":36.1}'
+[08:35:58.969][D][sensor:129]: 'Raw speed' >> 3.0 km/h
+[08:35:58.977][D][sensor:129]: 'Absolute Geschwindigkeit' >> 27.60 km/h
+[08:35:58.978][D][sensor:129]: 'Raw angle' >> 9.2 °
+[08:35:58.978][D][sensor:129]: 'Raw distance' >> 63 cm
+[08:35:58.978][D][sensor:129]: 'Raw magnitude' >> 36.1 W/m²
+[08:35:59.010][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.0,"angle":9.2,"distance":63,"magnitude":36.1}'
+[08:35:59.010][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:35:59.010][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.57 km/h
+[08:35:59.015][D][sensor:129]: 'Raw angle' >> 11.2 °
+[08:35:59.015][D][sensor:129]: 'Raw distance' >> 121 cm
+[08:35:59.015][D][sensor:129]: 'Raw magnitude' >> 36.3 W/m²
+[08:35:59.079][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":11.2,"distance":121,"magnitude":36.3}'
+[08:35:59.080][D][sensor:129]: 'Raw speed' >> 3.0 km/h
+[08:35:59.080][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.62 km/h
+[08:35:59.080][D][sensor:129]: 'Raw angle' >> 6.9 °
+[08:35:59.080][D][sensor:129]: 'Raw distance' >> 70 cm
+[08:35:59.080][D][sensor:129]: 'Raw magnitude' >> 42.5 W/m²
+[08:35:59.095][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.0,"angle":6.9,"distance":70,"magnitude":42.5}'
+[08:35:59.136][D][sensor:129]: 'Raw speed' >> 3.0 km/h
+[08:35:59.137][D][sensor:129]: 'Absolute Geschwindigkeit' >> 24.75 km/h
+[08:35:59.148][D][sensor:129]: 'Raw angle' >> 5.6 °
+[08:35:59.148][D][sensor:129]: 'Raw distance' >> 74 cm
+[08:35:59.148][D][sensor:129]: 'Raw magnitude' >> 44.6 W/m²
+[08:35:59.224][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.0,"angle":5.6,"distance":74,"magnitude":44.6}'
+[08:35:59.226][D][sensor:129]: 'Raw speed' >> 3.0 km/h
+[08:35:59.226][D][sensor:129]: 'Absolute Geschwindigkeit' >> 30.28 km/h
+[08:35:59.226][D][sensor:129]: 'Raw angle' >> 1.1 °
+[08:35:59.226][D][sensor:129]: 'Raw distance' >> 82 cm
+[08:35:59.227][D][sensor:129]: 'Raw magnitude' >> 43.2 W/m²
+[08:35:59.247][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.0,"angle":1.1,"distance":82,"magnitude":43.2}'
+[08:35:59.280][D][sensor:129]: 'Raw speed' >> 2.7 km/h
+[08:35:59.283][D][sensor:129]: 'Absolute Geschwindigkeit' >> 30.28 km/h
+[08:35:59.283][D][sensor:129]: 'Raw angle' >> -0.0 °
+[08:35:59.283][D][sensor:129]: 'Raw distance' >> 86 cm
+[08:35:59.283][D][sensor:129]: 'Raw magnitude' >> 43.7 W/m²
+[08:35:59.301][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.7,"angle":-0.0,"distance":86,"magnitude":43.7}'
+[08:35:59.334][D][sensor:129]: 'Raw speed' >> 2.8 km/h
+[08:35:59.334][D][sensor:129]: 'Absolute Geschwindigkeit' >> 30.28 km/h
+[08:35:59.334][D][sensor:129]: 'Raw angle' >> -1.1 °
+[08:35:59.334][D][sensor:129]: 'Raw distance' >> 91 cm
+[08:35:59.334][D][sensor:129]: 'Raw magnitude' >> 44.0 W/m²
+[08:35:59.354][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.8,"angle":-1.1,"distance":91,"magnitude":44.0}'
+[08:35:59.396][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:35:59.396][D][sensor:129]: 'Absolute Geschwindigkeit' >> 30.28 km/h
+[08:35:59.396][D][sensor:129]: 'Raw angle' >> -4.9 °
+[08:35:59.396][D][sensor:129]: 'Raw distance' >> 136 cm
+[08:35:59.396][D][sensor:129]: 'Raw magnitude' >> 37.8 W/m²
+[08:35:59.413][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":-4.9,"distance":136,"magnitude":37.8}'
+[08:35:59.463][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:35:59.463][D][sensor:129]: 'Absolute Geschwindigkeit' >> 30.28 km/h
+[08:35:59.464][D][sensor:129]: 'Raw angle' >> -6.3 °
+[08:35:59.464][D][sensor:129]: 'Raw distance' >> 139 cm
+[08:35:59.464][D][sensor:129]: 'Raw magnitude' >> 37.8 W/m²
+[08:35:59.481][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":-6.3,"distance":139,"magnitude":37.8}'
+[08:35:59.537][D][sensor:129]: 'Raw speed' >> 2.3 km/h
+[08:35:59.537][D][sensor:129]: 'Absolute Geschwindigkeit' >> 20.98 km/h
+[08:35:59.537][D][sensor:129]: 'Raw angle' >> -7.2 °
+[08:35:59.537][D][sensor:129]: 'Raw distance' >> 142 cm
+[08:35:59.537][D][sensor:129]: 'Raw magnitude' >> 37.8 W/m²
+[08:35:59.569][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.3,"angle":-7.2,"distance":142,"magnitude":37.8}'
+[08:35:59.586][D][sensor:129]: 'Raw speed' >> 4.1 km/h
+[08:35:59.587][D][sensor:129]: 'Absolute Geschwindigkeit' >> 32.59 km/h
+[08:35:59.588][D][sensor:129]: 'Raw angle' >> 0.3 °
+[08:35:59.588][D][sensor:129]: 'Raw distance' >> 115 cm
+[08:35:59.588][D][sensor:129]: 'Raw magnitude' >> 32.8 W/m²
+[08:35:59.648][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.1,"angle":0.3,"distance":115,"magnitude":32.8}'
+[08:35:59.648][D][sensor:129]: 'Raw speed' >> 3.0 km/h
+[08:35:59.648][D][sensor:129]: 'Absolute Geschwindigkeit' >> 32.59 km/h
+[08:35:59.652][D][sensor:129]: 'Raw angle' >> 11.6 °
+[08:35:59.652][D][sensor:129]: 'Raw distance' >> 381 cm
+[08:35:59.652][D][sensor:129]: 'Raw magnitude' >> 29.1 W/m²
+[08:35:59.672][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.0,"angle":11.6,"distance":381,"magnitude":29.1}'
+[08:35:59.709][D][sensor:129]: 'Raw speed' >> 3.7 km/h
+[08:35:59.709][D][sensor:129]: 'Absolute Geschwindigkeit' >> 18.60 km/h
+[08:35:59.710][D][sensor:129]: 'Raw angle' >> -15.5 °
+[08:35:59.711][D][sensor:129]: 'Raw distance' >> 42 cm
+[08:35:59.711][D][sensor:129]: 'Raw magnitude' >> 39.0 W/m²
+[08:35:59.796][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.7,"angle":-15.5,"distance":42,"magnitude":39.0}'
+[08:35:59.796][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:35:59.796][D][sensor:129]: 'Absolute Geschwindigkeit' >> 12.33 km/h
+[08:35:59.796][D][sensor:129]: 'Raw angle' >> -15.9 °
+[08:35:59.796][D][sensor:129]: 'Raw distance' >> 48 cm
+[08:35:59.796][D][sensor:129]: 'Raw magnitude' >> 38.3 W/m²
+[08:35:59.817][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":-15.9,"distance":48,"magnitude":38.3}'
+[08:35:59.840][D][sensor:129]: 'Raw speed' >> 2.8 km/h
+[08:35:59.841][D][sensor:129]: 'Absolute Geschwindigkeit' >> 10.35 km/h
+[08:35:59.843][D][sensor:129]: 'Raw angle' >> -19.2 °
+[08:35:59.843][D][sensor:129]: 'Raw distance' >> 52 cm
+[08:35:59.843][D][sensor:129]: 'Raw magnitude' >> 37.7 W/m²
+[08:35:59.898][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.8,"angle":-19.2,"distance":52,"magnitude":37.7}'
+[08:35:59.898][D][sensor:129]: 'Raw speed' >> 2.3 km/h
+[08:35:59.898][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.01 km/h
+[08:35:59.908][D][sensor:129]: 'Raw angle' >> -20.5 °
+[08:35:59.908][D][sensor:129]: 'Raw distance' >> 54 cm
+[08:35:59.908][D][sensor:129]: 'Raw magnitude' >> 39.4 W/m²
+[08:35:59.930][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.3,"angle":-20.5,"distance":54,"magnitude":39.4}'
+[08:35:59.969][D][sensor:129]: 'Raw speed' >> 1.9 km/h
+[08:35:59.969][D][sensor:129]: 'Absolute Geschwindigkeit' >> 5.34 km/h
+[08:35:59.978][D][sensor:129]: 'Raw angle' >> -18.0 °
+[08:35:59.978][D][sensor:129]: 'Raw distance' >> 57 cm
+[08:35:59.978][D][sensor:129]: 'Raw magnitude' >> 42.0 W/m²
+[08:36:00.053][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.9,"angle":-18.0,"distance":57,"magnitude":42.0}'
+[08:36:00.053][D][sensor:129]: 'Raw speed' >> 1.4 km/h
+[08:36:00.053][D][sensor:129]: 'Absolute Geschwindigkeit' >> 4.65 km/h
+[08:36:00.053][D][sensor:129]: 'Raw angle' >> -15.4 °
+[08:36:00.054][D][sensor:129]: 'Raw distance' >> 61 cm
+[08:36:00.054][D][sensor:129]: 'Raw magnitude' >> 40.1 W/m²
+[08:36:00.073][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.4,"angle":-15.4,"distance":61,"magnitude":40.1}'
+[08:36:00.100][D][sensor:129]: 'Raw speed' >> 4.0 km/h
+[08:36:00.100][D][sensor:129]: 'Absolute Geschwindigkeit' >> 14.92 km/h
+[08:36:00.103][D][sensor:129]: 'Raw angle' >> -9.6 °
+[08:36:00.103][D][sensor:129]: 'Raw distance' >> 168 cm
+[08:36:00.103][D][sensor:129]: 'Raw magnitude' >> 38.2 W/m²
+[08:36:00.166][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.0,"angle":-9.6,"distance":168,"magnitude":38.2}'
+[08:36:00.166][D][sensor:129]: 'Raw speed' >> 3.4 km/h
+[08:36:00.166][D][sensor:129]: 'Absolute Geschwindigkeit' >> 20.53 km/h
+[08:36:00.166][D][sensor:129]: 'Raw angle' >> -1.8 °
+[08:36:00.166][D][sensor:129]: 'Raw distance' >> 172 cm
+[08:36:00.166][D][sensor:129]: 'Raw magnitude' >> 38.2 W/m²
+[08:36:00.183][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.4,"angle":-1.8,"distance":172,"magnitude":38.2}'
+[08:36:00.210][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:36:00.210][D][sensor:129]: 'Absolute Geschwindigkeit' >> 20.53 km/h
+[08:36:00.210][D][sensor:129]: 'Raw angle' >> 2.3 °
+[08:36:00.210][D][sensor:129]: 'Raw distance' >> 177 cm
+[08:36:00.210][D][sensor:129]: 'Raw magnitude' >> 36.6 W/m²
+[08:36:00.232][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":2.3,"distance":177,"magnitude":36.6}'
+[08:36:00.269][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:36:00.269][D][sensor:129]: 'Absolute Geschwindigkeit' >> 20.53 km/h
+[08:36:00.294][D][sensor:129]: 'Raw angle' >> 5.4 °
+[08:36:00.294][D][sensor:129]: 'Raw distance' >> 180 cm
+[08:36:00.294][D][sensor:129]: 'Raw magnitude' >> 36.6 W/m²
+[08:36:00.338][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":5.4,"distance":180,"magnitude":36.6}'
+[08:36:00.338][D][sensor:129]: 'Raw speed' >> 2.3 km/h
+[08:36:00.338][D][sensor:129]: 'Absolute Geschwindigkeit' >> 24.74 km/h
+[08:36:00.338][D][sensor:129]: 'Raw angle' >> -2.8 °
+[08:36:00.338][D][sensor:129]: 'Raw distance' >> 124 cm
+[08:36:00.338][D][sensor:129]: 'Raw magnitude' >> 44.2 W/m²
+[08:36:00.359][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.3,"angle":-2.8,"distance":124,"magnitude":44.2}'
+[08:36:00.401][D][sensor:129]: 'Raw speed' >> 2.4 km/h
+[08:36:00.401][D][sensor:129]: 'Absolute Geschwindigkeit' >> 24.74 km/h
+[08:36:00.402][D][sensor:129]: 'Raw angle' >> -3.1 °
+[08:36:00.402][D][sensor:129]: 'Raw distance' >> 127 cm
+[08:36:00.402][D][sensor:129]: 'Raw magnitude' >> 41.6 W/m²
+[08:36:00.484][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.4,"angle":-3.1,"distance":127,"magnitude":41.6}'
+[08:36:00.487][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:36:00.487][D][sensor:129]: 'Absolute Geschwindigkeit' >> 24.74 km/h
+[08:36:00.487][D][sensor:129]: 'Raw angle' >> -4.1 °
+[08:36:00.487][D][sensor:129]: 'Raw distance' >> 132 cm
+[08:36:00.487][D][sensor:129]: 'Raw magnitude' >> 41.6 W/m²
+[08:36:00.504][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":-4.1,"distance":132,"magnitude":41.6}'
+[08:36:00.532][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:36:00.532][D][sensor:129]: 'Absolute Geschwindigkeit' >> 24.74 km/h
+[08:36:00.532][D][sensor:129]: 'Raw angle' >> -4.8 °
+[08:36:00.532][D][sensor:129]: 'Raw distance' >> 136 cm
+[08:36:00.533][D][sensor:129]: 'Raw magnitude' >> 41.6 W/m²
+[08:36:00.561][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":-4.8,"distance":136,"magnitude":41.6}'
+[08:36:00.612][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:36:00.612][D][sensor:129]: 'Absolute Geschwindigkeit' >> 24.74 km/h
+[08:36:00.612][D][sensor:129]: 'Raw angle' >> -5.3 °
+[08:36:00.612][D][sensor:129]: 'Raw distance' >> 139 cm
+[08:36:00.612][D][sensor:129]: 'Raw magnitude' >> 41.6 W/m²
+[08:36:00.628][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":-5.3,"distance":139,"magnitude":41.6}'
+[08:36:00.677][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:36:00.677][D][sensor:129]: 'Absolute Geschwindigkeit' >> 26.78 km/h
+[08:36:00.687][D][sensor:129]: 'Raw angle' >> -0.3 °
+[08:36:00.688][D][sensor:129]: 'Raw distance' >> 26 cm
+[08:36:00.688][D][sensor:129]: 'Raw magnitude' >> 42.4 W/m²
+[08:36:00.728][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":-0.3,"distance":26,"magnitude":42.4}'
+[08:36:00.728][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:36:00.728][D][sensor:129]: 'Absolute Geschwindigkeit' >> 26.78 km/h
+[08:36:00.730][D][sensor:129]: 'Raw angle' >> -0.6 °
+[08:36:00.730][D][sensor:129]: 'Raw distance' >> 30 cm
+[08:36:00.730][D][sensor:129]: 'Raw magnitude' >> 42.4 W/m²
+[08:36:00.787][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":-0.6,"distance":30,"magnitude":42.4}'
+[08:36:00.787][D][sensor:129]: 'Raw speed' >> 2.0 km/h
+[08:36:00.787][D][sensor:129]: 'Absolute Geschwindigkeit' >> 26.78 km/h
+[08:36:00.795][D][sensor:129]: 'Raw angle' >> -2.2 °
+[08:36:00.795][D][sensor:129]: 'Raw distance' >> 33 cm
+[08:36:00.795][D][sensor:129]: 'Raw magnitude' >> 44.2 W/m²
+[08:36:00.813][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.0,"angle":-2.2,"distance":33,"magnitude":44.2}'
+[08:36:00.850][D][sensor:129]: 'Raw speed' >> 1.7 km/h
+[08:36:00.851][D][sensor:129]: 'Absolute Geschwindigkeit' >> 26.78 km/h
+[08:36:00.852][D][sensor:129]: 'Raw angle' >> -3.6 °
+[08:36:00.852][D][sensor:129]: 'Raw distance' >> 36 cm
+[08:36:00.852][D][sensor:129]: 'Raw magnitude' >> 44.2 W/m²
+[08:36:00.895][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.7,"angle":-3.6,"distance":36,"magnitude":44.2}'
+[08:36:00.895][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:36:00.895][D][sensor:129]: 'Absolute Geschwindigkeit' >> 26.78 km/h
+[08:36:00.897][D][sensor:129]: 'Raw angle' >> -7.2 °
+[08:36:00.897][D][sensor:129]: 'Raw distance' >> 115 cm
+[08:36:00.897][D][sensor:129]: 'Raw magnitude' >> 41.0 W/m²
+[08:36:00.967][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":-7.2,"distance":115,"magnitude":41.0}'
+[08:36:00.967][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:36:00.967][D][sensor:129]: 'Absolute Geschwindigkeit' >> 20.64 km/h
+[08:36:00.967][D][sensor:129]: 'Raw angle' >> -8.2 °
+[08:36:00.967][D][sensor:129]: 'Raw distance' >> 118 cm
+[08:36:00.967][D][sensor:129]: 'Raw magnitude' >> 41.0 W/m²
+[08:36:00.981][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":-8.2,"distance":118,"magnitude":41.0}'
+[08:36:01.022][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:36:01.022][D][sensor:129]: 'Absolute Geschwindigkeit' >> 18.12 km/h
+[08:36:01.024][D][sensor:129]: 'Raw angle' >> -8.8 °
+[08:36:01.024][D][sensor:129]: 'Raw distance' >> 120 cm
+[08:36:01.024][D][sensor:129]: 'Raw magnitude' >> 41.0 W/m²
+[08:36:01.074][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":-8.8,"distance":120,"magnitude":41.0}'
+[08:36:01.075][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:36:01.075][D][sensor:129]: 'Absolute Geschwindigkeit' >> 21.72 km/h
+[08:36:01.075][D][sensor:129]: 'Raw angle' >> 1.3 °
+[08:36:01.075][D][sensor:129]: 'Raw distance' >> 188 cm
+[08:36:01.075][D][sensor:129]: 'Raw magnitude' >> 36.3 W/m²
+[08:36:01.090][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":1.3,"distance":188,"magnitude":36.3}'
+[08:36:01.136][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:36:01.136][D][sensor:129]: 'Absolute Geschwindigkeit' >> 21.72 km/h
+[08:36:01.137][D][sensor:129]: 'Raw angle' >> 1.5 °
+[08:36:01.137][D][sensor:129]: 'Raw distance' >> 192 cm
+[08:36:01.137][D][sensor:129]: 'Raw magnitude' >> 36.8 W/m²
+[08:36:01.153][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":1.5,"distance":192,"magnitude":36.8}'
+[08:36:01.194][D][sensor:129]: 'Raw speed' >> 1.3 km/h
+[08:36:01.194][D][sensor:129]: 'Absolute Geschwindigkeit' >> 21.72 km/h
+[08:36:01.197][D][sensor:129]: 'Raw angle' >> -29.7 °
+[08:36:01.198][D][sensor:129]: 'Raw distance' >> 50 cm
+[08:36:01.198][D][sensor:129]: 'Raw magnitude' >> 34.9 W/m²
+[08:36:01.247][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.3,"angle":-29.7,"distance":50,"magnitude":34.9}'
+[08:36:01.247][D][sensor:129]: 'Raw speed' >> 2.7 km/h
+[08:36:01.247][D][sensor:129]: 'Absolute Geschwindigkeit' >> 5.49 km/h
+[08:36:01.250][D][sensor:129]: 'Raw angle' >> 10.1 °
+[08:36:01.251][D][sensor:129]: 'Raw distance' >> 132 cm
+[08:36:01.251][D][sensor:129]: 'Raw magnitude' >> 36.1 W/m²
+[08:36:01.266][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.7,"angle":10.1,"distance":132,"magnitude":36.1}'
+[08:36:01.310][D][sensor:129]: 'Raw speed' >> 1.4 km/h
+[08:36:01.310][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.12 km/h
+[08:36:01.334][D][sensor:129]: 'Raw angle' >> -31.7 °
+[08:36:01.334][D][sensor:129]: 'Raw distance' >> 54 cm
+[08:36:01.334][D][sensor:129]: 'Raw magnitude' >> 37.0 W/m²
+[08:36:01.380][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.4,"angle":-31.7,"distance":54,"magnitude":37.0}'
+[08:36:01.380][D][sensor:129]: 'Raw speed' >> 1.5 km/h
+[08:36:01.380][D][sensor:129]: 'Absolute Geschwindigkeit' >> 2.84 km/h
+[08:36:01.380][D][sensor:129]: 'Raw angle' >> -27.0 °
+[08:36:01.380][D][sensor:129]: 'Raw distance' >> 57 cm
+[08:36:01.380][D][sensor:129]: 'Raw magnitude' >> 41.4 W/m²
+[08:36:01.398][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.5,"angle":-27.0,"distance":57,"magnitude":41.4}'
+[08:36:01.454][D][sensor:129]: 'Raw speed' >> 1.5 km/h
+[08:36:01.454][D][sensor:129]: 'Absolute Geschwindigkeit' >> 3.35 km/h
+[08:36:01.461][D][sensor:129]: 'Raw angle' >> -21.2 °
+[08:36:01.462][D][sensor:129]: 'Raw distance' >> 61 cm
+[08:36:01.462][D][sensor:129]: 'Raw magnitude' >> 41.4 W/m²
+[08:36:01.478][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.5,"angle":-21.2,"distance":61,"magnitude":41.4}'
+[08:36:01.505][D][sensor:129]: 'Raw speed' >> 3.5 km/h
+[08:36:01.505][D][sensor:129]: 'Absolute Geschwindigkeit' >> 9.60 km/h
+[08:36:01.506][D][sensor:129]: 'Raw angle' >> 11.6 °
+[08:36:01.506][D][sensor:129]: 'Raw distance' >> 149 cm
+[08:36:01.506][D][sensor:129]: 'Raw magnitude' >> 36.8 W/m²
+[08:36:01.523][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.5,"angle":11.6,"distance":149,"magnitude":36.8}'
+[08:36:01.569][D][sensor:129]: 'Raw speed' >> 4.1 km/h
+[08:36:01.569][D][sensor:129]: 'Absolute Geschwindigkeit' >> 20.19 km/h
+[08:36:01.569][D][sensor:129]: 'Raw angle' >> 11.4 °
+[08:36:01.570][D][sensor:129]: 'Raw distance' >> 155 cm
+[08:36:01.570][D][sensor:129]: 'Raw magnitude' >> 36.8 W/m²
+[08:36:01.593][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.1,"angle":11.4,"distance":155,"magnitude":36.8}'
+[08:36:01.631][D][sensor:129]: 'Raw speed' >> 2.8 km/h
+[08:36:01.631][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.91 km/h
+[08:36:01.634][D][sensor:129]: 'Raw angle' >> 17.2 °
+[08:36:01.635][D][sensor:129]: 'Raw distance' >> 73 cm
+[08:36:01.635][D][sensor:129]: 'Raw magnitude' >> 38.7 W/m²
+[08:36:01.694][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.8,"angle":17.2,"distance":73,"magnitude":38.7}'
+[08:36:01.714][D][sensor:129]: 'Raw speed' >> 3.7 km/h
+[08:36:01.714][D][sensor:129]: 'Absolute Geschwindigkeit' >> 12.42 km/h
+[08:36:01.718][D][sensor:129]: 'Raw angle' >> 15.4 °
+[08:36:01.718][D][sensor:129]: 'Raw distance' >> 165 cm
+[08:36:01.718][D][sensor:129]: 'Raw magnitude' >> 36.9 W/m²
+[08:36:01.779][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.7,"angle":15.4,"distance":165,"magnitude":36.9}'
+[08:36:01.779][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:36:01.779][D][sensor:129]: 'Absolute Geschwindigkeit' >> 12.27 km/h
+[08:36:01.779][D][sensor:129]: 'Raw angle' >> 19.1 °
+[08:36:01.779][D][sensor:129]: 'Raw distance' >> 168 cm
+[08:36:01.779][D][sensor:129]: 'Raw magnitude' >> 36.9 W/m²
+[08:36:01.794][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":19.1,"distance":168,"magnitude":36.9}'
+[08:36:01.824][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:36:01.824][D][sensor:129]: 'Absolute Geschwindigkeit' >> 9.95 km/h
+[08:36:01.825][D][sensor:129]: 'Raw angle' >> 24.1 °
+[08:36:01.825][D][sensor:129]: 'Raw distance' >> 173 cm
+[08:36:01.825][D][sensor:129]: 'Raw magnitude' >> 35.1 W/m²
+[08:36:01.845][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":24.1,"distance":173,"magnitude":35.1}'
+[08:36:01.886][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:36:01.892][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.90 km/h
+[08:36:01.892][D][sensor:129]: 'Raw angle' >> 27.5 °
+[08:36:01.892][D][sensor:129]: 'Raw distance' >> 178 cm
+[08:36:01.892][D][sensor:129]: 'Raw magnitude' >> 35.1 W/m²
+[08:36:01.913][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":27.5,"distance":178,"magnitude":35.1}'
+[08:36:01.968][D][sensor:129]: 'Raw speed' >> 4.6 km/h
+[08:36:01.988][D][sensor:129]: 'Absolute Geschwindigkeit' >> 10.01 km/h
+[08:36:01.989][D][sensor:129]: 'Raw angle' >> 28.6 °
+[08:36:01.989][D][sensor:129]: 'Raw distance' >> 256 cm
+[08:36:01.989][D][sensor:129]: 'Raw magnitude' >> 31.9 W/m²
+[08:36:02.009][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.6,"angle":28.6,"distance":256,"magnitude":31.9}'
+[08:36:02.032][D][sensor:129]: 'Raw speed' >> 3.4 km/h
+[08:36:02.032][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.03 km/h
+[08:36:02.034][D][sensor:129]: 'Raw angle' >> 11.9 °
+[08:36:02.034][D][sensor:129]: 'Raw distance' >> 109 cm
+[08:36:02.034][D][sensor:129]: 'Raw magnitude' >> 41.8 W/m²
+[08:36:02.058][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.4,"angle":11.9,"distance":109,"magnitude":41.8}'
+[08:36:02.079][D][sensor:129]: 'Raw speed' >> 2.9 km/h
+[08:36:02.079][D][sensor:129]: 'Absolute Geschwindigkeit' >> 14.10 km/h
+[08:36:02.079][D][sensor:129]: 'Raw angle' >> 1.3 °
+[08:36:02.079][D][sensor:129]: 'Raw distance' >> 112 cm
+[08:36:02.079][D][sensor:129]: 'Raw magnitude' >> 41.7 W/m²
+[08:36:02.098][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.9,"angle":1.3,"distance":112,"magnitude":41.7}'
+[08:36:02.143][D][sensor:129]: 'Raw speed' >> 4.3 km/h
+[08:36:02.143][D][sensor:129]: 'Absolute Geschwindigkeit' >> 14.10 km/h
+[08:36:02.143][D][sensor:129]: 'Raw angle' >> 16.2 °
+[08:36:02.143][D][sensor:129]: 'Raw distance' >> 36 cm
+[08:36:02.144][D][sensor:129]: 'Raw magnitude' >> 38.7 W/m²
+[08:36:02.174][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.3,"angle":16.2,"distance":36,"magnitude":38.7}'
+[08:36:02.225][D][sensor:129]: 'Raw speed' >> 2.9 km/h
+[08:36:02.227][D][sensor:129]: 'Absolute Geschwindigkeit' >> 10.39 km/h
+[08:36:02.230][D][sensor:129]: 'Raw angle' >> -21.6 °
+[08:36:02.230][D][sensor:129]: 'Raw distance' >> 124 cm
+[08:36:02.230][D][sensor:129]: 'Raw magnitude' >> 38.5 W/m²
+[08:36:02.292][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.9,"angle":-21.6,"distance":124,"magnitude":38.5}'
+[08:36:02.292][D][sensor:129]: 'Raw speed' >> 3.4 km/h
+[08:36:02.292][D][sensor:129]: 'Absolute Geschwindigkeit' >> 9.34 km/h
+[08:36:02.293][D][sensor:129]: 'Raw angle' >> 19.7 °
+[08:36:02.293][D][sensor:129]: 'Raw distance' >> 213 cm
+[08:36:02.293][D][sensor:129]: 'Raw magnitude' >> 34.0 W/m²
+[08:36:02.334][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.4,"angle":19.7,"distance":213,"magnitude":34.0}'
+[08:36:02.338][D][sensor:129]: 'Raw speed' >> 3.1 km/h
+[08:36:02.338][D][sensor:129]: 'Absolute Geschwindigkeit' >> 9.17 km/h
+[08:36:02.338][D][sensor:129]: 'Raw angle' >> 25.1 °
+[08:36:02.338][D][sensor:129]: 'Raw distance' >> 217 cm
+[08:36:02.338][D][sensor:129]: 'Raw magnitude' >> 34.0 W/m²
+[08:36:02.354][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.1,"angle":25.1,"distance":217,"magnitude":34.0}'
+[08:36:02.399][D][sensor:129]: 'Raw speed' >> 3.0 km/h
+[08:36:02.401][D][sensor:129]: 'Absolute Geschwindigkeit' >> 6.96 km/h
+[08:36:02.401][D][sensor:129]: 'Raw angle' >> 26.4 °
+[08:36:02.401][D][sensor:129]: 'Raw distance' >> 222 cm
+[08:36:02.401][D][sensor:129]: 'Raw magnitude' >> 32.9 W/m²
+[08:36:02.418][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.0,"angle":26.4,"distance":222,"magnitude":32.9}'
+[08:36:02.463][D][sensor:129]: 'Raw speed' >> 3.0 km/h
+[08:36:02.467][D][sensor:129]: 'Absolute Geschwindigkeit' >> 6.65 km/h
+[08:36:02.468][D][sensor:129]: 'Raw angle' >> 24.6 °
+[08:36:02.468][D][sensor:129]: 'Raw distance' >> 228 cm
+[08:36:02.468][D][sensor:129]: 'Raw magnitude' >> 32.9 W/m²
+[08:36:02.483][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.0,"angle":24.6,"distance":228,"magnitude":32.9}'
+[08:36:02.560][D][sensor:129]: 'Raw speed' >> 2.9 km/h
+[08:36:02.560][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.05 km/h
+[08:36:02.560][D][sensor:129]: 'Raw angle' >> 22.5 °
+[08:36:02.560][D][sensor:129]: 'Raw distance' >> 235 cm
+[08:36:02.560][D][sensor:129]: 'Raw magnitude' >> 32.9 W/m²
+[08:36:02.576][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.9,"angle":22.5,"distance":235,"magnitude":32.9}'
+[08:36:02.589][D][sensor:129]: 'Raw speed' >> 2.8 km/h
+[08:36:02.589][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.41 km/h
+[08:36:02.594][D][sensor:129]: 'Raw angle' >> 20.6 °
+[08:36:02.594][D][sensor:129]: 'Raw distance' >> 241 cm
+[08:36:02.594][D][sensor:129]: 'Raw magnitude' >> 31.3 W/m²
+[08:36:02.612][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.8,"angle":20.6,"distance":241,"magnitude":31.3}'
+[08:36:02.654][D][sensor:129]: 'Raw speed' >> 2.7 km/h
+[08:36:02.654][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.75 km/h
+[08:36:02.658][D][sensor:129]: 'Raw angle' >> 19.3 °
+[08:36:02.658][D][sensor:129]: 'Raw distance' >> 246 cm
+[08:36:02.658][D][sensor:129]: 'Raw magnitude' >> 31.3 W/m²
+[08:36:02.716][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.7,"angle":19.3,"distance":246,"magnitude":31.3}'
+[08:36:02.716][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:36:02.716][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.50 km/h
+[08:36:02.719][D][sensor:129]: 'Raw angle' >> 16.1 °
+[08:36:02.719][D][sensor:129]: 'Raw distance' >> 250 cm
+[08:36:02.719][D][sensor:129]: 'Raw magnitude' >> 31.6 W/m²
+[08:36:02.738][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":16.1,"distance":250,"magnitude":31.6}'
+[08:36:02.798][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:36:02.798][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.83 km/h
+[08:36:02.798][D][sensor:129]: 'Raw angle' >> -8.2 °
+[08:36:02.798][D][sensor:129]: 'Raw distance' >> 175 cm
+[08:36:02.798][D][sensor:129]: 'Raw magnitude' >> 35.5 W/m²
+[08:36:02.816][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":-8.2,"distance":175,"magnitude":35.5}'
+[08:36:02.864][D][sensor:129]: 'Raw speed' >> 1.6 km/h
+[08:36:02.864][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.09 km/h
+[08:36:02.868][D][sensor:129]: 'Raw angle' >> -0.0 °
+[08:36:02.868][D][sensor:129]: 'Raw distance' >> 57 cm
+[08:36:02.868][D][sensor:129]: 'Raw magnitude' >> 42.4 W/m²
+[08:36:02.890][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.6,"angle":-0.0,"distance":57,"magnitude":42.4}'
+[08:36:02.903][D][sensor:129]: 'Raw speed' >> 1.6 km/h
+[08:36:02.903][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.09 km/h
+[08:36:02.906][D][sensor:129]: 'Raw angle' >> -2.2 °
+[08:36:02.907][D][sensor:129]: 'Raw distance' >> 59 cm
+[08:36:02.907][D][sensor:129]: 'Raw magnitude' >> 39.9 W/m²
+[08:36:02.975][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.6,"angle":-2.2,"distance":59,"magnitude":39.9}'
+[08:36:02.975][D][sensor:129]: 'Raw speed' >> 1.6 km/h
+[08:36:02.975][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.09 km/h
+[08:36:02.976][D][sensor:129]: 'Raw angle' >> -4.6 °
+[08:36:02.976][D][sensor:129]: 'Raw distance' >> 61 cm
+[08:36:02.976][D][sensor:129]: 'Raw magnitude' >> 39.9 W/m²
+[08:36:02.996][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.6,"angle":-4.6,"distance":61,"magnitude":39.9}'
+[08:36:03.045][D][sensor:129]: 'Raw speed' >> 1.6 km/h
+[08:36:03.045][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.09 km/h
+[08:36:03.047][D][sensor:129]: 'Raw angle' >> -6.8 °
+[08:36:03.047][D][sensor:129]: 'Raw distance' >> 63 cm
+[08:36:03.047][D][sensor:129]: 'Raw magnitude' >> 39.9 W/m²
+[08:36:03.065][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.6,"angle":-6.8,"distance":63,"magnitude":39.9}'
+[08:36:03.114][D][sensor:129]: 'Raw speed' >> 1.6 km/h
+[08:36:03.114][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.49 km/h
+[08:36:03.116][D][sensor:129]: 'Raw angle' >> -7.2 °
+[08:36:03.116][D][sensor:129]: 'Raw distance' >> 67 cm
+[08:36:03.116][D][sensor:129]: 'Raw magnitude' >> 44.2 W/m²
+[08:36:03.135][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.6,"angle":-7.2,"distance":67,"magnitude":44.2}'
+[08:36:03.175][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:36:03.175][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.33 km/h
+[08:36:03.178][D][sensor:129]: 'Raw angle' >> -7.2 °
+[08:36:03.178][D][sensor:129]: 'Raw distance' >> 141 cm
+[08:36:03.178][D][sensor:129]: 'Raw magnitude' >> 42.5 W/m²
+[08:36:03.229][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":-7.2,"distance":141,"magnitude":42.5}'
+[08:36:03.229][D][sensor:129]: 'Raw speed' >> 2.1 km/h
+[08:36:03.229][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.05 km/h
+[08:36:03.229][D][sensor:129]: 'Raw angle' >> -5.1 °
+[08:36:03.229][D][sensor:129]: 'Raw distance' >> 145 cm
+[08:36:03.229][D][sensor:129]: 'Raw magnitude' >> 42.5 W/m²
+[08:36:03.269][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.1,"angle":-5.1,"distance":145,"magnitude":42.5}'
+[08:36:03.287][D][sensor:129]: 'Raw speed' >> 2.1 km/h
+[08:36:03.287][D][sensor:129]: 'Absolute Geschwindigkeit' >> 23.90 km/h
+[08:36:03.290][D][sensor:129]: 'Raw angle' >> -6.3 °
+[08:36:03.290][D][sensor:129]: 'Raw distance' >> 75 cm
+[08:36:03.290][D][sensor:129]: 'Raw magnitude' >> 41.7 W/m²
+[08:36:03.348][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.1,"angle":-6.3,"distance":75,"magnitude":41.7}'
+[08:36:03.348][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:36:03.348][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.98 km/h
+[08:36:03.358][D][sensor:129]: 'Raw angle' >> -6.2 °
+[08:36:03.359][D][sensor:129]: 'Raw distance' >> 78 cm
+[08:36:03.359][D][sensor:129]: 'Raw magnitude' >> 41.7 W/m²
+[08:36:03.379][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":-6.2,"distance":78,"magnitude":41.7}'
+[08:36:03.433][D][sensor:129]: 'Raw speed' >> 2.3 km/h
+[08:36:03.433][D][sensor:129]: 'Absolute Geschwindigkeit' >> 20.99 km/h
+[08:36:03.433][D][sensor:129]: 'Raw angle' >> -5.9 °
+[08:36:03.433][D][sensor:129]: 'Raw distance' >> 81 cm
+[08:36:03.433][D][sensor:129]: 'Raw magnitude' >> 41.7 W/m²
+[08:36:03.456][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.3,"angle":-5.9,"distance":81,"magnitude":41.7}'
+[08:36:03.481][D][sensor:129]: 'Raw speed' >> 3.6 km/h
+[08:36:03.481][D][sensor:129]: 'Absolute Geschwindigkeit' >> 34.73 km/h
+[08:36:03.494][D][sensor:129]: 'Raw angle' >> -0.1 °
+[08:36:03.494][D][sensor:129]: 'Raw distance' >> 165 cm
+[08:36:03.494][D][sensor:129]: 'Raw magnitude' >> 32.5 W/m²
+[08:36:03.542][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.6,"angle":-0.1,"distance":165,"magnitude":32.5}'
+[08:36:03.542][D][sensor:129]: 'Raw speed' >> 4.1 km/h
+[08:36:03.542][D][sensor:129]: 'Absolute Geschwindigkeit' >> 34.73 km/h
+[08:36:03.544][D][sensor:129]: 'Raw angle' >> -3.3 °
+[08:36:03.544][D][sensor:129]: 'Raw distance' >> 248 cm
+[08:36:03.544][D][sensor:129]: 'Raw magnitude' >> 30.5 W/m²
+[08:36:03.565][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.1,"angle":-3.3,"distance":248,"magnitude":30.5}'
+[08:36:03.604][D][sensor:129]: 'Raw speed' >> 3.9 km/h
+[08:36:03.604][D][sensor:129]: 'Absolute Geschwindigkeit' >> 34.73 km/h
+[08:36:03.608][D][sensor:129]: 'Raw angle' >> -9.9 °
+[08:36:03.608][D][sensor:129]: 'Raw distance' >> 253 cm
+[08:36:03.608][D][sensor:129]: 'Raw magnitude' >> 30.5 W/m²
+[08:36:03.631][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.9,"angle":-9.9,"distance":253,"magnitude":30.5}'
+[08:36:03.631][D][binary_sensor:047]: 'pdetect' >> ON
+[08:36:03.631][D][binary_sensor:047]: 'pangle' >> ON
+[08:36:03.661][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:36:03.661][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.41 km/h
+[08:36:03.665][D][sensor:129]: 'Raw angle' >> -4.6 °
+[08:36:03.666][D][sensor:129]: 'Raw distance' >> 256 cm
+[08:36:03.666][D][sensor:129]: 'Raw magnitude' >> 29.0 W/m²
+[08:36:03.666][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":-4.6,"distance":256,"magnitude":29.0}'
+[08:36:03.725][D][sensor:129]: 'Raw speed' >> 2.9 km/h
+[08:36:03.725][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.41 km/h
+[08:36:03.725][D][sensor:129]: 'Raw angle' >> -0.4 °
+[08:36:03.725][D][sensor:129]: 'Raw distance' >> 259 cm
+[08:36:03.725][D][sensor:129]: 'Raw magnitude' >> 29.0 W/m²
+[08:36:03.725][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.9,"angle":-0.4,"distance":259,"magnitude":29.0}'
+[08:36:03.765][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:36:03.774][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.41 km/h
+[08:36:03.774][D][sensor:129]: 'Raw angle' >> -0.6 °
+[08:36:03.774][D][sensor:129]: 'Raw distance' >> 264 cm
+[08:36:03.775][D][sensor:129]: 'Raw magnitude' >> 29.3 W/m²
+[08:36:03.775][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":-0.6,"distance":264,"magnitude":29.3}'
+[08:36:03.837][D][sensor:129]: 'Raw speed' >> 4.6 km/h
+[08:36:03.837][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.41 km/h
+[08:36:03.837][D][sensor:129]: 'Raw angle' >> -15.9 °
+[08:36:03.838][D][sensor:129]: 'Raw distance' >> 361 cm
+[08:36:03.838][D][sensor:129]: 'Raw magnitude' >> 30.2 W/m²
+[08:36:03.838][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.6,"angle":-15.9,"distance":361,"magnitude":30.2}'
+[08:36:03.917][D][sensor:129]: 'Raw speed' >> 4.7 km/h
+[08:36:03.923][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.15 km/h
+[08:36:03.923][D][sensor:129]: 'Raw angle' >> -1.8 °
+[08:36:03.923][D][sensor:129]: 'Raw distance' >> 217 cm
+[08:36:03.923][D][sensor:129]: 'Raw magnitude' >> 34.1 W/m²
+[08:36:03.923][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.7,"angle":-1.8,"distance":217,"magnitude":34.1}'
+[08:36:03.979][D][sensor:129]: 'Raw speed' >> 3.9 km/h
+[08:36:03.980][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.15 km/h
+[08:36:03.980][D][sensor:129]: 'Raw angle' >> -8.2 °
+[08:36:03.984][D][sensor:129]: 'Raw distance' >> 222 cm
+[08:36:03.984][D][sensor:129]: 'Raw magnitude' >> 34.1 W/m²
+[08:36:03.984][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.9,"angle":-8.2,"distance":222,"magnitude":34.1}'
+[08:36:04.023][D][sensor:129]: 'Raw speed' >> 3.4 km/h
+[08:36:04.023][D][sensor:129]: 'Absolute Geschwindigkeit' >> 23.59 km/h
+[08:36:04.023][D][sensor:129]: 'Raw angle' >> -12.8 °
+[08:36:04.026][D][sensor:129]: 'Raw distance' >> 226 cm
+[08:36:04.026][D][sensor:129]: 'Raw magnitude' >> 34.1 W/m²
+[08:36:04.026][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.4,"angle":-12.8,"distance":226,"magnitude":34.1}'
+[08:36:04.096][D][sensor:129]: 'Raw speed' >> 1.5 km/h
+[08:36:04.096][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.01 km/h
+[08:36:04.096][D][sensor:129]: 'Raw angle' >> -2.0 °
+[08:36:04.096][D][sensor:129]: 'Raw distance' >> 97 cm
+[08:36:04.096][D][sensor:129]: 'Raw magnitude' >> 39.1 W/m²
+[08:36:04.096][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.5,"angle":-2.0,"distance":97,"magnitude":39.1}'
+[08:36:04.161][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:36:04.161][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.01 km/h
+[08:36:04.161][D][sensor:129]: 'Raw angle' >> -8.8 °
+[08:36:04.166][D][sensor:129]: 'Raw distance' >> 186 cm
+[08:36:04.166][D][sensor:129]: 'Raw magnitude' >> 36.2 W/m²
+[08:36:04.166][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":-8.8,"distance":186,"magnitude":36.2}'
+[08:36:04.236][D][sensor:129]: 'Raw speed' >> 2.9 km/h
+[08:36:04.236][D][sensor:129]: 'Absolute Geschwindigkeit' >> 18.98 km/h
+[08:36:04.236][D][sensor:129]: 'Raw angle' >> 0.9 °
+[08:36:04.236][D][sensor:129]: 'Raw distance' >> 46 cm
+[08:36:04.236][D][sensor:129]: 'Raw magnitude' >> 43.9 W/m²
+[08:36:04.236][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.9,"angle":0.9,"distance":46,"magnitude":43.9}'
+[08:36:04.279][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:36:04.285][D][sensor:129]: 'Absolute Geschwindigkeit' >> 18.98 km/h
+[08:36:04.285][D][sensor:129]: 'Raw angle' >> 0.3 °
+[08:36:04.285][D][sensor:129]: 'Raw distance' >> 49 cm
+[08:36:04.285][D][sensor:129]: 'Raw magnitude' >> 44.6 W/m²
+[08:36:04.285][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":0.3,"distance":49,"magnitude":44.6}'
+[08:36:04.345][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:36:04.345][D][sensor:129]: 'Absolute Geschwindigkeit' >> 18.98 km/h
+[08:36:04.346][D][sensor:129]: 'Raw angle' >> -4.8 °
+[08:36:04.346][D][sensor:129]: 'Raw distance' >> 112 cm
+[08:36:04.346][D][sensor:129]: 'Raw magnitude' >> 42.4 W/m²
+[08:36:04.346][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":-4.8,"distance":112,"magnitude":42.4}'
+[08:36:04.407][D][sensor:129]: 'Raw speed' >> 2.0 km/h
+[08:36:04.408][D][sensor:129]: 'Absolute Geschwindigkeit' >> 18.98 km/h
+[08:36:04.408][D][sensor:129]: 'Raw angle' >> 3.7 °
+[08:36:04.408][D][sensor:129]: 'Raw distance' >> 57 cm
+[08:36:04.408][D][sensor:129]: 'Raw magnitude' >> 42.0 W/m²
+[08:36:04.408][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.0,"angle":3.7,"distance":57,"magnitude":42.0}'
+[08:36:04.490][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:36:04.499][D][sensor:129]: 'Absolute Geschwindigkeit' >> 18.98 km/h
+[08:36:04.499][D][sensor:129]: 'Raw angle' >> 5.6 °
+[08:36:04.500][D][sensor:129]: 'Raw distance' >> 64 cm
+[08:36:04.500][D][sensor:129]: 'Raw magnitude' >> 40.6 W/m²
+[08:36:04.500][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":5.6,"distance":64,"magnitude":40.6}'
+[08:36:04.549][D][sensor:129]: 'Raw speed' >> 3.4 km/h
+[08:36:04.554][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.19 km/h
+[08:36:04.554][D][sensor:129]: 'Raw angle' >> 1.4 °
+[08:36:04.554][D][sensor:129]: 'Raw distance' >> 131 cm
+[08:36:04.554][D][sensor:129]: 'Raw magnitude' >> 41.0 W/m²
+[08:36:04.554][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.4,"angle":1.4,"distance":131,"magnitude":41.0}'
+[08:36:04.606][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:36:04.606][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.19 km/h
+[08:36:04.606][D][sensor:129]: 'Raw angle' >> -3.2 °
+[08:36:04.607][D][sensor:129]: 'Raw distance' >> 214 cm
+[08:36:04.607][D][sensor:129]: 'Raw magnitude' >> 41.0 W/m²
+[08:36:04.607][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":-3.2,"distance":214,"magnitude":41.0}'
+[08:36:04.664][D][sensor:129]: 'Raw speed' >> 2.4 km/h
+[08:36:04.666][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.19 km/h
+[08:36:04.666][D][sensor:129]: 'Raw angle' >> -3.8 °
+[08:36:04.666][D][sensor:129]: 'Raw distance' >> 217 cm
+[08:36:04.666][D][sensor:129]: 'Raw magnitude' >> 41.0 W/m²
+[08:36:04.666][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.4,"angle":-3.8,"distance":217,"magnitude":41.0}'
+[08:36:04.726][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:36:04.733][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.19 km/h
+[08:36:04.733][D][sensor:129]: 'Raw angle' >> -4.6 °
+[08:36:04.733][D][sensor:129]: 'Raw distance' >> 219 cm
+[08:36:04.733][D][sensor:129]: 'Raw magnitude' >> 36.6 W/m²
+[08:36:04.733][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":-4.6,"distance":219,"magnitude":36.6}'
+[08:36:04.813][D][sensor:129]: 'Raw speed' >> 2.1 km/h
+[08:36:04.822][D][sensor:129]: 'Absolute Geschwindigkeit' >> 35.19 km/h
+[08:36:04.822][D][sensor:129]: 'Raw angle' >> -5.4 °
+[08:36:04.822][D][sensor:129]: 'Raw distance' >> 221 cm
+[08:36:04.822][D][sensor:129]: 'Raw magnitude' >> 36.6 W/m²
+[08:36:04.822][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.1,"angle":-5.4,"distance":221,"magnitude":36.6}'
+[08:36:04.841][D][binary_sensor:047]: 'pangle' >> OFF
+[08:36:04.841][D][binary_sensor:047]: 'pdetect' >> OFF
+[08:36:04.864][D][sensor:129]: 'Raw speed' >> 2.0 km/h
+[08:36:04.865][D][sensor:129]: 'Absolute Geschwindigkeit' >> 21.62 km/h
+[08:36:04.865][D][sensor:129]: 'Raw angle' >> -5.9 °
+[08:36:04.865][D][sensor:129]: 'Raw distance' >> 223 cm
+[08:36:04.887][D][sensor:129]: 'Raw magnitude' >> 36.6 W/m²
+[08:36:04.887][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.0,"angle":-5.9,"distance":223,"magnitude":36.6}'
+[08:36:04.945][D][sensor:129]: 'Raw speed' >> 2.1 km/h
+[08:36:04.950][D][sensor:129]: 'Absolute Geschwindigkeit' >> 20.23 km/h
+[08:36:04.950][D][sensor:129]: 'Raw angle' >> -1.5 °
+[08:36:04.950][D][sensor:129]: 'Raw distance' >> 226 cm
+[08:36:04.977][D][sensor:129]: 'Raw magnitude' >> 35.3 W/m²
+[08:36:04.977][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.1,"angle":-1.5,"distance":226,"magnitude":35.3}'
+[08:36:05.012][D][sensor:129]: 'Raw speed' >> 2.1 km/h
+[08:36:05.014][D][sensor:129]: 'Absolute Geschwindigkeit' >> 20.23 km/h
+[08:36:05.015][D][sensor:129]: 'Raw angle' >> 5.9 °
+[08:36:05.015][D][sensor:129]: 'Raw distance' >> 229 cm
+[08:36:05.056][D][sensor:129]: 'Raw magnitude' >> 35.3 W/m²
+[08:36:05.057][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.1,"angle":5.9,"distance":229,"magnitude":35.3}'
+[08:36:05.057][D][sensor:129]: 'Raw speed' >> 2.1 km/h
+[08:36:05.061][D][sensor:129]: 'Absolute Geschwindigkeit' >> 20.82 km/h
+[08:36:05.061][D][sensor:129]: 'Raw angle' >> 11.3 °
+[08:36:05.061][D][sensor:129]: 'Raw distance' >> 232 cm
+[08:36:05.123][D][sensor:129]: 'Raw magnitude' >> 35.3 W/m²
+[08:36:05.123][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.1,"angle":11.3,"distance":232,"magnitude":35.3}'
+[08:36:05.123][D][sensor:129]: 'Raw speed' >> 2.1 km/h
+[08:36:05.123][D][sensor:129]: 'Absolute Geschwindigkeit' >> 10.94 km/h
+[08:36:05.123][D][sensor:129]: 'Raw angle' >> 14.9 °
+[08:36:05.123][D][sensor:129]: 'Raw distance' >> 235 cm
+[08:36:05.150][D][sensor:129]: 'Raw magnitude' >> 35.3 W/m²
+[08:36:05.150][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.1,"angle":14.9,"distance":235,"magnitude":35.3}'
+[08:36:05.185][D][sensor:129]: 'Raw speed' >> 2.1 km/h
+[08:36:05.190][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.29 km/h
+[08:36:05.190][D][sensor:129]: 'Raw angle' >> 17.0 °
+[08:36:05.190][D][sensor:129]: 'Raw distance' >> 237 cm
+[08:36:05.253][D][sensor:129]: 'Raw magnitude' >> 35.3 W/m²
+[08:36:05.253][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.1,"angle":17.0,"distance":237,"magnitude":35.3}'
+[08:36:05.270][D][sensor:129]: 'Raw speed' >> 3.9 km/h
+[08:36:05.277][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.33 km/h
+[08:36:05.277][D][sensor:129]: 'Raw angle' >> -23.0 °
+[08:36:05.277][D][sensor:129]: 'Raw distance' >> 197 cm
+[08:36:05.324][D][sensor:129]: 'Raw magnitude' >> 31.7 W/m²
+[08:36:05.324][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.9,"angle":-23.0,"distance":197,"magnitude":31.7}'
+[08:36:05.324][D][sensor:129]: 'Raw speed' >> 4.1 km/h
+[08:36:05.324][D][sensor:129]: 'Absolute Geschwindigkeit' >> 10.48 km/h
+[08:36:05.324][D][sensor:129]: 'Raw angle' >> -22.7 °
+[08:36:05.324][D][sensor:129]: 'Raw distance' >> 203 cm
+[08:36:05.376][D][sensor:129]: 'Raw magnitude' >> 31.7 W/m²
+[08:36:05.377][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.1,"angle":-22.7,"distance":203,"magnitude":31.7}'
+[08:36:05.377][D][sensor:129]: 'Raw speed' >> 4.2 km/h
+[08:36:05.377][D][sensor:129]: 'Absolute Geschwindigkeit' >> 10.92 km/h
+[08:36:05.377][D][sensor:129]: 'Raw angle' >> -22.3 °
+[08:36:05.377][D][sensor:129]: 'Raw distance' >> 208 cm
+[08:36:05.401][D][sensor:129]: 'Raw magnitude' >> 31.7 W/m²
+[08:36:05.402][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.2,"angle":-22.3,"distance":208,"magnitude":31.7}'
+[08:36:05.437][D][sensor:129]: 'Raw speed' >> 4.4 km/h
+[08:36:05.440][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.60 km/h
+[08:36:05.440][D][sensor:129]: 'Raw angle' >> -18.8 °
+[08:36:05.440][D][sensor:129]: 'Raw distance' >> 215 cm
+[08:36:05.502][D][sensor:129]: 'Raw magnitude' >> 32.4 W/m²
+[08:36:05.503][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.4,"angle":-18.8,"distance":215,"magnitude":32.4}'
+[08:36:05.520][D][sensor:129]: 'Raw speed' >> 1.7 km/h
+[08:36:05.524][D][sensor:129]: 'Absolute Geschwindigkeit' >> 5.25 km/h
+[08:36:05.524][D][sensor:129]: 'Raw angle' >> -12.6 °
+[08:36:05.524][D][sensor:129]: 'Raw distance' >> 31 cm
+[08:36:05.582][D][sensor:129]: 'Raw magnitude' >> 38.8 W/m²
+[08:36:05.582][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.7,"angle":-12.6,"distance":31,"magnitude":38.8}'
+[08:36:05.582][D][sensor:129]: 'Raw speed' >> 1.8 km/h
+[08:36:05.585][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.11 km/h
+[08:36:05.585][D][sensor:129]: 'Raw angle' >> -12.5 °
+[08:36:05.585][D][sensor:129]: 'Raw distance' >> 33 cm
+[08:36:05.601][D][sensor:129]: 'Raw magnitude' >> 34.3 W/m²
+[08:36:05.601][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.8,"angle":-12.5,"distance":33,"magnitude":34.3}'
+[08:36:05.631][D][sensor:129]: 'Raw speed' >> 4.1 km/h
+[08:36:05.631][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.10 km/h
+[08:36:05.631][D][sensor:129]: 'Raw angle' >> -12.5 °
+[08:36:05.631][D][sensor:129]: 'Raw distance' >> 180 cm
+[08:36:05.649][D][sensor:129]: 'Raw magnitude' >> 34.2 W/m²
+[08:36:05.649][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.1,"angle":-12.5,"distance":180,"magnitude":34.2}'
+[08:36:05.693][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:36:05.695][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.47 km/h
+[08:36:05.695][D][sensor:129]: 'Raw angle' >> -9.9 °
+[08:36:05.695][D][sensor:129]: 'Raw distance' >> 107 cm
+[08:36:05.712][D][sensor:129]: 'Raw magnitude' >> 40.6 W/m²
+[08:36:05.712][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":-9.9,"distance":107,"magnitude":40.6}'
+[08:36:05.744][D][sensor:129]: 'Raw speed' >> 2.7 km/h
+[08:36:05.744][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.84 km/h
+[08:36:05.744][D][sensor:129]: 'Raw angle' >> -5.3 °
+[08:36:05.744][D][sensor:129]: 'Raw distance' >> 112 cm
+[08:36:05.761][D][sensor:129]: 'Raw magnitude' >> 42.8 W/m²
+[08:36:05.761][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.7,"angle":-5.3,"distance":112,"magnitude":42.8}'
+[08:36:05.798][D][sensor:129]: 'Raw speed' >> 2.1 km/h
+[08:36:05.811][D][sensor:129]: 'Absolute Geschwindigkeit' >> 22.86 km/h
+[08:36:05.811][D][sensor:129]: 'Raw angle' >> -2.6 °
+[08:36:05.811][D][sensor:129]: 'Raw distance' >> 42 cm
+[08:36:05.828][D][sensor:129]: 'Raw magnitude' >> 42.5 W/m²
+[08:36:05.828][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.1,"angle":-2.6,"distance":42,"magnitude":42.5}'
+[08:36:05.899][D][sensor:129]: 'Raw speed' >> 3.6 km/h
+[08:36:05.904][D][sensor:129]: 'Absolute Geschwindigkeit' >> 22.86 km/h
+[08:36:05.904][D][sensor:129]: 'Raw angle' >> -0.0 °
+[08:36:05.904][D][sensor:129]: 'Raw distance' >> 126 cm
+[08:36:05.922][D][sensor:129]: 'Raw magnitude' >> 38.9 W/m²
+[08:36:05.922][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.6,"angle":-0.0,"distance":126,"magnitude":38.9}'
+[08:36:05.942][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:36:05.945][D][sensor:129]: 'Absolute Geschwindigkeit' >> 22.86 km/h
+[08:36:05.945][D][sensor:129]: 'Raw angle' >> 2.3 °
+[08:36:05.945][D][sensor:129]: 'Raw distance' >> 56 cm
+[08:36:06.023][D][sensor:129]: 'Raw magnitude' >> 39.4 W/m²
+[08:36:06.023][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":2.3,"distance":56,"magnitude":39.4}'
+[08:36:06.023][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:36:06.023][D][sensor:129]: 'Absolute Geschwindigkeit' >> 22.86 km/h
+[08:36:06.023][D][sensor:129]: 'Raw angle' >> 9.2 °
+[08:36:06.023][D][sensor:129]: 'Raw distance' >> 60 cm
+[08:36:06.040][D][sensor:129]: 'Raw magnitude' >> 39.6 W/m²
+[08:36:06.040][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":9.2,"distance":60,"magnitude":39.6}'
+[08:36:06.066][D][sensor:129]: 'Raw speed' >> 4.4 km/h
+[08:36:06.069][D][sensor:129]: 'Absolute Geschwindigkeit' >> 27.39 km/h
+[08:36:06.069][D][sensor:129]: 'Raw angle' >> 8.9 °
+[08:36:06.069][D][sensor:129]: 'Raw distance' >> 143 cm
+[08:36:06.148][D][sensor:129]: 'Raw magnitude' >> 39.9 W/m²
+[08:36:06.148][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.4,"angle":8.9,"distance":143,"magnitude":39.9}'
+[08:36:06.148][D][sensor:129]: 'Raw speed' >> 4.0 km/h
+[08:36:06.148][D][sensor:129]: 'Absolute Geschwindigkeit' >> 25.70 km/h
+[08:36:06.148][D][sensor:129]: 'Raw angle' >> 6.8 °
+[08:36:06.148][D][sensor:129]: 'Raw distance' >> 150 cm
+[08:36:06.167][D][sensor:129]: 'Raw magnitude' >> 40.0 W/m²
+[08:36:06.167][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.0,"angle":6.8,"distance":150,"magnitude":40.0}'
+[08:36:06.216][D][sensor:129]: 'Raw speed' >> 3.8 km/h
+[08:36:06.216][D][sensor:129]: 'Absolute Geschwindigkeit' >> 31.94 km/h
+[08:36:06.216][D][sensor:129]: 'Raw angle' >> 5.7 °
+[08:36:06.216][D][sensor:129]: 'Raw distance' >> 155 cm
+[08:36:06.239][D][sensor:129]: 'Raw magnitude' >> 38.6 W/m²
+[08:36:06.239][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.8,"angle":5.7,"distance":155,"magnitude":38.6}'
+[08:36:06.277][D][sensor:129]: 'Raw speed' >> 1.7 km/h
+[08:36:06.277][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.36 km/h
+[08:36:06.277][D][sensor:129]: 'Raw angle' >> -20.4 °
+[08:36:06.277][D][sensor:129]: 'Raw distance' >> 27 cm
+[08:36:06.297][D][sensor:129]: 'Raw magnitude' >> 39.4 W/m²
+[08:36:06.298][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.7,"angle":-20.4,"distance":27,"magnitude":39.4}'
+[08:36:06.320][D][sensor:129]: 'Raw speed' >> 3.8 km/h
+[08:36:06.323][D][sensor:129]: 'Absolute Geschwindigkeit' >> 10.99 km/h
+[08:36:06.323][D][sensor:129]: 'Raw angle' >> 14.2 °
+[08:36:06.323][D][sensor:129]: 'Raw distance' >> 167 cm
+[08:36:06.393][D][sensor:129]: 'Raw magnitude' >> 37.5 W/m²
+[08:36:06.394][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.8,"angle":14.2,"distance":167,"magnitude":37.5}'
+[08:36:06.394][D][sensor:129]: 'Raw speed' >> 4.3 km/h
+[08:36:06.480][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.57 km/h
+[08:36:06.481][D][sensor:129]: 'Raw angle' >> -0.0 °
+[08:36:06.481][D][sensor:129]: 'Raw distance' >> 92 cm
+[08:36:06.481][D][sensor:129]: 'Raw magnitude' >> 37.5 W/m²
+[08:36:06.481][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.3,"angle":-0.0,"distance":92,"magnitude":37.5}'
+[08:36:06.481][D][sensor:129]: 'Raw speed' >> 4.3 km/h
+[08:36:06.481][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.57 km/h
+[08:36:06.481][D][sensor:129]: 'Raw angle' >> 2.0 °
+[08:36:06.481][D][sensor:129]: 'Raw distance' >> 101 cm
+[08:36:06.499][D][sensor:129]: 'Raw magnitude' >> 35.7 W/m²
+[08:36:06.499][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.3,"angle":2.0,"distance":101,"magnitude":35.7}'
+[08:36:06.535][D][sensor:129]: 'Raw speed' >> 4.1 km/h
+[08:36:06.535][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.57 km/h
+[08:36:06.535][D][sensor:129]: 'Raw angle' >> 7.0 °
+[08:36:06.535][D][sensor:129]: 'Raw distance' >> 106 cm
+[08:36:06.554][D][sensor:129]: 'Raw magnitude' >> 33.8 W/m²
+[08:36:06.554][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.1,"angle":7.0,"distance":106,"magnitude":33.8}'
+[08:36:06.586][D][sensor:129]: 'Raw speed' >> 3.7 km/h
+[08:36:06.586][D][sensor:129]: 'Absolute Geschwindigkeit' >> 30.65 km/h
+[08:36:06.586][D][sensor:129]: 'Raw angle' >> 10.7 °
+[08:36:06.586][D][sensor:129]: 'Raw distance' >> 111 cm
+[08:36:06.610][D][sensor:129]: 'Raw magnitude' >> 37.8 W/m²
+[08:36:06.610][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.7,"angle":10.7,"distance":111,"magnitude":37.8}'
+[08:36:06.639][D][sensor:129]: 'Raw speed' >> 3.4 km/h
+[08:36:06.639][D][sensor:129]: 'Absolute Geschwindigkeit' >> 18.30 km/h
+[08:36:06.639][D][sensor:129]: 'Raw angle' >> 13.3 °
+[08:36:06.640][D][sensor:129]: 'Raw distance' >> 117 cm
+[08:36:06.656][D][sensor:129]: 'Raw magnitude' >> 35.7 W/m²
+[08:36:06.656][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.4,"angle":13.3,"distance":117,"magnitude":35.7}'
+[08:36:06.721][D][sensor:129]: 'Raw speed' >> 4.2 km/h
+[08:36:06.730][D][sensor:129]: 'Absolute Geschwindigkeit' >> 18.31 km/h
+[08:36:06.730][D][sensor:129]: 'Raw angle' >> 6.5 °
+[08:36:06.730][D][sensor:129]: 'Raw distance' >> 208 cm
+[08:36:06.754][D][sensor:129]: 'Raw magnitude' >> 32.0 W/m²
+[08:36:06.754][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.2,"angle":6.5,"distance":208,"magnitude":32.0}'
+[08:36:06.784][D][sensor:129]: 'Raw speed' >> 3.5 km/h
+[08:36:06.787][D][sensor:129]: 'Absolute Geschwindigkeit' >> 30.34 km/h
+[08:36:06.787][D][sensor:129]: 'Raw angle' >> 25.4 °
+[08:36:06.787][D][sensor:129]: 'Raw distance' >> 61 cm
+[08:36:06.832][D][sensor:129]: 'Raw magnitude' >> 31.7 W/m²
+[08:36:06.832][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.5,"angle":25.4,"distance":61,"magnitude":31.7}'
+[08:36:06.832][D][sensor:129]: 'Raw speed' >> 3.6 km/h
+[08:36:06.841][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.43 km/h
+[08:36:06.841][D][sensor:129]: 'Raw angle' >> 25.3 °
+[08:36:06.841][D][sensor:129]: 'Raw distance' >> 65 cm
+[08:36:06.901][D][sensor:129]: 'Raw magnitude' >> 31.7 W/m²
+[08:36:06.901][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.6,"angle":25.3,"distance":65,"magnitude":31.7}'
+[08:36:06.902][D][sensor:129]: 'Raw speed' >> 3.7 km/h
+[08:36:06.902][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.65 km/h
+[08:36:06.902][D][sensor:129]: 'Raw angle' >> 24.8 °
+[08:36:06.902][D][sensor:129]: 'Raw distance' >> 68 cm
+[08:36:06.939][D][sensor:129]: 'Raw magnitude' >> 31.7 W/m²
+[08:36:06.939][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.7,"angle":24.8,"distance":68,"magnitude":31.7}'
+[08:36:06.975][D][sensor:129]: 'Raw speed' >> 3.7 km/h
+[08:36:06.982][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.91 km/h
+[08:36:06.982][D][sensor:129]: 'Raw angle' >> 23.9 °
+[08:36:06.982][D][sensor:129]: 'Raw distance' >> 72 cm
+[08:36:07.044][D][sensor:129]: 'Raw magnitude' >> 31.7 W/m²
+[08:36:07.044][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.7,"angle":23.9,"distance":72,"magnitude":31.7}'
+[08:36:07.044][D][sensor:129]: 'Raw speed' >> 3.4 km/h
+[08:36:07.049][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.44 km/h
+[08:36:07.049][D][sensor:129]: 'Raw angle' >> -2.6 °
+[08:36:07.049][D][sensor:129]: 'Raw distance' >> 153 cm
+[08:36:07.067][D][sensor:129]: 'Raw magnitude' >> 30.7 W/m²
+[08:36:07.067][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.4,"angle":-2.6,"distance":153,"magnitude":30.7}'
+[08:36:07.103][D][sensor:129]: 'Raw speed' >> 2.3 km/h
+[08:36:07.105][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.44 km/h
+[08:36:07.105][D][sensor:129]: 'Raw angle' >> 11.9 °
+[08:36:07.105][D][sensor:129]: 'Raw distance' >> 15 cm
+[08:36:07.156][D][sensor:129]: 'Raw magnitude' >> 38.7 W/m²
+[08:36:07.156][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.3,"angle":11.9,"distance":15,"magnitude":38.7}'
+[08:36:07.156][D][sensor:129]: 'Raw speed' >> 2.4 km/h
+[08:36:07.159][D][sensor:129]: 'Absolute Geschwindigkeit' >> 11.48 km/h
+[08:36:07.159][D][sensor:129]: 'Raw angle' >> 9.8 °
+[08:36:07.159][D][sensor:129]: 'Raw distance' >> 19 cm
+[08:36:07.208][D][sensor:129]: 'Raw magnitude' >> 43.9 W/m²
+[08:36:07.208][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.4,"angle":9.8,"distance":19,"magnitude":43.9}'
+[08:36:07.208][D][sensor:129]: 'Raw speed' >> 2.3 km/h
+[08:36:07.210][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.53 km/h
+[08:36:07.210][D][sensor:129]: 'Raw angle' >> 7.3 °
+[08:36:07.210][D][sensor:129]: 'Raw distance' >> 23 cm
+[08:36:07.227][D][sensor:129]: 'Raw magnitude' >> 43.9 W/m²
+[08:36:07.227][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.3,"angle":7.3,"distance":23,"magnitude":43.9}'
+[08:36:07.260][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:36:07.260][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.39 km/h
+[08:36:07.260][D][sensor:129]: 'Raw angle' >> 5.0 °
+[08:36:07.260][D][sensor:129]: 'Raw distance' >> 27 cm
+[08:36:07.279][D][sensor:129]: 'Raw magnitude' >> 43.9 W/m²
+[08:36:07.279][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":5.0,"distance":27,"magnitude":43.9}'
+[08:36:07.324][D][sensor:129]: 'Raw speed' >> 2.0 km/h
+[08:36:07.325][D][sensor:129]: 'Absolute Geschwindigkeit' >> 23.33 km/h
+[08:36:07.325][D][sensor:129]: 'Raw angle' >> 6.4 °
+[08:36:07.325][D][sensor:129]: 'Raw distance' >> 30 cm
+[08:36:07.348][D][sensor:129]: 'Raw magnitude' >> 41.6 W/m²
+[08:36:07.348][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.0,"angle":6.4,"distance":30,"magnitude":41.6}'
+[08:36:07.383][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:36:07.383][D][sensor:129]: 'Absolute Geschwindigkeit' >> 22.93 km/h
+[08:36:07.384][D][sensor:129]: 'Raw angle' >> -16.2 °
+[08:36:07.384][D][sensor:129]: 'Raw distance' >> 177 cm
+[08:36:07.405][D][sensor:129]: 'Raw magnitude' >> 39.4 W/m²
+[08:36:07.405][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":-16.2,"distance":177,"magnitude":39.4}'
+[08:36:07.452][D][sensor:129]: 'Raw speed' >> 2.4 km/h
+[08:36:07.454][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.49 km/h
+[08:36:07.454][D][sensor:129]: 'Raw angle' >> 13.3 °
+[08:36:07.454][D][sensor:129]: 'Raw distance' >> 37 cm
+[08:36:07.581][D][sensor:129]: 'Raw magnitude' >> 37.0 W/m²
+[08:36:07.582][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.4,"angle":13.3,"distance":37,"magnitude":37.0}'
+[08:36:07.582][D][sensor:129]: 'Raw speed' >> 2.1 km/h
+[08:36:07.582][D][sensor:129]: 'Absolute Geschwindigkeit' >> 9.14 km/h
+[08:36:07.582][D][sensor:129]: 'Raw angle' >> -2.1 °
+[08:36:07.582][D][sensor:129]: 'Raw distance' >> 252 cm
+[08:36:07.593][D][sensor:129]: 'Raw magnitude' >> 35.8 W/m²
+[08:36:07.593][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.1,"angle":-2.1,"distance":252,"magnitude":35.8}'
+[08:36:07.593][D][sensor:129]: 'Raw speed' >> 1.9 km/h
+[08:36:07.609][D][sensor:129]: 'Absolute Geschwindigkeit' >> 9.14 km/h
+[08:36:07.610][D][sensor:129]: 'Raw angle' >> 0.3 °
+[08:36:07.610][D][sensor:129]: 'Raw distance' >> 254 cm
+[08:36:07.639][D][sensor:129]: 'Raw magnitude' >> 35.8 W/m²
+[08:36:07.639][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.9,"angle":0.3,"distance":254,"magnitude":35.8}'
+[08:36:07.642][D][sensor:129]: 'Raw speed' >> 3.5 km/h
+[08:36:07.642][D][sensor:129]: 'Absolute Geschwindigkeit' >> 9.14 km/h
+[08:36:07.642][D][sensor:129]: 'Raw angle' >> -0.1 °
+[08:36:07.642][D][sensor:129]: 'Raw distance' >> 56 cm
+[08:36:07.659][D][sensor:129]: 'Raw magnitude' >> 31.5 W/m²
+[08:36:07.659][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.5,"angle":-0.1,"distance":56,"magnitude":31.5}'
+[08:36:07.787][D][sensor:129]: 'Raw speed' >> 3.5 km/h
+[08:36:07.787][D][sensor:129]: 'Absolute Geschwindigkeit' >> 9.14 km/h
+[08:36:07.787][D][sensor:129]: 'Raw angle' >> -5.1 °
+[08:36:07.788][D][sensor:129]: 'Raw distance' >> 60 cm
+[08:36:07.788][D][sensor:129]: 'Raw magnitude' >> 31.5 W/m²
+[08:36:07.788][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.5,"angle":-5.1,"distance":60,"magnitude":31.5}'
+[08:36:07.788][D][sensor:129]: 'Raw speed' >> 3.5 km/h
+[08:36:07.788][D][sensor:129]: 'Absolute Geschwindigkeit' >> 39.00 km/h
+[08:36:07.788][D][sensor:129]: 'Raw angle' >> -9.5 °
+[08:36:07.788][D][sensor:129]: 'Raw distance' >> 66 cm
+[08:36:07.805][D][sensor:129]: 'Raw magnitude' >> 31.5 W/m²
+[08:36:07.805][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.5,"angle":-9.5,"distance":66,"magnitude":31.5}'
+[08:36:07.846][D][sensor:129]: 'Raw speed' >> 3.8 km/h
+[08:36:07.849][D][sensor:129]: 'Absolute Geschwindigkeit' >> 23.00 km/h
+[08:36:07.849][D][sensor:129]: 'Raw angle' >> -20.8 °
+[08:36:07.849][D][sensor:129]: 'Raw distance' >> 454 cm
+[08:36:07.850][D][sensor:129]: 'Raw magnitude' >> 28.2 W/m²
+[08:36:07.850][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.8,"angle":-20.8,"distance":454,"magnitude":28.2}'
+[08:36:07.850][D][binary_sensor:047]: 'pdetect' >> ON
+[08:36:07.867][D][binary_sensor:047]: 'pangle' >> ON
+[08:36:07.907][D][sensor:129]: 'Raw speed' >> 3.6 km/h
+[08:36:07.907][D][sensor:129]: 'Absolute Geschwindigkeit' >> 10.23 km/h
+[08:36:07.907][D][sensor:129]: 'Raw angle' >> -22.4 °
+[08:36:07.907][D][sensor:129]: 'Raw distance' >> 458 cm
+[08:36:07.907][D][sensor:129]: 'Raw magnitude' >> 28.2 W/m²
+[08:36:07.937][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.6,"angle":-22.4,"distance":458,"magnitude":28.2}'
+[08:36:07.980][D][sensor:129]: 'Raw speed' >> 4.7 km/h
+[08:36:07.980][D][sensor:129]: 'Absolute Geschwindigkeit' >> 12.36 km/h
+[08:36:07.982][D][sensor:129]: 'Raw angle' >> 25.8 °
+[08:36:07.982][D][sensor:129]: 'Raw distance' >> 240 cm
+[08:36:07.982][D][sensor:129]: 'Raw magnitude' >> 29.4 W/m²
+[08:36:08.048][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.7,"angle":25.8,"distance":240,"magnitude":29.4}'
+[08:36:08.048][D][sensor:129]: 'Raw speed' >> 3.5 km/h
+[08:36:08.048][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.02 km/h
+[08:36:08.056][D][sensor:129]: 'Raw angle' >> -14.7 °
+[08:36:08.056][D][sensor:129]: 'Raw distance' >> 147 cm
+[08:36:08.056][D][sensor:129]: 'Raw magnitude' >> 31.0 W/m²
+[08:36:08.073][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.5,"angle":-14.7,"distance":147,"magnitude":31.0}'
+[08:36:08.114][D][sensor:129]: 'Raw speed' >> 3.3 km/h
+[08:36:08.114][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.08 km/h
+[08:36:08.115][D][sensor:129]: 'Raw angle' >> -8.1 °
+[08:36:08.115][D][sensor:129]: 'Raw distance' >> 151 cm
+[08:36:08.115][D][sensor:129]: 'Raw magnitude' >> 37.9 W/m²
+[08:36:08.168][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.3,"angle":-8.1,"distance":151,"magnitude":37.9}'
+[08:36:08.169][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:36:08.169][D][sensor:129]: 'Absolute Geschwindigkeit' >> 23.08 km/h
+[08:36:08.169][D][sensor:129]: 'Raw angle' >> -1.3 °
+[08:36:08.169][D][sensor:129]: 'Raw distance' >> 156 cm
+[08:36:08.169][D][sensor:129]: 'Raw magnitude' >> 38.1 W/m²
+[08:36:08.188][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":-1.3,"distance":156,"magnitude":38.1}'
+[08:36:08.240][D][sensor:129]: 'Raw speed' >> 3.8 km/h
+[08:36:08.240][D][sensor:129]: 'Absolute Geschwindigkeit' >> 23.08 km/h
+[08:36:08.240][D][sensor:129]: 'Raw angle' >> -11.3 °
+[08:36:08.240][D][sensor:129]: 'Raw distance' >> 84 cm
+[08:36:08.240][D][sensor:129]: 'Raw magnitude' >> 35.0 W/m²
+[08:36:08.266][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.8,"angle":-11.3,"distance":84,"magnitude":35.0}'
+[08:36:08.300][D][sensor:129]: 'Raw speed' >> 3.8 km/h
+[08:36:08.301][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.63 km/h
+[08:36:08.304][D][sensor:129]: 'Raw angle' >> -5.8 °
+[08:36:08.304][D][sensor:129]: 'Raw distance' >> 93 cm
+[08:36:08.304][D][sensor:129]: 'Raw magnitude' >> 35.0 W/m²
+[08:36:08.374][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.8,"angle":-5.8,"distance":93,"magnitude":35.0}'
+[08:36:08.374][D][sensor:129]: 'Raw speed' >> 1.7 km/h
+[08:36:08.374][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.10 km/h
+[08:36:08.375][D][sensor:129]: 'Raw angle' >> 6.2 °
+[08:36:08.375][D][sensor:129]: 'Raw distance' >> 75 cm
+[08:36:08.375][D][sensor:129]: 'Raw magnitude' >> 42.3 W/m²
+[08:36:08.392][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.7,"angle":6.2,"distance":75,"magnitude":42.3}'
+[08:36:08.416][D][sensor:129]: 'Raw speed' >> 1.8 km/h
+[08:36:08.416][D][sensor:129]: 'Absolute Geschwindigkeit' >> 16.10 km/h
+[08:36:08.416][D][sensor:129]: 'Raw angle' >> 2.5 °
+[08:36:08.416][D][sensor:129]: 'Raw distance' >> 77 cm
+[08:36:08.416][D][sensor:129]: 'Raw magnitude' >> 44.9 W/m²
+[08:36:08.433][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.8,"angle":2.5,"distance":77,"magnitude":44.9}'
+[08:36:08.474][D][sensor:129]: 'Raw speed' >> 2.2 km/h
+[08:36:08.477][D][sensor:129]: 'Absolute Geschwindigkeit' >> 16.10 km/h
+[08:36:08.477][D][sensor:129]: 'Raw angle' >> -0.0 °
+[08:36:08.477][D][sensor:129]: 'Raw distance' >> 82 cm
+[08:36:08.477][D][sensor:129]: 'Raw magnitude' >> 43.0 W/m²
+[08:36:08.496][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.2,"angle":-0.0,"distance":82,"magnitude":43.0}'
+[08:36:08.530][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:36:08.530][D][sensor:129]: 'Absolute Geschwindigkeit' >> 16.10 km/h
+[08:36:08.530][D][sensor:129]: 'Raw angle' >> -1.3 °
+[08:36:08.530][D][sensor:129]: 'Raw distance' >> 86 cm
+[08:36:08.530][D][sensor:129]: 'Raw magnitude' >> 43.0 W/m²
+[08:36:08.548][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":-1.3,"distance":86,"magnitude":43.0}'
+[08:36:08.579][D][sensor:129]: 'Raw speed' >> 2.8 km/h
+[08:36:08.579][D][sensor:129]: 'Absolute Geschwindigkeit' >> 16.10 km/h
+[08:36:08.580][D][sensor:129]: 'Raw angle' >> -1.9 °
+[08:36:08.580][D][sensor:129]: 'Raw distance' >> 90 cm
+[08:36:08.581][D][sensor:129]: 'Raw magnitude' >> 43.0 W/m²
+[08:36:08.641][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.8,"angle":-1.9,"distance":90,"magnitude":43.0}'
+[08:36:08.677][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:36:08.677][D][sensor:129]: 'Absolute Geschwindigkeit' >> 16.10 km/h
+[08:36:08.679][D][sensor:129]: 'Raw angle' >> -4.3 °
+[08:36:08.680][D][sensor:129]: 'Raw distance' >> 51 cm
+[08:36:08.680][D][sensor:129]: 'Raw magnitude' >> 42.7 W/m²
+[08:36:08.720][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":-4.3,"distance":51,"magnitude":42.7}'
+[08:36:08.720][D][sensor:129]: 'Raw speed' >> 3.4 km/h
+[08:36:08.721][D][sensor:129]: 'Absolute Geschwindigkeit' >> 16.10 km/h
+[08:36:08.722][D][sensor:129]: 'Raw angle' >> -5.0 °
+[08:36:08.722][D][sensor:129]: 'Raw distance' >> 102 cm
+[08:36:08.722][D][sensor:129]: 'Raw magnitude' >> 41.7 W/m²
+[08:36:08.793][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.4,"angle":-5.0,"distance":102,"magnitude":41.7}'
+[08:36:08.793][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:36:08.793][D][sensor:129]: 'Absolute Geschwindigkeit' >> 36.08 km/h
+[08:36:08.793][D][sensor:129]: 'Raw angle' >> -12.6 °
+[08:36:08.793][D][sensor:129]: 'Raw distance' >> 61 cm
+[08:36:08.793][D][sensor:129]: 'Raw magnitude' >> 34.8 W/m²
+[08:36:08.807][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":-12.6,"distance":61,"magnitude":34.8}'
+[08:36:08.849][D][sensor:129]: 'Raw speed' >> 3.4 km/h
+[08:36:08.850][D][sensor:129]: 'Absolute Geschwindigkeit' >> 15.59 km/h
+[08:36:08.857][D][sensor:129]: 'Raw angle' >> -16.7 °
+[08:36:08.857][D][sensor:129]: 'Raw distance' >> 67 cm
+[08:36:08.857][D][sensor:129]: 'Raw magnitude' >> 34.8 W/m²
+[08:36:08.948][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.4,"angle":-16.7,"distance":67,"magnitude":34.8}'
+[08:36:08.949][D][sensor:129]: 'Raw speed' >> 5.7 km/h
+[08:36:08.949][D][sensor:129]: 'Absolute Geschwindigkeit' >> 19.94 km/h
+[08:36:08.949][D][sensor:129]: 'Raw angle' >> -6.5 °
+[08:36:08.949][D][sensor:129]: 'Raw distance' >> 128 cm
+[08:36:08.950][D][sensor:129]: 'Raw magnitude' >> 33.1 W/m²
+[08:36:08.950][D][text_sensor:119]: 'Raw JSON' >> '{"speed":5.7,"angle":-6.5,"distance":128,"magnitude":33.1}'
+[08:36:08.950][D][binary_sensor:047]: 'pangle' >> OFF
+[08:36:08.950][D][binary_sensor:047]: 'pdetect' >> OFF
+[08:36:08.987][D][sensor:129]: 'Raw speed' >> 3.5 km/h
+[08:36:08.991][D][sensor:129]: 'Absolute Geschwindigkeit' >> 31.13 km/h
+[08:36:08.991][D][sensor:129]: 'Raw angle' >> -34.1 °
+[08:36:08.991][D][sensor:129]: 'Raw distance' >> 80 cm
+[08:36:08.991][D][sensor:129]: 'Raw magnitude' >> 31.2 W/m²
+[08:36:08.991][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.5,"angle":-34.1,"distance":80,"magnitude":31.2}'
+[08:36:09.053][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:36:09.054][D][sensor:129]: 'Absolute Geschwindigkeit' >> 5.63 km/h
+[08:36:09.054][D][sensor:129]: 'Raw angle' >> -24.7 °
+[08:36:09.054][D][sensor:129]: 'Raw distance' >> 83 cm
+[08:36:09.054][D][sensor:129]: 'Raw magnitude' >> 32.5 W/m²
+[08:36:09.054][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":-24.7,"distance":83,"magnitude":32.5}'
+[08:36:09.131][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:36:09.132][D][sensor:129]: 'Absolute Geschwindigkeit' >> 6.20 km/h
+[08:36:09.132][D][sensor:129]: 'Raw angle' >> -13.8 °
+[08:36:09.132][D][sensor:129]: 'Raw distance' >> 87 cm
+[08:36:09.132][D][sensor:129]: 'Raw magnitude' >> 32.5 W/m²
+[08:36:09.132][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":-13.8,"distance":87,"magnitude":32.5}'
+[08:36:09.192][D][sensor:129]: 'Raw speed' >> 4.2 km/h
+[08:36:09.192][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.61 km/h
+[08:36:09.192][D][sensor:129]: 'Raw angle' >> 4.0 °
+[08:36:09.193][D][sensor:129]: 'Raw distance' >> 275 cm
+[08:36:09.193][D][sensor:129]: 'Raw magnitude' >> 31.1 W/m²
+[08:36:09.193][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.2,"angle":4.0,"distance":275,"magnitude":31.1}'
+[08:36:09.246][D][sensor:129]: 'Raw speed' >> 4.3 km/h
+[08:36:09.246][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.61 km/h
+[08:36:09.246][D][sensor:129]: 'Raw angle' >> 4.6 °
+[08:36:09.246][D][sensor:129]: 'Raw distance' >> 281 cm
+[08:36:09.246][D][sensor:129]: 'Raw magnitude' >> 31.1 W/m²
+[08:36:09.247][D][text_sensor:119]: 'Raw JSON' >> '{"speed":4.3,"angle":4.6,"distance":281,"magnitude":31.1}'
+[08:36:09.309][D][sensor:129]: 'Raw speed' >> 3.2 km/h
+[08:36:09.309][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.61 km/h
+[08:36:09.309][D][sensor:129]: 'Raw angle' >> 6.6 °
+[08:36:09.309][D][sensor:129]: 'Raw distance' >> 101 cm
+[08:36:09.310][D][sensor:129]: 'Raw magnitude' >> 31.8 W/m²
+[08:36:09.310][D][text_sensor:119]: 'Raw JSON' >> '{"speed":3.2,"angle":6.6,"distance":101,"magnitude":31.8}'
+[08:36:09.365][D][sensor:129]: 'Raw speed' >> 2.9 km/h
+[08:36:09.370][D][sensor:129]: 'Absolute Geschwindigkeit' >> 25.31 km/h
+[08:36:09.370][D][sensor:129]: 'Raw angle' >> 3.3 °
+[08:36:09.370][D][sensor:129]: 'Raw distance' >> 104 cm
+[08:36:09.370][D][sensor:129]: 'Raw magnitude' >> 38.7 W/m²
+[08:36:09.370][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.9,"angle":3.3,"distance":104,"magnitude":38.7}'
+[08:36:09.451][D][sensor:129]: 'Raw speed' >> 2.7 km/h
+[08:36:09.451][D][sensor:129]: 'Absolute Geschwindigkeit' >> 25.31 km/h
+[08:36:09.451][D][sensor:129]: 'Raw angle' >> -0.5 °
+[08:36:09.451][D][sensor:129]: 'Raw distance' >> 109 cm
+[08:36:09.451][D][sensor:129]: 'Raw magnitude' >> 44.3 W/m²
+[08:36:09.451][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.7,"angle":-0.5,"distance":109,"magnitude":44.3}'
+[08:36:09.495][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:36:09.499][D][sensor:129]: 'Absolute Geschwindigkeit' >> 25.31 km/h
+[08:36:09.499][D][sensor:129]: 'Raw angle' >> 1.7 °
+[08:36:09.499][D][sensor:129]: 'Raw distance' >> 114 cm
+[08:36:09.499][D][sensor:129]: 'Raw magnitude' >> 43.8 W/m²
+[08:36:09.499][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":1.7,"distance":114,"magnitude":43.8}'
+[08:36:09.572][D][sensor:129]: 'Raw speed' >> 2.9 km/h
+[08:36:09.572][D][sensor:129]: 'Absolute Geschwindigkeit' >> 25.31 km/h
+[08:36:09.572][D][sensor:129]: 'Raw angle' >> -1.3 °
+[08:36:09.572][D][sensor:129]: 'Raw distance' >> 118 cm
+[08:36:09.572][D][sensor:129]: 'Raw magnitude' >> 39.7 W/m²
+[08:36:09.572][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.9,"angle":-1.3,"distance":118,"magnitude":39.7}'
+[08:36:09.623][D][sensor:129]: 'Raw speed' >> 2.0 km/h
+[08:36:09.626][D][sensor:129]: 'Absolute Geschwindigkeit' >> 25.31 km/h
+[08:36:09.626][D][sensor:129]: 'Raw angle' >> -9.2 °
+[08:36:09.631][D][sensor:129]: 'Raw distance' >> 61 cm
+[08:36:09.631][D][sensor:129]: 'Raw magnitude' >> 37.9 W/m²
+[08:36:09.631][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.0,"angle":-9.2,"distance":61,"magnitude":37.9}'
+[08:36:09.709][D][sensor:129]: 'Raw speed' >> 2.1 km/h
+[08:36:09.713][D][sensor:129]: 'Absolute Geschwindigkeit' >> 12.86 km/h
+[08:36:09.713][D][sensor:129]: 'Raw angle' >> -18.9 °
+[08:36:09.713][D][sensor:129]: 'Raw distance' >> 65 cm
+[08:36:09.713][D][sensor:129]: 'Raw magnitude' >> 37.9 W/m²
+[08:36:09.713][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.1,"angle":-18.9,"distance":65,"magnitude":37.9}'
+[08:36:09.769][D][sensor:129]: 'Raw speed' >> 2.0 km/h
+[08:36:09.780][D][sensor:129]: 'Absolute Geschwindigkeit' >> 6.10 km/h
+[08:36:09.780][D][sensor:129]: 'Raw angle' >> -21.7 °
+[08:36:09.780][D][sensor:129]: 'Raw distance' >> 129 cm
+[08:36:09.780][D][sensor:129]: 'Raw magnitude' >> 38.8 W/m²
+[08:36:09.780][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.0,"angle":-21.7,"distance":129,"magnitude":38.8}'
+[08:36:09.827][D][sensor:129]: 'Raw speed' >> 1.9 km/h
+[08:36:09.827][D][sensor:129]: 'Absolute Geschwindigkeit' >> 5.03 km/h
+[08:36:09.827][D][sensor:129]: 'Raw angle' >> -15.3 °
+[08:36:09.827][D][sensor:129]: 'Raw distance' >> 132 cm
+[08:36:09.827][D][sensor:129]: 'Raw magnitude' >> 38.8 W/m²
+[08:36:09.827][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.9,"angle":-15.3,"distance":132,"magnitude":38.8}'
+[08:36:09.879][D][sensor:129]: 'Raw speed' >> 1.8 km/h
+[08:36:09.880][D][sensor:129]: 'Absolute Geschwindigkeit' >> 6.71 km/h
+[08:36:09.880][D][sensor:129]: 'Raw angle' >> -10.0 °
+[08:36:09.880][D][sensor:129]: 'Raw distance' >> 136 cm
+[08:36:09.881][D][sensor:129]: 'Raw magnitude' >> 38.8 W/m²
+[08:36:09.881][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.8,"angle":-10.0,"distance":136,"magnitude":38.8}'
+[08:36:09.959][D][sensor:129]: 'Raw speed' >> 2.4 km/h
+[08:36:09.962][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.70 km/h
+[08:36:09.963][D][sensor:129]: 'Raw angle' >> -20.7 °
+[08:36:09.963][D][sensor:129]: 'Raw distance' >> 47 cm
+[08:36:09.963][D][sensor:129]: 'Raw magnitude' >> 42.9 W/m²
+[08:36:09.963][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.4,"angle":-20.7,"distance":47,"magnitude":42.9}'
+[08:36:10.028][D][sensor:129]: 'Raw speed' >> 2.1 km/h
+[08:36:10.028][D][sensor:129]: 'Absolute Geschwindigkeit' >> 5.92 km/h
+[08:36:10.028][D][sensor:129]: 'Raw angle' >> -16.0 °
+[08:36:10.028][D][sensor:129]: 'Raw distance' >> 50 cm
+[08:36:10.028][D][sensor:129]: 'Raw magnitude' >> 42.9 W/m²
+[08:36:10.028][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.1,"angle":-16.0,"distance":50,"magnitude":42.9}'
+[08:36:10.078][D][sensor:129]: 'Raw speed' >> 2.3 km/h
+[08:36:10.079][D][sensor:129]: 'Absolute Geschwindigkeit' >> 8.29 km/h
+[08:36:10.079][D][sensor:129]: 'Raw angle' >> -10.4 °
+[08:36:10.079][D][sensor:129]: 'Raw distance' >> 55 cm
+[08:36:10.079][D][sensor:129]: 'Raw magnitude' >> 45.0 W/m²
+[08:36:10.079][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.3,"angle":-10.4,"distance":55,"magnitude":45.0}'
+[08:36:10.136][D][sensor:129]: 'Raw speed' >> 2.4 km/h
+[08:36:10.136][D][sensor:129]: 'Absolute Geschwindigkeit' >> 13.33 km/h
+[08:36:10.136][D][sensor:129]: 'Raw angle' >> -6.5 °
+[08:36:10.136][D][sensor:129]: 'Raw distance' >> 59 cm
+[08:36:10.136][D][sensor:129]: 'Raw magnitude' >> 45.0 W/m²
+[08:36:10.136][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.4,"angle":-6.5,"distance":59,"magnitude":45.0}'
+[08:36:10.181][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:36:10.181][D][sensor:129]: 'Absolute Geschwindigkeit' >> 22.10 km/h
+[08:36:10.181][D][sensor:129]: 'Raw angle' >> 6.1 °
+[08:36:10.181][D][sensor:129]: 'Raw distance' >> 62 cm
+[08:36:10.182][D][sensor:129]: 'Raw magnitude' >> 38.9 W/m²
+[08:36:10.182][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":6.1,"distance":62,"magnitude":38.9}'
+[08:36:10.244][D][sensor:129]: 'Raw speed' >> 2.6 km/h
+[08:36:10.251][D][sensor:129]: 'Absolute Geschwindigkeit' >> 24.97 km/h
+[08:36:10.251][D][sensor:129]: 'Raw angle' >> 7.2 °
+[08:36:10.251][D][sensor:129]: 'Raw distance' >> 368 cm
+[08:36:10.251][D][sensor:129]: 'Raw magnitude' >> 35.5 W/m²
+[08:36:10.251][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.6,"angle":7.2,"distance":368,"magnitude":35.5}'
+[08:36:10.272][D][binary_sensor:047]: 'pdetect' >> ON
+[08:36:10.310][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:36:10.310][D][sensor:129]: 'Absolute Geschwindigkeit' >> 20.38 km/h
+[08:36:10.310][D][sensor:129]: 'Raw angle' >> 30.2 °
+[08:36:10.310][D][sensor:129]: 'Raw distance' >> 155 cm
+[08:36:10.310][D][sensor:129]: 'Raw magnitude' >> 35.8 W/m²
+[08:36:10.328][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":30.2,"distance":155,"magnitude":35.8}'
+[08:36:10.386][D][sensor:129]: 'Raw speed' >> 2.4 km/h
+[08:36:10.393][D][sensor:129]: 'Absolute Geschwindigkeit' >> 4.76 km/h
+[08:36:10.393][D][sensor:129]: 'Raw angle' >> 8.0 °
+[08:36:10.393][D][sensor:129]: 'Raw distance' >> 374 cm
+[08:36:10.393][D][sensor:129]: 'Raw magnitude' >> 35.5 W/m²
+[08:36:10.416][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.4,"angle":8.0,"distance":374,"magnitude":35.5}'
+[08:36:10.456][D][sensor:129]: 'Raw speed' >> 2.5 km/h
+[08:36:10.459][D][sensor:129]: 'Absolute Geschwindigkeit' >> 17.69 km/h
+[08:36:10.459][D][sensor:129]: 'Raw angle' >> 35.9 °
+[08:36:10.459][D][sensor:129]: 'Raw distance' >> 162 cm
+[08:36:10.459][D][sensor:129]: 'Raw magnitude' >> 36.0 W/m²
+[08:36:10.478][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.5,"angle":35.9,"distance":162,"magnitude":36.0}'
+[08:36:10.512][D][sensor:129]: 'Raw speed' >> 1.7 km/h
+[08:36:10.520][D][sensor:129]: 'Absolute Geschwindigkeit' >> 2.90 km/h
+[08:36:10.521][D][sensor:129]: 'Raw angle' >> 19.1 °
+[08:36:10.521][D][sensor:129]: 'Raw distance' >> 29 cm
+[08:36:10.521][D][sensor:129]: 'Raw magnitude' >> 38.0 W/m²
+[08:36:10.563][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.7,"angle":19.1,"distance":29,"magnitude":38.0}'
+[08:36:10.563][D][sensor:129]: 'Raw speed' >> 1.8 km/h
+[08:36:10.563][D][sensor:129]: 'Absolute Geschwindigkeit' >> 5.57 km/h
+[08:36:10.564][D][sensor:129]: 'Raw angle' >> 20.2 °
+[08:36:10.564][D][sensor:129]: 'Raw distance' >> 31 cm
+[08:36:10.564][D][sensor:129]: 'Raw magnitude' >> 38.0 W/m²
+[08:36:10.627][D][text_sensor:119]: 'Raw JSON' >> '{"speed":1.8,"angle":20.2,"distance":31,"magnitude":38.0}'
+[08:36:10.627][D][sensor:129]: 'Raw speed' >> 2.7 km/h
+[08:36:10.627][D][sensor:129]: 'Absolute Geschwindigkeit' >> 7.83 km/h
+[08:36:10.627][D][sensor:129]: 'Raw angle' >> 12.8 °
+[08:36:10.627][D][sensor:129]: 'Raw distance' >> 95 cm
+[08:36:10.627][D][sensor:129]: 'Raw magnitude' >> 39.6 W/m²
+[08:36:10.644][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.7,"angle":12.8,"distance":95,"magnitude":39.6}'
+[08:36:10.770][D][sensor:129]: 'Raw speed' >> 2.4 km/h
+[08:36:10.770][D][sensor:129]: 'Absolute Geschwindigkeit' >> 10.72 km/h
+[08:36:10.771][D][sensor:129]: 'Raw angle' >> 4.9 °
+[08:36:10.771][D][sensor:129]: 'Raw distance' >> 101 cm
+[08:36:10.771][D][sensor:129]: 'Raw magnitude' >> 43.2 W/m²
+[08:36:10.774][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.4,"angle":4.9,"distance":101,"magnitude":43.2}'
+[08:36:10.774][D][sensor:129]: 'Raw speed' >> 2.0 km/h
+[08:36:10.774][D][sensor:129]: 'Absolute Geschwindigkeit' >> 10.72 km/h
+[08:36:10.776][D][sensor:129]: 'Raw angle' >> 9.6 °
+[08:36:10.776][D][sensor:129]: 'Raw distance' >> 38 cm
+[08:36:10.776][D][sensor:129]: 'Raw magnitude' >> 41.8 W/m²
+[08:36:10.795][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.0,"angle":9.6,"distance":38,"magnitude":41.8}'
+[08:36:10.813][D][sensor:129]: 'Raw speed' >> 2.4 km/h
+[08:36:10.813][D][sensor:129]: 'Absolute Geschwindigkeit' >> 14.21 km/h
+[08:36:10.813][D][sensor:129]: 'Raw angle' >> -3.4 °
+[08:36:10.813][D][sensor:129]: 'Raw distance' >> 107 cm
+[08:36:10.813][D][sensor:129]: 'Raw magnitude' >> 43.1 W/m²
+[08:36:10.828][D][text_sensor:119]: 'Raw JSON' >> '{"speed":2.4,"angle":-3.4,"distance":107,"magnitude":43.1}'
