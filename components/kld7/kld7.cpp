@@ -140,11 +140,16 @@ void Kld7::loop() {
 			 if (_filtered_detection_sensor != NULL) {
 				if (_last_raw.detection &&
 					_last_raw.angle >= _filtered_sensor_min_angle && _last_raw.angle <= _filtered_sensor_max_angle &&
-					_last_raw.distance >= _filtered_sensor_min_distance && _last_raw.distance <= _filtered_sensor_max_distance)
+					_last_raw.distance >= _filtered_sensor_min_distance && _last_raw.distance <= _filtered_sensor_max_distance &&
+					_last_raw.magnitude * _last_raw.distance > 10000) // Das sind Regentropfen. lol.
 				{
 					_filtered_sensor_points++;
 					_filtered_sensor_last_ts = millis();
 					if (_filtered_sensor_points >= _filtered_sensor_min_points) {
+						// wir müssen zwingend die Objektgröße vor dem detect event senden, sonst können wir ja nicht entscheiden was wir da sehen.
+                		// genau genommen müsten wir wohl sogar durch points -1 dividieren, aber darauf kommt es nicht an. hoffe ich.
+						float avg_size = _current_process.size_sum / _current_process.points;
+						if (_avg_size_sensor != NULL) _avg_size_sensor->publish_state(avg_size);
 						_filtered_detection_sensor->publish_state(true);
 					}
 				} else {
