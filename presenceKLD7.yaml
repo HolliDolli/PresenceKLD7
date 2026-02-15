@@ -61,6 +61,16 @@ sun:
   latitude: 51.14°
   longitude: 9.414°
 
+
+external_components:
+- source: components
+#    github://HolliDolli/esphome-component-kld7@MyMod
+  components: [ kld7 ]
+#- source: components
+#  components: [ kld6 ]
+
+
+
 globals:
   - id: last_valid_abs_speed
     type: float
@@ -70,13 +80,6 @@ globals:
     type: float
     restore_value: no
     initial_value: '0.0'
-
-external_components:
-- source: components
-#    github://HolliDolli/esphome-component-kld7@MyMod
-  components: [ kld7 ]
-#- source: components
-#  components: [ kld6 ]
 
 uart:
   - id: uart_bus
