@@ -263,7 +263,7 @@ binary_sensor:
       max_distance: 800
       min_angle: -90
       max_angle: 90
-      min_points: 20
+      min_points: 5
       timeout: 1000
 
 

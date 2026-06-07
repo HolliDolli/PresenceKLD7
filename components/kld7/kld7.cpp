@@ -141,7 +141,8 @@ void Kld7::loop() {
 				if (_last_raw.detection &&
 					_last_raw.angle >= _filtered_sensor_min_angle && _last_raw.angle <= _filtered_sensor_max_angle &&
 					_last_raw.distance >= _filtered_sensor_min_distance && _last_raw.distance <= _filtered_sensor_max_distance &&
-					_last_raw.magnitude * _last_raw.distance > 10000) // Das sind Regentropfen. lol.
+					_last_raw.magnitude * _last_raw.distance > 10000 && // Das sind Regentropfen. lol.
+					_last_raw.magnitude > 35) // Alles unter 35 sind blätter etc.
 				{
 					_filtered_sensor_points++;
 					_filtered_sensor_last_ts = millis();
