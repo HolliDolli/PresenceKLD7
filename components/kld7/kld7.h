@@ -41,6 +41,7 @@ class Kld7 : public Component, public uart::UARTDevice {
   void register_raw_angle_sensor(sensor::Sensor* sensor) { this->_raw_angle_sensor = sensor; }
   void register_raw_distance_sensor(sensor::Sensor* sensor) { this->_raw_distance_sensor = sensor; }
   void register_raw_magnitude_sensor(sensor::Sensor* sensor) { this->_raw_magnitude_sensor = sensor; }
+  void register_num_targets_sensor(sensor::Sensor* sensor) { this->_num_targets_sensor = sensor; }
 
   void register_raw_detection_sensor(binary_sensor::BinarySensor* sensor) { this->_raw_detection_sensor = sensor; };
   void register_raw_direction_sensor(binary_sensor::BinarySensor* sensor) { this->_raw_direction_sensor = sensor; };
@@ -57,13 +58,16 @@ class Kld7 : public Component, public uart::UARTDevice {
 
   void register_raw_json_sensor(text_sensor::TextSensor* sensor) { this->_raw_json_sensor = sensor; }
   void register_json_sensor(text_sensor::TextSensor* sensor) { this->_json_sensor = sensor; }
-
+  void register_pdat_json_sensor(text_sensor::TextSensor* sensor) { this->_pdat_json_sensor = sensor; }
   void set_invert_angle(bool invert) { this->_invert_angle = invert; }
 
   void loop() override;
   void setup() override;
   void dump_config() override;
   bool _invert_angle = false;
+  
+  
+  
   sensor::Sensor* _speed_sensor = NULL;
   sensor::Sensor* _avg_speed_sensor = NULL;
   sensor::Sensor* _avg_size_sensor = NULL;
@@ -72,6 +76,7 @@ class Kld7 : public Component, public uart::UARTDevice {
   sensor::Sensor* _raw_angle_sensor = NULL;
   sensor::Sensor* _raw_distance_sensor = NULL;
   sensor::Sensor* _raw_magnitude_sensor = NULL;
+  sensor::Sensor* _num_targets_sensor = NULL;
   uint16_t _filtered_sensor_min_distance = 0;
   uint16_t _filtered_sensor_max_distance = 800;
   float _filtered_sensor_min_angle = -90.0;
@@ -86,6 +91,7 @@ class Kld7 : public Component, public uart::UARTDevice {
 
   text_sensor::TextSensor* _raw_json_sensor = NULL;
   text_sensor::TextSensor* _json_sensor = NULL;
+  text_sensor::TextSensor* _pdat_json_sensor = NULL;
 
   uint16_t _filtered_sensor_points = 0;
   unsigned long long _filtered_sensor_last_ts = 0;
@@ -98,6 +104,8 @@ class Kld7 : public Component, public uart::UARTDevice {
   bool _waiting_for_data = false;
   void _process_detection();
   void _finish_processing(const char* reason);
+  void _process_pdat(uint8_t* payload, uint32_t length);
+  int _last_num_targets = -1;  // -1 sorgt dafür, dass der erste echte Wert (auch 0) immer published wird  
   unsigned long long _last_request = 0;
   void _request_data();
 };

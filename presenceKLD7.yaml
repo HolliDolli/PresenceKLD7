@@ -137,6 +137,10 @@ text_sensor:
     json:
       name: JSON
       disabled_by_default: true
+    pdat_json:
+      name: PDAT JSON
+      id: pdat_json
+      disabled_by_default: true   
      
 sensor:
   - platform: wifi_signal # Reports the WiFi signal strength/RSSI in dB
@@ -194,7 +198,11 @@ sensor:
       name: Raw magnitude
       id: raw_magnitude
       disabled_by_default: true
-      
+    num_targets:
+      name: Num targets
+      disabled_by_default: true
+      filters:
+        - delta: 0.001      
       
   - platform: template
     name: "Absolute Geschwindigkeit"

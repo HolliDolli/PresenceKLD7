@@ -14,6 +14,7 @@ CONF_TYPE_POINTS = "points"
 CONF_TYPE_RAW_ANGLE = "raw_angle"
 CONF_TYPE_RAW_DISTANCE = "raw_distance"
 CONF_TYPE_RAW_MAGNITUDE = "raw_magnitude"
+CONF_TYPE_NUM_TARGETS = "num_targets"
 
 Kld7Sensor = kld7_ns.class_("Sensor", sensor.Sensor, cg.Component)
 
@@ -66,6 +67,10 @@ CONFIG_SCHEMA = sensor.sensor_schema().extend(
             state_class=STATE_CLASS_MEASUREMENT,
             unit_of_measurement="W/m²",
             device_class=DEVICE_CLASS_IRRADIANCE
+		),
+        cv.Optional(CONF_TYPE_NUM_TARGETS): sensor.sensor_schema(
+            accuracy_decimals=0,
+            state_class=STATE_CLASS_MEASUREMENT
 		)
     }
 )
@@ -102,3 +107,6 @@ async def to_code(config):
     if sensor_config := config.get(CONF_TYPE_RAW_MAGNITUDE):
         sens = await sensor.new_sensor(sensor_config)
         cg.add(kld7.register_raw_magnitude_sensor(sens))
+    if sensor_config := config.get(CONF_TYPE_NUM_TARGETS):
+        sens = await sensor.new_sensor(sensor_config)
+        cg.add(kld7.register_num_targets_sensor(sens))        

@@ -74,7 +74,7 @@ bool Kld7::_wait_for_ok() {
 }
 
 void Kld7::_request_data() {
-	write_array((std::array<uint8_t, 12>){'G', 'N', 'F', 'D', 0x04, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00});
+	write_array((std::array<uint8_t, 12>){'G', 'N', 'F', 'D', 0x04, 0x00, 0x00, 0x00, 0x0C, 0x00, 0x00, 0x00});
 	_waiting_for_data = true;
 	_last_request = millis();
 }
@@ -114,6 +114,8 @@ void Kld7::loop() {
 				case 6: ESP_LOGE(TAG, "RESP: Timeout error"); break;
 				default: ESP_LOGE(TAG, "RESP: Unknown error code %02X", payload[0]); break;
 			}
+		} else if(strcmp(command,"PDAT")==0	) {
+			_process_pdat(payload, length);
 		} else if(strcmp(command,"TDAT")==0) {
 			if (length != 8 && length!=0) {
 				ESP_LOGE(TAG, "Received TDAT with wrong payload length (expected: 0 or 8, was: %d)", length);
@@ -140,9 +142,9 @@ void Kld7::loop() {
 			 if (_filtered_detection_sensor != NULL) {
 				if (_last_raw.detection &&
 					_last_raw.angle >= _filtered_sensor_min_angle && _last_raw.angle <= _filtered_sensor_max_angle &&
-					_last_raw.distance >= _filtered_sensor_min_distance && _last_raw.distance <= _filtered_sensor_max_distance &&
-					_last_raw.magnitude * _last_raw.distance > 10000 && // Das sind Regentropfen. lol.
-					_last_raw.magnitude > 35) // Alles unter 35 sind blätter etc.
+					_last_raw.distance >= _filtered_sensor_min_distance && _last_raw.distance <= _filtered_sensor_max_distance)
+					//&& _last_raw.magnitude * _last_raw.distance > 10000 && // Das sind Regentropfen. lol.
+					//_last_raw.magnitude > 35) // Alles unter 35 sind blätter etc.
 				{
 					_filtered_sensor_points++;
 					_filtered_sensor_last_ts = millis();
@@ -165,6 +167,29 @@ void Kld7::loop() {
 			ESP_LOGW(TAG, "Received unexpected command %s. Ignoring.", command);
 		}
 	}	
+}
+
+
+void Kld7::_process_pdat(uint8_t* payload, uint32_t length) {
+	int num_targets = length / 8;
+	if (_num_targets_sensor != NULL && num_targets != _last_num_targets) {
+		_num_targets_sensor->publish_state(num_targets);
+		_last_num_targets = num_targets;
+	}
+
+	if (_pdat_json_sensor != NULL && num_targets >= 2) {
+		char buff[400];
+		int pos = snprintf(buff, sizeof(buff), "{\"n\":%d,\"targets\":[", num_targets);
+		for (int i = 0; i < num_targets && pos < (int)sizeof(buff)-60; i++) {
+			RawRadarEvent target(payload + i*8, 8, _invert_angle);
+			pos += snprintf(buff+pos, sizeof(buff)-pos,
+				"%s{\"d\":%d,\"s\":%.2f,\"a\":%.2f,\"m\":%.2f}",
+				(i>0 ? "," : ""), target.distance, target.speed, target.angle, target.magnitude);
+		}
+		snprintf(buff+pos, sizeof(buff)-pos, "]}");
+		_pdat_json_sensor->publish_state(buff);
+		ESP_LOGD(TAG, "PDAT: %s", buff);
+	}
 }
 
 void Kld7::_process_detection() {
@@ -218,7 +243,7 @@ void Kld7::_finish_processing(const char* reason) {
 		if (_speed_sensor != NULL) _speed_sensor->publish_state(_current_process.not_max_speed);
 		if (_detection_sensor != NULL) _detection_sensor->publish_state(true);
 		if (_json_sensor != NULL) {
-			char buffer[92];
+			char buffer[100];
 			snprintf(buffer, sizeof(buffer), "{\"speed\":%.1f,\"avg_speed\":%.1f,\"avg_size\":%.1f,\"points\":%d,\"reason\":\"%s\"}", _current_process.not_max_speed, avg_speed, avg_size, _current_process.points, reason);
 			_json_sensor->publish_state(buffer);
 		}
