@@ -164,6 +164,7 @@ sensor:
     update_interval: 30s
   - platform: kld7
     name: K-LD7 Sensor
+    disabled_by_default: true
     speed:
       name: Speed
       disabled_by_default: true
