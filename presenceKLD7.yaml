@@ -140,8 +140,15 @@ text_sensor:
     pdat_json:
       name: PDAT JSON
       id: pdat_json
-      disabled_by_default: true   
-     
+      disabled_by_default: true
+    pdat_json_2:
+      name: PDAT JSON 2
+      id: pdat_json_2
+      disabled_by_default: true
+    pdat_json_3:
+      name: PDAT JSON 3
+      id: pdat_json_3
+      disabled_by_default: true
 sensor:
   - platform: wifi_signal # Reports the WiFi signal strength/RSSI in dB
     name: "WiFi Signal dB"
@@ -268,12 +275,18 @@ binary_sensor:
       disabled_by_default: true
     filtered_detection:
       name: Filtered detection
-      min_distance: 000
-      max_distance: 800
-      min_angle: -90
-      max_angle: 90
       min_points: 5
       timeout: 1000
+      # Neue Filterkriterien statt Winkel/Distanz-Fenster: Speed-Persistenz
+      # + PDAT-Kohärenz. Begründung und Kalibrierung siehe Analyse von
+      # KLD7-log-Kind-Erw.csv ("direction changed" und "magnitude" waren
+      # bei diesem Gehweg-Layout keine brauchbaren Kriterien).
+      speed_min: 0.8
+      min_run_frames: 4
+      max_frame_gap: 500
+      pdat_distance_tolerance: 80
+      pdat_speed_min: 0.8
+      validation_window: 1200
 
 
   - platform: gpio

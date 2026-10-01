@@ -9,6 +9,11 @@ AUTO_LOAD = ["kld7"]
 CONF_TYPE_RAW_JSON = "raw_json"
 CONF_TYPE_JSON = "json"
 CONF_TYPE_PDAT_JSON = "pdat_json"
+# PDAT-Frames können mehr Targets liefern, als in einen einzelnen 255-Zeichen
+# TextSensor-State passen (HA kappt sonst auf "unknown"). Targets 6-10 und
+# 11-15 gehen in zwei weitere, optionale Sensoren.
+CONF_TYPE_PDAT_JSON_2 = "pdat_json_2"
+CONF_TYPE_PDAT_JSON_3 = "pdat_json_3"
 
 Kld7TextSensor = kld7_ns.class_("TextSensor", text_sensor.TextSensor, cg.Component)
 
@@ -21,6 +26,10 @@ CONFIG_SCHEMA = text_sensor.text_sensor_schema().extend(
         cv.Optional(CONF_TYPE_JSON): text_sensor.text_sensor_schema(
         ),
         cv.Optional(CONF_TYPE_PDAT_JSON): text_sensor.text_sensor_schema(
+        ),
+        cv.Optional(CONF_TYPE_PDAT_JSON_2): text_sensor.text_sensor_schema(
+        ),
+        cv.Optional(CONF_TYPE_PDAT_JSON_3): text_sensor.text_sensor_schema(
         ),
     }
 )
@@ -39,4 +48,10 @@ async def to_code(config):
         cg.add(kld7.register_json_sensor(sens))
     if sensor_config := config.get(CONF_TYPE_PDAT_JSON):
         sens = await text_sensor.new_text_sensor(sensor_config)
-        cg.add(kld7.register_pdat_json_sensor(sens))        
+        cg.add(kld7.register_pdat_json_sensor(sens))
+    if sensor_config := config.get(CONF_TYPE_PDAT_JSON_2):
+        sens = await text_sensor.new_text_sensor(sensor_config)
+        cg.add(kld7.register_pdat_json_sensor_2(sens))
+    if sensor_config := config.get(CONF_TYPE_PDAT_JSON_3):
+        sens = await text_sensor.new_text_sensor(sensor_config)
+        cg.add(kld7.register_pdat_json_sensor_3(sens))
