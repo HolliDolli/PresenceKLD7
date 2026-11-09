@@ -30,13 +30,13 @@ void Kld7::setup() {
 	write_array((std::array<uint8_t, 12>){'T', 'R', 'F', 'T', 0x04, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00}); // Tracking filter type = Fast detection
 	_wait_for_ok();
 	ESP_LOGD(TAG, "Sending MIRA"); // Minimum detection distance as % of range
-	write_array((std::array<uint8_t, 12>){'M', 'I', 'R', 'A', 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}); // Minimum range = 1% = 1m
+	write_array((std::array<uint8_t, 12>){'M', 'I', 'R', 'A', 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}); // Minimum range = 0% der Range-Einstellung
 	_wait_for_ok();
 	ESP_LOGD(TAG, "Sending MARA"); // Maximum detection distance as % of range
-	write_array((std::array<uint8_t, 12>){'M', 'A', 'R', 'A', 0x04, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00}); // Maximum range = 100% = 10m
+	write_array((std::array<uint8_t, 12>){'M', 'A', 'R', 'A', 0x04, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00}); // Maximum range = 100% der Range-Einstellung (RRAI=2 -> 30m)
 	_wait_for_ok();
 	ESP_LOGD(TAG, "Sending MASP"); // Maximum detection speed as % of maxspeed
-	write_array((std::array<uint8_t, 12>){'M', 'A', 'S', 'P', 0x04, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00}); // Maximum range = 100% = 25Km/h
+	write_array((std::array<uint8_t, 12>){'M', 'A', 'S', 'P', 0x04, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00}); // Maximum speed = 100% der Speed-Einstellung (RSPI=2 -> 50km/h)
 	_wait_for_ok();
 	ESP_LOGD(TAG, "Sending RATH"); 
 	write_array((std::array<uint8_t, 12>){'R', 'A', 'T', 'H', 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}); // Range threshold = 0%
@@ -81,20 +81,39 @@ void Kld7::loop() {
 		ESP_LOGW(TAG, "Received no data. Sending another request.");
 		_request_data();
 	}
-	if (available() >= 8) {
+	// Header und Payload getrennt einlesen: Der Header wird gemerkt, bis die
+	// komplette Payload im UART-Puffer liegt. So blockiert read_array() nie auf
+	// noch nicht empfangene Bytes. Die Laenge aus dem Header wird begrenzt, damit
+	// ein verstuemmelter Header kein riesiges Array auf dem Stack anlegt.
+	// (Funktionslokale statics: es gibt nur eine Kld7-Instanz.)
+	static const uint32_t MAX_PAYLOAD = 512;  // = 64 PDAT-Targets
+	static bool have_head = false;
+	static char command[5];
+	static uint32_t length = 0;
+	if (!have_head) {
+		if (available() < 8) return;
 		uint8_t head[8];
 		read_array(head, 8);
 		//ESP_LOGD(TAG, "Recieved data: %02X %02X %02X %02X %02X %02X %02X %02X", head[0], head[1], head[2], head[3], head[4], head[5], head[6], head[7]);
-		char command[5];
 		memcpy(command, head, 4);
 		command[4] = '\0';
-		uint32_t length = head[4] | (head[5]<<8) | (head[6]<<16) | (head[7]<<24);
-		uint8_t payload[length];
-		read_array(payload, length);
+		length = head[4] | (head[5]<<8) | (head[6]<<16) | (head[7]<<24);
+		if (length > MAX_PAYLOAD) {
+			ESP_LOGE(TAG, "Header %02X %02X %02X %02X mit unplausibler Laenge %lu - verwerfe UART-Puffer.", head[0], head[1], head[2], head[3], (unsigned long) length);
+			while (available() > 0) read();
+			return;
+		}
+		have_head = true;
+	}
+	if (available() < (int)length) return;
+	have_head = false;
+	{
+		uint8_t payload[MAX_PAYLOAD];
+		if (length > 0) read_array(payload, length);
 		//ESP_LOGD(TAG, "Received command %s with a payload of %d bytes.", command, length);
 		if (strcmp(command, "RESP")==0) {
 			if (length != 1) {
-				ESP_LOGE(TAG, "Received RESP with wrong payload length (expected: 1, was: %d)", length);
+				ESP_LOGE(TAG, "Received RESP with wrong payload length (expected: 1, was: %lu)", (unsigned long) length);
 				return;
 			}
 			switch (payload[0]) {
@@ -111,7 +130,7 @@ void Kld7::loop() {
 			_process_pdat(payload, length);
 		} else if(strcmp(command,"TDAT")==0) {
 			if (length != 8 && length!=0) {
-				ESP_LOGE(TAG, "Received TDAT with wrong payload length (expected: 0 or 8, was: %d)", length);
+				ESP_LOGE(TAG, "Received TDAT with wrong payload length (expected: 0 or 8, was: %lu)", (unsigned long) length);
 				return;
 			}
 			_last_raw = RawRadarEvent(payload, length, this->_invert_angle);
@@ -163,7 +182,10 @@ void Kld7::_process_pdat(uint8_t* payload, uint32_t length) {
 	// "...]}" abgeschnitten statt ungültiges JSON zu erzeugen.
 	const int TARGETS_PER_CHUNK = 5;
 	text_sensor::TextSensor* chunk_sensors[3] = {_pdat_json_sensor, _pdat_json_sensor_2, _pdat_json_sensor_3};
-	for (int chunk = 0; chunk < 3; chunk++) {
+	// Reihenfolge 3 -> 2 -> 1: Der HA-CSV-Logger triggert auf Chunk 1 und liest
+	// dabei Chunk 2 und 3 mit. Die API uebertraegt der Reihe nach, also muessen
+	// 2 und 3 vor 1 veroeffentlicht werden, sonst loggt HA dort den Vorframe.
+	for (int chunk = 2; chunk >= 0; chunk--) {
 		text_sensor::TextSensor* sens = chunk_sensors[chunk];
 		if (sens == NULL) continue;
 		int start = chunk * TARGETS_PER_CHUNK;
