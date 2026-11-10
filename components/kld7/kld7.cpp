@@ -1,5 +1,11 @@
 #include "kld7.h"
 #include "esphome/core/log.h"
+#include "esphome/core/defines.h"
+// Ein HA-Ereignis pro Frame braucht in der YAML:  api: -> homeassistant_services: true
+#ifdef USE_API_HOMEASSISTANT_SERVICES
+#include <map>
+#include "esphome/components/api/custom_api_device.h"
+#endif
 namespace esphome {
 namespace kld7 {
 	
@@ -31,6 +37,11 @@ void Kld7::setup() {
 	ESP_LOGI(TAG, "Starting initialization of K-LD7...");
 	if (_init_sensor()) {
 		ESP_LOGI(TAG, "Initialization complete");
+#ifdef USE_API_HOMEASSISTANT_SERVICES
+		ESP_LOGI(TAG, "Frames werden als HA-Ereignis '%s' gesendet.", FRAME_EVENT_NAME);
+#else
+		ESP_LOGE(TAG, "'homeassistant_services: true' fehlt unter 'api:' - keine Frame-Ereignisse, es bleibt bei den PDAT-JSON-Sensoren.");
+#endif
 	} else {
 		ESP_LOGE(TAG, "Initialization failed - wird aus loop() wiederholt.");
 	}
@@ -42,7 +53,7 @@ bool Kld7::_init_sensor() {
 	// halb initialisierter Sensor (Werkseinstellungen!) bleibt so nicht
 	// unbemerkt: der naechste Versuch folgt automatisch.
 	_have_head = false;
-	_waiting_for_data = false;
+	_outstanding = 0;
 	_pdat_pending = false;
 	_tdat_pending = false;
 	_have_last_frame_no = false;  // der Sensor zaehlt nach einem Neustart wieder ab 0
@@ -81,15 +92,24 @@ void Kld7::_request_data() {
 	// GNFD-Bitmaske: 0x04 = PDAT, 0x08 = TDAT, 0x20 = DONE (Frame-Nummer des Sensors).
 	uint8_t mask = _use_done ? 0x2C : 0x0C;
 	write_array((std::array<uint8_t, 12>){'G', 'N', 'F', 'D', 0x04, 0x00, 0x00, 0x00, mask, 0x00, 0x00, 0x00});
-	_waiting_for_data = true;
+	_outstanding++;
+	_stat_requests++;
 	_last_request = millis();
 }
+void Kld7::_fill_pipeline() {
+	// Haelt _pipeline_depth Anfragen gleichzeitig offen. Bei Tiefe 2 liegt die
+	// Anfrage fuer den uebernaechsten Frame schon im Sensor, waehrend der
+	// naechste noch gemessen wird. Hintergrund: Mit nur einer offenen Anfrage
+	// kam die naechste fast immer zu spaet fuer den direkt folgenden Frame
+	// (Log vom 10.11.: Schrittweite der Frame-Nummer meist 2 bis 3).
+	while (_outstanding < _pipeline_depth) _request_data();
+}
 void Kld7::loop() {
-	if (_waiting_for_data == false && (_last_request > millis() || _last_request + REQUEST_INTERVAL < millis())) {
+	if (_outstanding == 0 && (_last_request > millis() || _last_request + REQUEST_INTERVAL < millis())) {
 		// Nur beim Start bzw. nach einer Re-Initialisierung. Im laufenden Betrieb
-		// fordert _finish_frame() den naechsten Frame sofort an.
-		_request_data();
-	} else if (_waiting_for_data && (_last_request > millis() || _last_request + TIMEOUT_INTERVAL < millis())) {
+		// fuellt _finish_frame() die Anfragen sofort wieder auf.
+		_fill_pipeline();
+	} else if (_outstanding > 0 && (_last_request > millis() || _last_request + TIMEOUT_INTERVAL < millis())) {
 		ESP_LOGW(TAG, "Received no data. Sending another request.");
 		if (_use_done && _tdat_pending && ++_done_missing >= 3) {
 			// TDAT kam an, DONE aber dreimal in Folge nicht: Dieser Sensor liefert
@@ -99,6 +119,7 @@ void Kld7::loop() {
 		}
 		_pdat_pending = false;  // unvollstaendigen Frame verwerfen
 		_tdat_pending = false;
+		_outstanding = 0;       // offene Anfragen gelten als verloren
 		if (++_timeout_count >= REINIT_AFTER_TIMEOUTS) {
 			// Der Sensor antwortet dauerhaft nicht (z.B. nach eigenem Neustart
 			// ohne Verbindung, oder setup() ist fehlgeschlagen): neu verbinden
@@ -107,7 +128,7 @@ void Kld7::loop() {
 			_timeout_count = 0;
 			if (_init_sensor()) ESP_LOGI(TAG, "Re-Initialisierung erfolgreich.");
 		}
-		_request_data();
+		_fill_pipeline();
 	}
 	// Alle vollstaendig empfangenen Pakete in EINEM Durchlauf verarbeiten
 	// (RESP, PDAT, TDAT, DONE). Frueher war es ein Paket pro loop()-Durchlauf;
@@ -169,15 +190,26 @@ bool Kld7::_read_packet() {
 			ESP_LOGE(TAG, "Received RESP with wrong payload length (expected: 1, was: %lu)", (unsigned long) length);
 			return true;
 		}
-		switch (payload[0]) {
-			case 0: break; // OK
-			case 1: ESP_LOGE(TAG, "RESP: Unknown command"); break;
-			case 2: ESP_LOGE(TAG, "RESP: Invalid parameter value"); break;
-			case 3: ESP_LOGE(TAG, "RESP: Invalid RPST version"); break;
-			case 4: ESP_LOGE(TAG, "RESP: Uart error (parity, framing, noise)"); break;
-			case 5: ESP_LOGE(TAG, "RESP: Sensor busy"); break;
-			case 6: ESP_LOGE(TAG, "RESP: Timeout error"); break;
-			default: ESP_LOGE(TAG, "RESP: Unknown error code %02X", payload[0]); break;
+		if (payload[0] == 0) {
+			_stat_acked++;
+		} else {
+			// Im laufenden Betrieb werden nur GNFD-Anfragen gesendet: Eine
+			// abgelehnte Anfrage liefert keinen Frame und ist damit nicht mehr offen.
+			_stat_rejected++;
+			if (_outstanding > 0) _outstanding--;
+			switch (payload[0]) {
+				case 1: ESP_LOGE(TAG, "RESP: Unknown command"); break;
+				case 2: ESP_LOGE(TAG, "RESP: Invalid parameter value"); break;
+				case 3: ESP_LOGE(TAG, "RESP: Invalid RPST version"); break;
+				case 4: ESP_LOGE(TAG, "RESP: Uart error (parity, framing, noise)"); break;
+				case 5: ESP_LOGE(TAG, "RESP: Sensor busy"); break;
+				case 6: ESP_LOGE(TAG, "RESP: Timeout error"); break;
+				default: ESP_LOGE(TAG, "RESP: Unknown error code %02X", payload[0]); break;
+			}
+			if (_pipeline_depth > 1 && ++_pipeline_rejects >= 5) {
+				ESP_LOGE(TAG, "Sensor lehnt vorab gesendete Anfragen ab - zurueck auf eine Anfrage pro Frame.");
+				_pipeline_depth = 1;
+			}
 		}
 	} else if (strcmp(command, "PDAT")==0) {
 		// Nur merken. Veroeffentlicht wird in _finish_frame(), wenn die
@@ -214,13 +246,15 @@ void Kld7::_finish_frame(uint32_t frame_no) {
 	// moeglichst frueh, das Veroeffentlichen kostet Zeit.
 	_timeout_count = 0;
 	_done_missing = 0;
-	_request_data();
+	if (_outstanding > 0) _outstanding--;
+	_fill_pipeline();
 
 	// Statistik: Die Frame-Nummer des Sensors zaehlt jeden gemessenen Frame.
 	// Eine Luecke heisst: Diese Frames hat der ESP nicht abgeholt.
 	_stat_read++;
 	if (_use_done) {
 		if (_have_last_frame_no && frame_no > _last_frame_no) _stat_missed += frame_no - _last_frame_no - 1;
+		if (_have_last_frame_no && frame_no == _last_frame_no) _stat_duplicate++;
 		_last_frame_no = frame_no;
 		_have_last_frame_no = true;
 	}
@@ -231,18 +265,24 @@ void Kld7::_finish_frame(uint32_t frame_no) {
 	}
 	if (now - _stat_window_start >= (unsigned long) STATISTICS_INTERVAL) {
 		if (_use_done) {
-			ESP_LOGI(TAG, "Frames in den letzten %d s: %lu abgeholt, %lu verpasst.", STATISTICS_INTERVAL / 1000, (unsigned long) _stat_read, (unsigned long) _stat_missed);
+			ESP_LOGI(TAG, "Frames in den letzten %d s: %lu abgeholt, %lu verpasst, %lu doppelt.", STATISTICS_INTERVAL / 1000, (unsigned long) _stat_read, (unsigned long) _stat_missed, (unsigned long) _stat_duplicate);
 		} else {
 			ESP_LOGI(TAG, "Frames in den letzten %d s: %lu abgeholt (ohne Sensor-Frame-Nummer).", STATISTICS_INTERVAL / 1000, (unsigned long) _stat_read);
 		}
+		ESP_LOGI(TAG, "Anfragen: %lu gesendet, %lu quittiert, %lu abgelehnt, gleichzeitig offen: %d.", (unsigned long) _stat_requests, (unsigned long) _stat_acked, (unsigned long) _stat_rejected, _pipeline_depth);
+		_stat_requests = 0;
+		_stat_acked = 0;
+		_stat_rejected = 0;
+		_stat_duplicate = 0;
 		_stat_read = 0;
 		_stat_missed = 0;
 		_stat_window_start = now;
 	}
 
 	if (!_pdat_pending) _last_pdat_targets.clear();  // kein PDAT in diesem Frame: keine alten Targets weiterverwenden
-	_publish_pdat(frame_no);
 	bool have_tdat = _tdat_pending;
+	_fire_frame_event(frame_no, have_tdat);
+	_publish_pdat(frame_no);
 	_pdat_pending = false;
 	_tdat_pending = false;
 	if (!have_tdat) return;
@@ -265,12 +305,64 @@ void Kld7::_finish_frame(uint32_t frame_no) {
 	_process_filtered_detection();
 	_process_detection();
 }
+void Kld7::_fire_frame_event(uint32_t frame_no, bool have_tdat) {
+	// Sendet den kompletten Frame als EIN Home-Assistant-Ereignis: alle
+	// PDAT-Targets und das TDAT-Ziel. Hintergrund: Ueber die drei
+	// PDAT-JSON-Sensoren kam HA bei voller Frame-Rate nicht mehr mit - Chunk 2
+	// und 3 stammten im CSV oft schon aus dem naechsten Frame (Log 10.11.,
+	// 14 von 30 Frames mit mehr als 5 Targets). Ein Ereignis ist unteilbar und
+	// wird von der API sofort gesendet (keine Buendelung wie bei States).
+	//
+	// Ereignisdaten (alles Strings):
+	//   f  = Frame-Nummer des Sensors
+	//   n  = Anzahl PDAT-Targets
+	//   t  = PDAT-Targets als JSON: [[distance_cm,speed_kmh,angle_deg,magnitude_db],...]
+	//   td, ts, ta, tm = TDAT-Ziel (distance, speed, angle, magnitude); leer ohne Detection
+	// Frames ohne Target und ohne Detection werden nicht gesendet.
+#ifdef USE_API_HOMEASSISTANT_SERVICES
+	int n = _last_pdat_targets.size();
+	bool detection = have_tdat && _last_raw.detection;
+	if (n == 0 && !detection) return;
+	// Ohne verbundenes HA wuerde die API jeden Frame mit einer Warnung verwerfen.
+	if (api::global_api_server == nullptr || !api::global_api_server->is_connected_with_state_subscription()) return;
+
+	char t[420];
+	int pos = 0;
+	t[pos++] = '[';
+	for (int i = 0; i < n; i++) {
+		if (pos > (int)sizeof(t) - 36) break;  // ein Target braucht hoechstens 32 Zeichen
+		RawRadarEvent& target = _last_pdat_targets[i];
+		pos += snprintf(t+pos, sizeof(t)-pos, "%s[%d,%.2f,%.2f,%.2f]", (i>0 ? "," : ""), target.distance, target.speed, target.angle, target.magnitude);
+	}
+	snprintf(t+pos, sizeof(t)-pos, "]");
+
+	char f[12], nn[12], td[8] = "", ts[16] = "", ta[16] = "", tm[16] = "";
+	snprintf(f, sizeof(f), "%lu", (unsigned long) frame_no);
+	snprintf(nn, sizeof(nn), "%d", n);
+	if (detection) {
+		snprintf(td, sizeof(td), "%d", _last_raw.distance);
+		snprintf(ts, sizeof(ts), "%.2f", _last_raw.speed);
+		snprintf(ta, sizeof(ta), "%.2f", _last_raw.angle);
+		snprintf(tm, sizeof(tm), "%.2f", _last_raw.magnitude);
+	}
+	std::map<std::string, std::string> data = {
+		{"f", f}, {"n", nn}, {"t", t}, {"td", td}, {"ts", ts}, {"ta", ta}, {"tm", tm},
+	};
+	api::CustomAPIDevice device;
+	device.fire_homeassistant_event(FRAME_EVENT_NAME, data);
+#endif
+}
 void Kld7::_publish_pdat(uint32_t frame_no) {
 	int num_targets = _last_pdat_targets.size();
 	if (_num_targets_sensor != NULL && num_targets != _last_num_targets) {
 		_num_targets_sensor->publish_state(num_targets);
 		_last_num_targets = num_targets;
 	}
+#ifdef USE_API_HOMEASSISTANT_SERVICES
+	// Die Targets gehen als Ereignis an HA (_fire_frame_event). Die
+	// PDAT-JSON-Sensoren werden dann nicht mehr befuellt, sie bleiben auf "{}".
+	num_targets = 0;
+#endif
 	// Diagnose-JSON: kompakte 1-Buchstaben-Keys (d/s/a/m), aufgeteilt auf bis
 	// zu 3 Sensoren a 5 Targets, weil ein einzelner TextSensor-State von HA
 	// bei 255 Zeichen gekappt wird (auf "unknown" faellt).

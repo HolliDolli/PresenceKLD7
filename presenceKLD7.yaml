@@ -19,6 +19,7 @@ esphome:
 
 # Enable logging
 logger:
+  baud_rate: 0
 
 wifi:
   networks:
@@ -51,8 +52,8 @@ ota:
 #
 api:
   reboot_timeout: 60min  # only enable this when creating an offline device; 0s=never reboot
-
-
+  batch_delay: 0ms
+  homeassistant_services: true
   
 time:
   - platform: homeassistant
@@ -137,18 +138,6 @@ text_sensor:
       disabled_by_default: true
     json:
       name: JSON
-      disabled_by_default: true
-    pdat_json:
-      name: PDAT JSON
-      id: pdat_json
-      disabled_by_default: true
-    pdat_json_2:
-      name: PDAT JSON 2
-      id: pdat_json_2
-      disabled_by_default: true
-    pdat_json_3:
-      name: PDAT JSON 3
-      id: pdat_json_3
       disabled_by_default: true
 sensor:
   - platform: wifi_signal # Reports the WiFi signal strength/RSSI in dB

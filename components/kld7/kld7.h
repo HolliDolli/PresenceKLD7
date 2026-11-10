@@ -25,6 +25,11 @@ const int REINIT_AFTER_TIMEOUTS = 10;
 const uint32_t MAX_PAYLOAD = 96;
 // Abstand (ms) der Frame-Statistik im Log (abgeholt / verpasst).
 const int STATISTICS_INTERVAL = 60000;
+// Anzahl gleichzeitig offener Frame-Anfragen. 2 = die naechste Anfrage liegt
+// schon im Sensor, bevor der laufende Frame fertig ist. 1 = altes Verhalten.
+const int PIPELINE_DEPTH = 2;
+// Name des Home-Assistant-Ereignisses, das pro Frame gesendet wird.
+static const char* const FRAME_EVENT_NAME = "esphome.kld7_frame";
 
 extern const char* PROCESSING_REASON_OBJECT_GONE;
 extern const char* PROCESSING_REASON_TIME_OVERFLOW;
@@ -82,6 +87,9 @@ class Kld7 : public Component, public uart::UARTDevice {
   void register_pdat_json_sensor_2(text_sensor::TextSensor* sensor) { this->_pdat_json_sensor_2 = sensor; }
   void register_pdat_json_sensor_3(text_sensor::TextSensor* sensor) { this->_pdat_json_sensor_3 = sensor; }
   void set_invert_angle(bool invert) { this->_invert_angle = invert; }
+#ifdef KLD7_SIM
+  void _pipeline_depth_for_test(int d) { _pipeline_depth = d; }
+#endif
 
   void loop() override;
   void setup() override;
@@ -153,7 +161,14 @@ class Kld7 : public Component, public uart::UARTDevice {
   char _head_command[5] = {0};
   uint32_t _head_length = 0;
   unsigned long _head_ts = 0;
-  bool _waiting_for_data = false;
+  int _outstanding = 0;  // gesendete, noch nicht beantwortete Frame-Anfragen
+  int _pipeline_depth = PIPELINE_DEPTH;
+  int _pipeline_rejects = 0;
+  void _fill_pipeline();
+  uint32_t _stat_requests = 0;
+  uint32_t _stat_acked = 0;
+  uint32_t _stat_rejected = 0;
+  uint32_t _stat_duplicate = 0;
   void _process_detection();
   void _finish_processing(const char* reason);
   // Liest hoechstens ein Paket vom UART; true, wenn eines verarbeitet wurde.
@@ -161,6 +176,7 @@ class Kld7 : public Component, public uart::UARTDevice {
   // Schliesst einen Frame ab: naechsten anfordern, Statistik, veroeffentlichen.
   void _finish_frame(uint32_t frame_no);
   void _publish_pdat(uint32_t frame_no);
+  void _fire_frame_event(uint32_t frame_no, bool have_tdat);
   // Frame-Nummer: true = vom Sensor (DONE-Nachricht), false = vom ESP gezaehlt
   // (Rueckfall, falls der Sensor kein DONE liefert).
   bool _use_done = true;
