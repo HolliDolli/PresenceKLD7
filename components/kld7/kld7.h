@@ -18,6 +18,13 @@ const uint16_t DETECTION_DISTANCE_DIFFERENCE = 1000;
 const int PROCESS_MIN_POINTS = 5;
 const int REQUEST_INTERVAL = 50;
 const int TIMEOUT_INTERVAL = 500;
+// Nach so vielen Timeouts in Folge (je TIMEOUT_INTERVAL ms) wird der K-LD7
+// neu initialisiert.
+const int REINIT_AFTER_TIMEOUTS = 10;
+// Groesste gueltige Payload: PDAT mit 12 Targets = 96 Byte (Datenblatt).
+const uint32_t MAX_PAYLOAD = 96;
+// Abstand (ms) der Frame-Statistik im Log (abgeholt / verpasst).
+const int STATISTICS_INTERVAL = 60000;
 
 extern const char* PROCESSING_REASON_OBJECT_GONE;
 extern const char* PROCESSING_REASON_TIME_OVERFLOW;
@@ -134,13 +141,41 @@ class Kld7 : public Component, public uart::UARTDevice {
   RawRadarEvent _previous_raw;
   ProcessedRadarEvent _current_process;
   // Targets aus dem zuletzt empfangenen PDAT-Frame, für die PDAT-Kohärenz-
-  // Validierung der filtered_detection. Wird in _process_pdat() befüllt.
+  // Validierung der filtered_detection. Wird in _read_packet() befüllt.
   std::vector<RawRadarEvent> _last_pdat_targets;
   bool _wait_for_ok();
+  // Verbindet neu (INIT) und setzt alle Radar-Parameter. false, sobald ein
+  // Kommando nicht quittiert wird.
+  bool _init_sensor();
+  int _timeout_count = 0;
+  // Zwischengespeicherter Paket-Header, bis die Payload komplett da ist.
+  bool _have_head = false;
+  char _head_command[5] = {0};
+  uint32_t _head_length = 0;
+  unsigned long _head_ts = 0;
   bool _waiting_for_data = false;
   void _process_detection();
   void _finish_processing(const char* reason);
-  void _process_pdat(uint8_t* payload, uint32_t length);
+  // Liest hoechstens ein Paket vom UART; true, wenn eines verarbeitet wurde.
+  bool _read_packet();
+  // Schliesst einen Frame ab: naechsten anfordern, Statistik, veroeffentlichen.
+  void _finish_frame(uint32_t frame_no);
+  void _publish_pdat(uint32_t frame_no);
+  // Frame-Nummer: true = vom Sensor (DONE-Nachricht), false = vom ESP gezaehlt
+  // (Rueckfall, falls der Sensor kein DONE liefert).
+  bool _use_done = true;
+  int _done_missing = 0;
+  uint32_t _local_frame_no = 0;
+  bool _pdat_pending = false;
+  bool _tdat_pending = false;
+  bool _have_last_frame_no = false;
+  uint32_t _last_frame_no = 0;
+  uint32_t _stat_read = 0;
+  uint32_t _stat_missed = 0;
+  unsigned long _stat_window_start = 0;
+  bool _stat_started = false;
+  // true, solange fuer den Chunk zuletzt "{}" veroeffentlicht wurde.
+  bool _pdat_chunk_empty[3] = {false, false, false};
   // Prüft, ob unter den zuletzt empfangenen PDAT-Targets ein zur TDAT-Distanz
   // passender, sich bewegender Punkt vorhanden ist (PDAT-Kohärenz-Gate).
   bool _pdat_validates(uint16_t reference_distance);
@@ -153,4 +188,4 @@ class Kld7 : public Component, public uart::UARTDevice {
 };
 
 }  // namespace kld7
-}  // namespace esphome
+}  // namespace esphome

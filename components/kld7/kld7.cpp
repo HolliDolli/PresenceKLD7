@@ -11,43 +11,52 @@ const char* PROCESSING_REASON_TIMEOUT = "timeout";
 const char* PROCESSING_REASON_DIRECTION_CHANGE = "direction changed";
 const char* PROCESSING_REASON_SPEED_DIFFERENCE = "speed difference";
 const char* PROCESSING_REASON_DISTANCE_DIFFERENCE = "distance difference";
+// Initialisierungsfolge fuer den K-LD7. Jeder Eintrag ist ein Kommando mit
+// 4 Byte Payload (Wert im ersten Byte).
+static const struct { const char* name; uint8_t value; } INIT_SEQUENCE[] = {
+	{"INIT", 0x00},  // Verbindung aufbauen, 115200 Baud
+	{"RSPI", 0x02},  // Maximum speed: 1 = 25km/h; 2 = 50km/h
+	{"RRAI", 0x02},  // Maximum range: 1 = 10m; 2 = 30m
+	{"THOF", 0x0a},  // Threshold offset = 10dB
+	{"TRFT", 0x01},  // Tracking filter type = Fast detection
+	{"MIRA", 0x00},  // Minimum detection distance = 0% der Range-Einstellung
+	{"MARA", 0x64},  // Maximum detection distance = 100% der Range-Einstellung (RRAI=2 -> 30m)
+	{"MASP", 0x64},  // Maximum detection speed = 100% der Speed-Einstellung (RSPI=2 -> 50km/h)
+	{"RATH", 0x00},  // Range threshold = 0%
+	{"SPTH", 0x00},  // Speed threshold = 0%
+	{"VISU", 0x02},  // Vibration suppression, default 2
+};
+
 void Kld7::setup() {
-	
 	ESP_LOGI(TAG, "Starting initialization of K-LD7...");
-	ESP_LOGD(TAG, "Sending INIT");
-	write_array((std::array<uint8_t, 12>){'I', 'N', 'I', 'T', 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00});
-	_wait_for_ok();
-	ESP_LOGD(TAG, "Sending RSPI");
-	write_array((std::array<uint8_t, 12>){'R', 'S', 'P', 'I', 0x04, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00}); // Maximum speed: 1  = 25km/h; 2 = 50km/h
-	_wait_for_ok();
-	ESP_LOGD(TAG, "Sending RRAI");
-	write_array((std::array<uint8_t, 12>){'R', 'R', 'A', 'I', 0x04, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00}); // Maximum range: 1 = 10m; 2 = 30m
-	_wait_for_ok();
-	ESP_LOGD(TAG, "Sending THOF");
-	write_array((std::array<uint8_t, 12>){'T', 'H', 'O', 'F', 0x04, 0x00, 0x00, 0x00, 0x0a, 0x00, 0x00, 0x00}); // Threshold offset = 10dB
-	_wait_for_ok();
-	ESP_LOGD(TAG, "Sending TRFT");
-	write_array((std::array<uint8_t, 12>){'T', 'R', 'F', 'T', 0x04, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00}); // Tracking filter type = Fast detection
-	_wait_for_ok();
-	ESP_LOGD(TAG, "Sending MIRA"); // Minimum detection distance as % of range
-	write_array((std::array<uint8_t, 12>){'M', 'I', 'R', 'A', 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}); // Minimum range = 0% der Range-Einstellung
-	_wait_for_ok();
-	ESP_LOGD(TAG, "Sending MARA"); // Maximum detection distance as % of range
-	write_array((std::array<uint8_t, 12>){'M', 'A', 'R', 'A', 0x04, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00}); // Maximum range = 100% der Range-Einstellung (RRAI=2 -> 30m)
-	_wait_for_ok();
-	ESP_LOGD(TAG, "Sending MASP"); // Maximum detection speed as % of maxspeed
-	write_array((std::array<uint8_t, 12>){'M', 'A', 'S', 'P', 0x04, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00}); // Maximum speed = 100% der Speed-Einstellung (RSPI=2 -> 50km/h)
-	_wait_for_ok();
-	ESP_LOGD(TAG, "Sending RATH"); 
-	write_array((std::array<uint8_t, 12>){'R', 'A', 'T', 'H', 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}); // Range threshold = 0%
-	_wait_for_ok();
-	ESP_LOGD(TAG, "Sending SPTH");
-	write_array((std::array<uint8_t, 12>){'S', 'P', 'T', 'H', 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}); // Speed threshold = 0%
-	_wait_for_ok();
-	ESP_LOGD(TAG, "Sending VISU");  // Vibration suppression default 2
-	write_array((std::array<uint8_t, 12>){'V', 'I', 'S', 'U', 0x04, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00}); 
-	_wait_for_ok();
-	ESP_LOGI(TAG, "Initialization complete");
+	if (_init_sensor()) {
+		ESP_LOGI(TAG, "Initialization complete");
+	} else {
+		ESP_LOGE(TAG, "Initialization failed - wird aus loop() wiederholt.");
+	}
+}
+bool Kld7::_init_sensor() {
+	// Wird von setup() und - nach REINIT_AFTER_TIMEOUTS Timeouts in Folge - von
+	// loop() aufgerufen. Bricht beim ersten nicht quittierten Kommando ab, damit
+	// ein nicht antwortender Sensor loop() hoechstens 500 ms blockiert. Ein
+	// halb initialisierter Sensor (Werkseinstellungen!) bleibt so nicht
+	// unbemerkt: der naechste Versuch folgt automatisch.
+	_have_head = false;
+	_waiting_for_data = false;
+	_pdat_pending = false;
+	_tdat_pending = false;
+	_have_last_frame_no = false;  // der Sensor zaehlt nach einem Neustart wieder ab 0
+	for (const auto& cmd : INIT_SEQUENCE) {
+		ESP_LOGD(TAG, "Sending %s", cmd.name);
+		while (available() > 0) read();  // Reste verwerfen, sonst wird die Quittung falsch gelesen
+		write_array((std::array<uint8_t, 12>){(uint8_t)cmd.name[0], (uint8_t)cmd.name[1], (uint8_t)cmd.name[2], (uint8_t)cmd.name[3],
+			0x04, 0x00, 0x00, 0x00, cmd.value, 0x00, 0x00, 0x00});
+		if (!_wait_for_ok()) {
+			ESP_LOGE(TAG, "%s wurde nicht quittiert - Initialisierung abgebrochen.", cmd.name);
+			return false;
+		}
+	}
+	return true;
 }
 bool Kld7::_wait_for_ok() {
 	unsigned long start = millis();
@@ -69,165 +78,240 @@ bool Kld7::_wait_for_ok() {
 	}
 }
 void Kld7::_request_data() {
-	write_array((std::array<uint8_t, 12>){'G', 'N', 'F', 'D', 0x04, 0x00, 0x00, 0x00, 0x0C, 0x00, 0x00, 0x00});
+	// GNFD-Bitmaske: 0x04 = PDAT, 0x08 = TDAT, 0x20 = DONE (Frame-Nummer des Sensors).
+	uint8_t mask = _use_done ? 0x2C : 0x0C;
+	write_array((std::array<uint8_t, 12>){'G', 'N', 'F', 'D', 0x04, 0x00, 0x00, 0x00, mask, 0x00, 0x00, 0x00});
 	_waiting_for_data = true;
 	_last_request = millis();
 }
 void Kld7::loop() {
 	if (_waiting_for_data == false && (_last_request > millis() || _last_request + REQUEST_INTERVAL < millis())) {
-		//ESP_LOGD(TAG, "Sending GNFD");
+		// Nur beim Start bzw. nach einer Re-Initialisierung. Im laufenden Betrieb
+		// fordert _finish_frame() den naechsten Frame sofort an.
 		_request_data();
 	} else if (_waiting_for_data && (_last_request > millis() || _last_request + TIMEOUT_INTERVAL < millis())) {
 		ESP_LOGW(TAG, "Received no data. Sending another request.");
+		if (_use_done && _tdat_pending && ++_done_missing >= 3) {
+			// TDAT kam an, DONE aber dreimal in Folge nicht: Dieser Sensor liefert
+			// offenbar kein DONE. Ohne Sensor-Frame-Nummer weiterarbeiten.
+			ESP_LOGE(TAG, "K-LD7 sendet kein DONE - Frame-Nummer wird ab jetzt vom ESP gezaehlt, verpasste Frames sind dann nicht erkennbar.");
+			_use_done = false;
+		}
+		_pdat_pending = false;  // unvollstaendigen Frame verwerfen
+		_tdat_pending = false;
+		if (++_timeout_count >= REINIT_AFTER_TIMEOUTS) {
+			// Der Sensor antwortet dauerhaft nicht (z.B. nach eigenem Neustart
+			// ohne Verbindung, oder setup() ist fehlgeschlagen): neu verbinden
+			// und alle Parameter erneut setzen.
+			ESP_LOGE(TAG, "%d Timeouts in Folge - initialisiere K-LD7 neu.", REINIT_AFTER_TIMEOUTS);
+			_timeout_count = 0;
+			if (_init_sensor()) ESP_LOGI(TAG, "Re-Initialisierung erfolgreich.");
+		}
 		_request_data();
 	}
+	// Alle vollstaendig empfangenen Pakete in EINEM Durchlauf verarbeiten
+	// (RESP, PDAT, TDAT, DONE). Frueher war es ein Paket pro loop()-Durchlauf;
+	// das kostete pro Frame mehrere Durchlaeufe, sodass nur etwa jeder zweite
+	// Frame des Sensors abgeholt wurde. Die Obergrenze verhindert, dass ein
+	// Datenstau loop() lange blockiert.
+	for (int i = 0; i < 8; i++) {
+		if (!_read_packet()) break;
+	}
+}
+bool Kld7::_read_packet() {
+	// Liest hoechstens ein Paket. true = ein Paket wurde verarbeitet (es kann
+	// ein weiteres folgen), false = im Moment nichts (mehr) zu tun.
+	//
 	// Header und Payload getrennt einlesen: Der Header wird gemerkt, bis die
 	// komplette Payload im UART-Puffer liegt. So blockiert read_array() nie auf
 	// noch nicht empfangene Bytes.
 	// Schutz gegen Desynchronisation (z.B. verspaetete Antwort nach Timeout):
 	//  - nur bekannte Kommandos akzeptieren,
 	//  - Laenge auf das Datenblatt-Maximum begrenzen (PDAT 96 Byte = 12 Targets),
-	//    deutlich unter dem UART-Empfangspuffer (ESPHome-Default 256 Byte) -
-	//    sonst koennte available() die Laenge nie erreichen und die Schleife
-	//    haengt dauerhaft,
+	//    deutlich unter dem UART-Empfangspuffer - sonst koennte available() die
+	//    Laenge nie erreichen und die Schleife haengt dauerhaft,
 	//  - wartet die Payload laenger als TIMEOUT_INTERVAL, Header verwerfen.
 	// In allen Faellen: UART-Puffer leeren und neu aufsetzen. Die Request-Logik
-	// oben fordert nach TIMEOUT_INTERVAL automatisch neue Daten an.
-	// (Funktionslokale statics: es gibt nur eine Kld7-Instanz.)
-	static const uint32_t MAX_PAYLOAD = 96;
-	static bool have_head = false;
-	static char command[5];
-	static uint32_t length = 0;
-	static unsigned long head_ts = 0;
-	if (!have_head) {
-		if (available() < 8) return;
+	// in loop() fordert nach TIMEOUT_INTERVAL automatisch neue Daten an.
+	char* command = _head_command;
+	uint32_t& length = _head_length;
+	if (!_have_head) {
+		if (available() < 8) return false;
 		uint8_t head[8];
 		read_array(head, 8);
-		//ESP_LOGD(TAG, "Recieved data: %02X %02X %02X %02X %02X %02X %02X %02X", head[0], head[1], head[2], head[3], head[4], head[5], head[6], head[7]);
 		memcpy(command, head, 4);
 		command[4] = '\0';
-		length = head[4] | (head[5]<<8) | (head[6]<<16) | (head[7]<<24);
+		length = head[4] | (head[5]<<8) | (head[6]<<16) | ((uint32_t)head[7]<<24);
 		bool known = strcmp(command, "RESP")==0 || strcmp(command, "PDAT")==0 ||
 			strcmp(command, "TDAT")==0 || strcmp(command, "DDAT")==0 || strcmp(command, "DONE")==0;
 		if (!known || length > MAX_PAYLOAD) {
 			ESP_LOGE(TAG, "Ungueltiger Header %02X %02X %02X %02X, Laenge %lu - verwerfe UART-Puffer.", head[0], head[1], head[2], head[3], (unsigned long) length);
 			while (available() > 0) read();
-			return;
+			return false;
 		}
-		have_head = true;
-		head_ts = millis();
+		_have_head = true;
+		_head_ts = millis();
 	}
 	if (available() < (int)length) {
-		if (millis() - head_ts > TIMEOUT_INTERVAL) {
+		if (millis() - _head_ts > (unsigned long) TIMEOUT_INTERVAL) {
 			ESP_LOGE(TAG, "Payload fuer %s (%lu Byte) unvollstaendig - verwerfe UART-Puffer.", command, (unsigned long) length);
 			while (available() > 0) read();
-			have_head = false;
+			_have_head = false;
 		}
-		return;
+		return false;
 	}
-	have_head = false;
-	{
-		uint8_t payload[MAX_PAYLOAD];
-		if (length > 0) read_array(payload, length);
-		//ESP_LOGD(TAG, "Received command %s with a payload of %d bytes.", command, length);
-		if (strcmp(command, "RESP")==0) {
-			if (length != 1) {
-				ESP_LOGE(TAG, "Received RESP with wrong payload length (expected: 1, was: %lu)", (unsigned long) length);
-				return;
-			}
-			switch (payload[0]) {
-				case 0: break; // OK
-				case 1: ESP_LOGE(TAG, "RESP: Unknown command"); break;
-				case 2: ESP_LOGE(TAG, "RESP: Invalid parameter value"); break;
-				case 3: ESP_LOGE(TAG, "RESP: Invalid RPST version"); break;
-				case 4: ESP_LOGE(TAG, "RESP: Uart error (parity, framing, noise)"); break;
-				case 5: ESP_LOGE(TAG, "RESP: Sensor busy"); break;
-				case 6: ESP_LOGE(TAG, "RESP: Timeout error"); break;
-				default: ESP_LOGE(TAG, "RESP: Unknown error code %02X", payload[0]); break;
-			}
-		} else if(strcmp(command,"PDAT")==0	) {
-			_process_pdat(payload, length);
-		} else if(strcmp(command,"TDAT")==0) {
-			if (length != 8 && length!=0) {
-				ESP_LOGE(TAG, "Received TDAT with wrong payload length (expected: 0 or 8, was: %lu)", (unsigned long) length);
-				return;
-			}
-			_last_raw = RawRadarEvent(payload, length, this->_invert_angle);
-			if (_last_raw.detection) {
-				//ESP_LOGD(TAG, "Raw data: %d cm, %.1f km/h, %.1f°, %.1fdB", _last_raw.distance, _last_raw.speed, _last_raw.angle, _last_raw.magnitude);
-				if (_raw_speed_sensor != NULL) _raw_speed_sensor->publish_state(_last_raw.speed);
-				if (_raw_angle_sensor != NULL) _raw_angle_sensor->publish_state(_last_raw.angle);
-				if (_raw_distance_sensor != NULL) _raw_distance_sensor->publish_state(_last_raw.distance);
-				if (_raw_magnitude_sensor != NULL) _raw_magnitude_sensor->publish_state(_last_raw.magnitude);
-				if (_raw_direction_sensor != NULL) _raw_direction_sensor->publish_state(_last_raw.speed > 0);
-				if (_raw_json_sensor != NULL) {
-					char buff[64];
-					snprintf(buff, sizeof(buff), "{\"speed\":%.1f,\"angle\":%.1f,\"distance\":%d,\"magnitude\":%.1f}", _last_raw.speed, _last_raw.angle, _last_raw.distance, _last_raw.magnitude);
-					_raw_json_sensor->publish_state(buff);
-				}
-			 } else {
-				//ESP_LOGD(TAG, "Raw data: No detection");
-			 }
-			 if (_raw_detection_sensor != NULL) _raw_detection_sensor->publish_state(_last_raw.detection);
+	_have_head = false;
+	uint8_t payload[MAX_PAYLOAD];
+	if (length > 0) read_array(payload, length);
 
-			_process_filtered_detection();
-			_process_detection();
-			_waiting_for_data = false;
-		} else {
-			ESP_LOGW(TAG, "Received unexpected command %s. Ignoring.", command);
+	if (strcmp(command, "RESP")==0) {
+		if (length != 1) {
+			ESP_LOGE(TAG, "Received RESP with wrong payload length (expected: 1, was: %lu)", (unsigned long) length);
+			return true;
 		}
-	}	
+		switch (payload[0]) {
+			case 0: break; // OK
+			case 1: ESP_LOGE(TAG, "RESP: Unknown command"); break;
+			case 2: ESP_LOGE(TAG, "RESP: Invalid parameter value"); break;
+			case 3: ESP_LOGE(TAG, "RESP: Invalid RPST version"); break;
+			case 4: ESP_LOGE(TAG, "RESP: Uart error (parity, framing, noise)"); break;
+			case 5: ESP_LOGE(TAG, "RESP: Sensor busy"); break;
+			case 6: ESP_LOGE(TAG, "RESP: Timeout error"); break;
+			default: ESP_LOGE(TAG, "RESP: Unknown error code %02X", payload[0]); break;
+		}
+	} else if (strcmp(command, "PDAT")==0) {
+		// Nur merken. Veroeffentlicht wird in _finish_frame(), wenn die
+		// Frame-Nummer bekannt ist.
+		_last_pdat_targets.clear();
+		int num_targets = length / 8;
+		for (int i = 0; i < num_targets; i++) {
+			_last_pdat_targets.push_back(RawRadarEvent(payload + i*8, 8, _invert_angle));
+		}
+		_pdat_pending = true;
+	} else if (strcmp(command, "TDAT")==0) {
+		if (length != 8 && length != 0) {
+			ESP_LOGE(TAG, "Received TDAT with wrong payload length (expected: 0 or 8, was: %lu)", (unsigned long) length);
+			return true;
+		}
+		_last_raw = RawRadarEvent(payload, length, this->_invert_angle);
+		_tdat_pending = true;
+		if (!_use_done) _finish_frame(++_local_frame_no);
+	} else if (strcmp(command, "DONE")==0) {
+		if (length != 4) {
+			ESP_LOGE(TAG, "Received DONE with wrong payload length (expected: 4, was: %lu)", (unsigned long) length);
+			return true;
+		}
+		uint32_t frame_no = payload[0] | (payload[1]<<8) | (payload[2]<<16) | ((uint32_t)payload[3]<<24);
+		_finish_frame(frame_no);
+	} else {
+		ESP_LOGW(TAG, "Received unexpected command %s. Ignoring.", command);
+	}
+	return true;
 }
-void Kld7::_process_pdat(uint8_t* payload, uint32_t length) {
-	int num_targets = length / 8;
+void Kld7::_finish_frame(uint32_t frame_no) {
+	// Ein Frame ist komplett (PDAT + TDAT + Frame-Nummer). Erst den naechsten
+	// Frame anfordern, dann veroeffentlichen: Der Sensor braucht die Anfrage
+	// moeglichst frueh, das Veroeffentlichen kostet Zeit.
+	_timeout_count = 0;
+	_done_missing = 0;
+	_request_data();
+
+	// Statistik: Die Frame-Nummer des Sensors zaehlt jeden gemessenen Frame.
+	// Eine Luecke heisst: Diese Frames hat der ESP nicht abgeholt.
+	_stat_read++;
+	if (_use_done) {
+		if (_have_last_frame_no && frame_no > _last_frame_no) _stat_missed += frame_no - _last_frame_no - 1;
+		_last_frame_no = frame_no;
+		_have_last_frame_no = true;
+	}
+	unsigned long now = millis();
+	if (!_stat_started) {
+		_stat_started = true;
+		_stat_window_start = now;
+	}
+	if (now - _stat_window_start >= (unsigned long) STATISTICS_INTERVAL) {
+		if (_use_done) {
+			ESP_LOGI(TAG, "Frames in den letzten %d s: %lu abgeholt, %lu verpasst.", STATISTICS_INTERVAL / 1000, (unsigned long) _stat_read, (unsigned long) _stat_missed);
+		} else {
+			ESP_LOGI(TAG, "Frames in den letzten %d s: %lu abgeholt (ohne Sensor-Frame-Nummer).", STATISTICS_INTERVAL / 1000, (unsigned long) _stat_read);
+		}
+		_stat_read = 0;
+		_stat_missed = 0;
+		_stat_window_start = now;
+	}
+
+	if (!_pdat_pending) _last_pdat_targets.clear();  // kein PDAT in diesem Frame: keine alten Targets weiterverwenden
+	_publish_pdat(frame_no);
+	bool have_tdat = _tdat_pending;
+	_pdat_pending = false;
+	_tdat_pending = false;
+	if (!have_tdat) return;
+
+	if (_last_raw.detection) {
+		if (_raw_speed_sensor != NULL) _raw_speed_sensor->publish_state(_last_raw.speed);
+		if (_raw_angle_sensor != NULL) _raw_angle_sensor->publish_state(_last_raw.angle);
+		if (_raw_distance_sensor != NULL) _raw_distance_sensor->publish_state(_last_raw.distance);
+		if (_raw_magnitude_sensor != NULL) _raw_magnitude_sensor->publish_state(_last_raw.magnitude);
+		if (_raw_direction_sensor != NULL) _raw_direction_sensor->publish_state(_last_raw.speed > 0);
+		if (_raw_json_sensor != NULL) {
+			// "f" = Frame-Nummer, identisch mit "f" im PDAT-JSON desselben Frames.
+			char buff[96];
+			snprintf(buff, sizeof(buff), "{\"f\":%lu,\"speed\":%.1f,\"angle\":%.1f,\"distance\":%d,\"magnitude\":%.1f}", (unsigned long) frame_no, _last_raw.speed, _last_raw.angle, _last_raw.distance, _last_raw.magnitude);
+			_raw_json_sensor->publish_state(buff);
+		}
+	}
+	if (_raw_detection_sensor != NULL) _raw_detection_sensor->publish_state(_last_raw.detection);
+
+	_process_filtered_detection();
+	_process_detection();
+}
+void Kld7::_publish_pdat(uint32_t frame_no) {
+	int num_targets = _last_pdat_targets.size();
 	if (_num_targets_sensor != NULL && num_targets != _last_num_targets) {
 		_num_targets_sensor->publish_state(num_targets);
 		_last_num_targets = num_targets;
 	}
-	// Targets für die PDAT-Kohärenz-Validierung von filtered_detection merken.
-	// Unabhängig davon, ob die JSON-Sensoren registriert sind - die Filterlogik
-	// braucht die Rohdaten, nicht den JSON-String.
-	_last_pdat_targets.clear();
-	for (int i = 0; i < num_targets; i++) {
-		_last_pdat_targets.push_back(RawRadarEvent(payload + i*8, 8, _invert_angle));
-	}
-
 	// Diagnose-JSON: kompakte 1-Buchstaben-Keys (d/s/a/m), aufgeteilt auf bis
-	// zu 3 Sensoren à 5 Targets, weil ein einzelner TextSensor-State von HA
-	// bei 255 Zeichen gekappt wird (auf "unknown" fällt) und PDAT-Frames in
-	// der Praxis durchaus mehr als die 8 dokumentierten Targets liefern.
+	// zu 3 Sensoren a 5 Targets, weil ein einzelner TextSensor-State von HA
+	// bei 255 Zeichen gekappt wird (auf "unknown" faellt).
 	// Targets 1-5 -> _pdat_json_sensor, 6-10 -> _pdat_json_sensor_2,
-	// 11-15 -> _pdat_json_sensor_3. Alles darüber wird zur Sicherheit mit
-	// "...]}" abgeschnitten statt ungültiges JSON zu erzeugen.
-	const int TARGETS_PER_CHUNK = 5;
-	text_sensor::TextSensor* chunk_sensors[3] = {_pdat_json_sensor, _pdat_json_sensor_2, _pdat_json_sensor_3};
+	// 11-15 -> _pdat_json_sensor_3 (der Sensor liefert hoechstens 12).
+	// Jeder Chunk traegt die Frame-Nummer "f" und die Gesamtzahl "n". Damit
+	// laesst sich im Log pruefen, ob drei Chunks zum selben Frame gehoeren und
+	// ob Frames fehlen.
 	// Reihenfolge 3 -> 2 -> 1: Der HA-CSV-Logger triggert auf Chunk 1 und liest
 	// dabei Chunk 2 und 3 mit. Die API uebertraegt der Reihe nach, also muessen
 	// 2 und 3 vor 1 veroeffentlicht werden, sonst loggt HA dort den Vorframe.
+	const int TARGETS_PER_CHUNK = 5;
+	text_sensor::TextSensor* chunk_sensors[3] = {_pdat_json_sensor, _pdat_json_sensor_2, _pdat_json_sensor_3};
 	for (int chunk = 2; chunk >= 0; chunk--) {
 		text_sensor::TextSensor* sens = chunk_sensors[chunk];
 		if (sens == NULL) continue;
 		int start = chunk * TARGETS_PER_CHUNK;
 		if (start >= num_targets) {
-			// Für diesen Chunk gibt es aktuell keine Targets - Sensor explizit
-			// auf ein leeres, aber valides JSON-Objekt setzen, statt den
-			// letzten (veralteten) Wert stehen zu lassen. "{}" statt "" ist
-			// robuster für Templates/Automationen, die den State als JSON
-			// parsen (json.loads("") würde sonst einen Fehler werfen).
-			sens->publish_state("{}");
+			// Fuer diesen Chunk gibt es keine Targets: einmalig auf ein leeres,
+			// aber valides JSON-Objekt setzen, statt den letzten (veralteten)
+			// Wert stehen zu lassen. Danach nicht bei jedem Frame wiederholen -
+			// bei voller Frame-Rate waeren das im Ruhezustand ueber 50 nutzlose
+			// Nachrichten pro Sekunde, HA verwirft identische States ohnehin.
+			if (!_pdat_chunk_empty[chunk]) {
+				sens->publish_state("{}");
+				_pdat_chunk_empty[chunk] = true;
+			}
 			continue;
 		}
+		_pdat_chunk_empty[chunk] = false;
 		int end = start + TARGETS_PER_CHUNK;
 		if (end > num_targets) end = num_targets;
 
 		char buff[260];
-		int pos = snprintf(buff, sizeof(buff), "{\"n\":%d,\"t\":[", num_targets);
+		int pos = snprintf(buff, sizeof(buff), "{\"f\":%lu,\"n\":%d,\"t\":[", (unsigned long) frame_no, num_targets);
 		bool truncated = false;
 		for (int i = start; i < end; i++) {
 			RawRadarEvent& target = _last_pdat_targets[i];
 			// Sicherheitsmarge: bei worst-case Werten passt ein Target-Objekt
-			// in ca. 45 Zeichen. Bricht die verbleibende Pufferkapazität das,
-			// wird abgebrochen statt der Puffer zu überlaufen.
+			// in ca. 45 Zeichen. Bricht die verbleibende Pufferkapazitaet das,
+			// wird abgebrochen statt der Puffer zu ueberlaufen.
 			if (pos > (int)sizeof(buff) - 50) { truncated = true; break; }
 			pos += snprintf(buff+pos, sizeof(buff)-pos,
 				"%s{\"d\":%d,\"s\":%.2f,\"a\":%.2f,\"m\":%.2f}",
@@ -235,7 +319,7 @@ void Kld7::_process_pdat(uint8_t* payload, uint32_t length) {
 		}
 		snprintf(buff+pos, sizeof(buff)-pos, truncated ? "...]}" : "]}");
 		sens->publish_state(buff);
-		ESP_LOGD(TAG, "PDAT[%d]: %s", chunk+1, buff);
+		ESP_LOGV(TAG, "PDAT[%d]: %s", chunk+1, buff);
 	}
 }
 void Kld7::_process_detection() {
