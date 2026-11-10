@@ -83,13 +83,22 @@ void Kld7::loop() {
 	}
 	// Header und Payload getrennt einlesen: Der Header wird gemerkt, bis die
 	// komplette Payload im UART-Puffer liegt. So blockiert read_array() nie auf
-	// noch nicht empfangene Bytes. Die Laenge aus dem Header wird begrenzt, damit
-	// ein verstuemmelter Header kein riesiges Array auf dem Stack anlegt.
+	// noch nicht empfangene Bytes.
+	// Schutz gegen Desynchronisation (z.B. verspaetete Antwort nach Timeout):
+	//  - nur bekannte Kommandos akzeptieren,
+	//  - Laenge auf das Datenblatt-Maximum begrenzen (PDAT 96 Byte = 12 Targets),
+	//    deutlich unter dem UART-Empfangspuffer (ESPHome-Default 256 Byte) -
+	//    sonst koennte available() die Laenge nie erreichen und die Schleife
+	//    haengt dauerhaft,
+	//  - wartet die Payload laenger als TIMEOUT_INTERVAL, Header verwerfen.
+	// In allen Faellen: UART-Puffer leeren und neu aufsetzen. Die Request-Logik
+	// oben fordert nach TIMEOUT_INTERVAL automatisch neue Daten an.
 	// (Funktionslokale statics: es gibt nur eine Kld7-Instanz.)
-	static const uint32_t MAX_PAYLOAD = 512;  // = 64 PDAT-Targets
+	static const uint32_t MAX_PAYLOAD = 96;
 	static bool have_head = false;
 	static char command[5];
 	static uint32_t length = 0;
+	static unsigned long head_ts = 0;
 	if (!have_head) {
 		if (available() < 8) return;
 		uint8_t head[8];
@@ -98,14 +107,24 @@ void Kld7::loop() {
 		memcpy(command, head, 4);
 		command[4] = '\0';
 		length = head[4] | (head[5]<<8) | (head[6]<<16) | (head[7]<<24);
-		if (length > MAX_PAYLOAD) {
-			ESP_LOGE(TAG, "Header %02X %02X %02X %02X mit unplausibler Laenge %lu - verwerfe UART-Puffer.", head[0], head[1], head[2], head[3], (unsigned long) length);
+		bool known = strcmp(command, "RESP")==0 || strcmp(command, "PDAT")==0 ||
+			strcmp(command, "TDAT")==0 || strcmp(command, "DDAT")==0 || strcmp(command, "DONE")==0;
+		if (!known || length > MAX_PAYLOAD) {
+			ESP_LOGE(TAG, "Ungueltiger Header %02X %02X %02X %02X, Laenge %lu - verwerfe UART-Puffer.", head[0], head[1], head[2], head[3], (unsigned long) length);
 			while (available() > 0) read();
 			return;
 		}
 		have_head = true;
+		head_ts = millis();
 	}
-	if (available() < (int)length) return;
+	if (available() < (int)length) {
+		if (millis() - head_ts > TIMEOUT_INTERVAL) {
+			ESP_LOGE(TAG, "Payload fuer %s (%lu Byte) unvollstaendig - verwerfe UART-Puffer.", command, (unsigned long) length);
+			while (available() > 0) read();
+			have_head = false;
+		}
+		return;
+	}
 	have_head = false;
 	{
 		uint8_t payload[MAX_PAYLOAD];
