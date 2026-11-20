@@ -10,6 +10,9 @@ CONF_TYPE_RAW_DETECTION = "raw_detection"
 CONF_TYPE_DETECTION = "detection"
 CONF_TYPE_RAW_DIRECTION_AWAY_FROM_SENSOR = "raw_direction_away_from_sensor"
 CONF_TYPE_FILTERED_DETECTION = "filtered_detection"
+# Detektor v0 (20.11.2026): Person und Fahrzeug aus PDAT, siehe presence_detector.h
+CONF_TYPE_PERSON = "person"
+CONF_TYPE_VEHICLE = "vehicle"
 
 CONF_OPTION_MIN_POINTS = "min_points"
 CONF_OPTION_TIMEOUT = "timeout"
@@ -38,6 +41,12 @@ CONFIG_SCHEMA = binary_sensor.binary_sensor_schema().extend(
             device_class= DEVICE_CLASS_MOTION
         ),
         cv.Optional(CONF_TYPE_RAW_DIRECTION_AWAY_FROM_SENSOR): binary_sensor.binary_sensor_schema(
+        ),
+        cv.Optional(CONF_TYPE_PERSON): binary_sensor.binary_sensor_schema(
+            device_class= DEVICE_CLASS_MOTION
+        ),
+        cv.Optional(CONF_TYPE_VEHICLE): binary_sensor.binary_sensor_schema(
+            device_class= DEVICE_CLASS_MOTION
         ),
         cv.Optional(CONF_TYPE_FILTERED_DETECTION): binary_sensor.binary_sensor_schema(
             device_class= DEVICE_CLASS_MOTION
@@ -81,6 +90,12 @@ async def to_code(config):
     if sensor_config := config.get(CONF_TYPE_RAW_DIRECTION_AWAY_FROM_SENSOR):
         sens = await binary_sensor.new_binary_sensor(sensor_config)
         cg.add(kld7.register_raw_direction_sensor(sens))
+    if sensor_config := config.get(CONF_TYPE_PERSON):
+        sens = await binary_sensor.new_binary_sensor(sensor_config)
+        cg.add(kld7.register_person_sensor(sens))
+    if sensor_config := config.get(CONF_TYPE_VEHICLE):
+        sens = await binary_sensor.new_binary_sensor(sensor_config)
+        cg.add(kld7.register_vehicle_sensor(sens))
     if sensor_config := config.get(CONF_TYPE_FILTERED_DETECTION):
         sens = await binary_sensor.new_binary_sensor(sensor_config)
         cg.add(kld7.register_filtered_detection_sensor(sens))
@@ -91,4 +106,4 @@ async def to_code(config):
         cg.add(kld7.set_filtered_detection_max_frame_gap(sensor_config[CONF_OPTION_MAX_FRAME_GAP]))
         cg.add(kld7.set_filtered_detection_pdat_distance_tolerance(sensor_config[CONF_OPTION_PDAT_DISTANCE_TOLERANCE]))
         cg.add(kld7.set_filtered_detection_pdat_speed_min(sensor_config[CONF_OPTION_PDAT_SPEED_MIN]))
-        cg.add(kld7.set_filtered_detection_validation_window(sensor_config[CONF_OPTION_VALIDATION_WINDOW]))
+        cg.add(kld7.set_filtered_detection_validation_window(sensor_config[CONF_OPTION_VALIDATION_WINDOW]))

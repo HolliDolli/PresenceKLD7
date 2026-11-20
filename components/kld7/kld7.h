@@ -8,6 +8,7 @@
 #include "esphome/components/binary_sensor/binary_sensor.h"
 #include "esphome/components/text_sensor/text_sensor.h"
 #include "radarevent.h"
+#include "presence_detector.h"
 
 namespace esphome {
 namespace kld7 {
@@ -59,6 +60,9 @@ class Kld7 : public Component, public uart::UARTDevice {
   void register_raw_direction_sensor(binary_sensor::BinarySensor* sensor) { this->_raw_direction_sensor = sensor; };
   void register_filtered_detection_sensor(binary_sensor::BinarySensor* sensor) { this->_filtered_detection_sensor = sensor; };
   void register_detection_sensor(binary_sensor::BinarySensor* sensor) { this->_detection_sensor = sensor; };
+  // Neue Erkennung (Detektor v0, 20.11.2026): Person und Fahrzeug aus PDAT.
+  void register_person_sensor(binary_sensor::BinarySensor* sensor) { this->_person_sensor = sensor; };
+  void register_vehicle_sensor(binary_sensor::BinarySensor* sensor) { this->_vehicle_sensor = sensor; };
 
 
   void set_filtered_detection_sensor_min_points(uint16_t value) { _filtered_sensor_min_points = value; };
@@ -130,6 +134,8 @@ class Kld7 : public Component, public uart::UARTDevice {
   binary_sensor::BinarySensor* _detection_sensor = NULL;
   binary_sensor::BinarySensor* _raw_direction_sensor = NULL;
   binary_sensor::BinarySensor* _filtered_detection_sensor = NULL;
+  binary_sensor::BinarySensor* _person_sensor = NULL;
+  binary_sensor::BinarySensor* _vehicle_sensor = NULL;
 
   text_sensor::TextSensor* _raw_json_sensor = NULL;
   text_sensor::TextSensor* _json_sensor = NULL;
@@ -145,6 +151,14 @@ class Kld7 : public Component, public uart::UARTDevice {
   uint16_t _filtered_pdat_validations = 0;
 
  private:
+  // Detektor v0 (presence_detector.h) und eine ueberlauffeste Sekundenuhr:
+  // millis() laeuft nach ca. 49 Tagen ueber, die Sekunden zaehlen weiter.
+  PresenceDetector _presence;
+  uint32_t _clk_last_ms = 0;
+  uint32_t _clk_rem_ms = 0;
+  uint32_t _clk_sec = 0;
+  uint32_t _now_sec();
+  void _publish_presence();
   RawRadarEvent _last_raw;
   RawRadarEvent _previous_raw;
   ProcessedRadarEvent _current_process;

@@ -34,6 +34,9 @@ static const struct { const char* name; uint8_t value; } INIT_SEQUENCE[] = {
 };
 
 void Kld7::setup() {
+	_clk_last_ms = millis();
+	if (_person_sensor != NULL) _person_sensor->publish_initial_state(false);
+	if (_vehicle_sensor != NULL) _vehicle_sensor->publish_initial_state(false);
 	ESP_LOGI(TAG, "Starting initialization of K-LD7...");
 	if (_init_sensor()) {
 		ESP_LOGI(TAG, "Initialization complete");
@@ -105,6 +108,8 @@ void Kld7::_fill_pipeline() {
 	while (_outstanding < _pipeline_depth) _request_data();
 }
 void Kld7::loop() {
+	// Detektor v0: abgelaufene Sekunden abschliessen, Zustaende veroeffentlichen.
+	if (_presence.tick(_now_sec())) _publish_presence();
 	if (_outstanding == 0 && (_last_request > millis() || _last_request + REQUEST_INTERVAL < millis())) {
 		// Nur beim Start bzw. nach einer Re-Initialisierung. Im laufenden Betrieb
 		// fuellt _finish_frame() die Anfragen sofort wieder auf.
@@ -281,6 +286,18 @@ void Kld7::_finish_frame(uint32_t frame_no) {
 
 	if (!_pdat_pending) _last_pdat_targets.clear();  // kein PDAT in diesem Frame: keine alten Targets weiterverwenden
 	bool have_tdat = _tdat_pending;
+	// Detektor v0 mit allen PDAT-Zielen dieses Frames fuettern. "Inhalt" hat ein
+	// Frame mit Zielen oder TDAT-Detection - genau die Frames, die auch als
+	// HA-Ereignis gesendet und damit im Log fuer das Training gezaehlt wurden.
+	{
+		bool has_content = !_last_pdat_targets.empty() || (have_tdat && _last_raw.detection);
+		if (_presence.tick(_now_sec())) _publish_presence();
+		_presence.begin_frame(_now_sec());
+		for (auto& target : _last_pdat_targets) {
+			_presence.add_point(target.distance, target.speed, target.angle, target.magnitude);
+		}
+		_presence.end_frame(has_content);
+	}
 	_fire_frame_event(frame_no, have_tdat);
 	_publish_pdat(frame_no);
 	_pdat_pending = false;
@@ -552,8 +569,27 @@ void Kld7::_process_filtered_detection() {
 	}
 }
 
+uint32_t Kld7::_now_sec() {
+	uint32_t now = millis();
+	_clk_rem_ms += now - _clk_last_ms;  // unsigned: auch ueber den millis()-Ueberlauf korrekt
+	_clk_last_ms = now;
+	_clk_sec += _clk_rem_ms / 1000;
+	_clk_rem_ms %= 1000;
+	return _clk_sec;
+}
+void Kld7::_publish_presence() {
+	if (_person_sensor != NULL && (!_person_sensor->has_state() || _person_sensor->state != _presence.person())) {
+		_person_sensor->publish_state(_presence.person());
+		ESP_LOGD(TAG, "KLD7 Person: %s (p=%.2f)", _presence.person() ? "an" : "aus", _presence.probability());
+	}
+	if (_vehicle_sensor != NULL && (!_vehicle_sensor->has_state() || _vehicle_sensor->state != _presence.vehicle())) {
+		_vehicle_sensor->publish_state(_presence.vehicle());
+		ESP_LOGD(TAG, "KLD7 Fahrzeug: %s", _presence.vehicle() ? "an" : "aus");
+	}
+}
 void Kld7::dump_config() { 
 	ESP_LOGCONFIG(TAG, "KLD7:"); 
+	ESP_LOGCONFIG(TAG, "  Detektor v0: Person %s, Fahrzeug %s", _person_sensor != NULL ? "aktiv" : "-", _vehicle_sensor != NULL ? "aktiv" : "-");
 }
 } // namespace kld7
 } // namespace esphome

@@ -255,6 +255,11 @@ binary_sensor:
     id: statussensor
   - platform: kld7
     name: K-LD7
+    # Detektor v0 (20.11.2026): Person und Fahrzeug aus den PDAT-Rohzielen
+    person:
+      name: KLD7 Person
+    vehicle:
+      name: KLD7 Fahrzeug
     detection:
       name: Detection
     raw_detection:

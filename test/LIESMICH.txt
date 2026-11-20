@@ -1,0 +1,15 @@
+PC-Test fuer den Detektor v0 (presence_detector.h)
+
+Spielt die FRAM-Zeilen aus den HA-CSV-Logs durch den Detektor und schreibt pro
+Sekunde: sekunde,p,person,vehicle
+
+Bauen (Linux/WSL/MinGW):
+  g++ -O2 -std=c++17 -o harness harness.cpp
+Aufruf:
+  harness KLD7_FRAM.csv ergebnis.csv
+
+Die Eingabe muss nach Zeit sortiert sein. Andere Zeilentypen werden ignoriert.
+
+Am 20.11.2026 gegen das Python-Original geprueft (Logs 10.-19.11., 3.128.792
+Frames, 828.653 Sekunden): Wahrscheinlichkeit und beide Zustaende in allen
+Sekunden identisch.
