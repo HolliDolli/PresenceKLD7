@@ -1,0 +1,25 @@
+Analyse-Skripte KLD7 (Stand 24.11.2026, Claude)
+
+auswertung.py
+  Auswertung des Parallelbetriebs Detektor v0 (Punkte 1-7: ESP gegen Replay,
+  Person gegen Hue Sued, Haustuer, Labels, Fahrzeug, Regen, Neuinitialisierungen).
+  Methodik und Ergebnisse: Projekt-Doc "KLD7-Projektstand.md", Befund 24.11.2026.
+
+  Vorbereitung:
+    grep -h '^FRAM' KLD7_*.csv > fram.csv
+    g++ -O2 -o harness ../harness.cpp
+    ./harness fram.csv replay.csv
+  HA-History als hist.json ablegen:
+    {"binary_sensor.hue_motion_sued_occupancy": [["2026-11-21T00:00:00+01:00", "off"], ...],
+     "binary_sensor.gkeingang_door_sensor": [...]}
+  Aufruf:
+    python3 auswertung.py --logs KLD7_*.csv --replay replay.csv --hist hist.json
+
+  Benoetigt: Python 3, numpy, pandas.
+  Kontrolle: Mit den Logs 21.-23.11.2026 reproduziert das Skript die Zahlen
+  aus dem Projekt-Doc (u. a. Person 117/122, Fahrzeug 569/571).
+
+merge_logs.py
+  Fuehrt zwei Teile eines Tageslogs zusammen (Anlass: Umbenennung
+  log2.csv -> KLD7.csv am 23.11.2026). Ausgabe mit CRLF.
+    python3 merge_logs.py teil1.csv teil2.csv KLD7_YYYYMMDD.csv
